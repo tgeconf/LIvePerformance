@@ -22,6 +22,10 @@
             color: #ffffff;
         }
 
+        video, audio {
+            display: none;
+        }
+
         #info {
             position: absolute;
             width: 100%;
@@ -62,7 +66,7 @@
         .comment-ring {
             box-sizing: border-box;
             border-radius: 50%;
-            box-shadow: 0px 0px 12px rgba(0, 255, 255, 0.5);
+            box-shadow: 0px 0px 6px rgba(0, 255, 255, 0.5);
             border-style: solid;
             border-color: rgba(127, 255, 255, 0.25);
             background: rgba(0, 0, 0, 0);
@@ -101,6 +105,26 @@
             color: rgba(127, 255, 255, 0.75);
         }
 
+        .camera-container {
+            border-radius: 50%;
+            box-shadow: 0px 0px 12px rgba(0, 255, 255, 0.5);
+            border: 1px solid rgba(127, 255, 255, 0.25);
+            background-color: #000000;
+        }
+
+        .camera-container canvas {
+            border-radius: 50%;
+            opacity: 0.5;
+            position: absolute;
+        }
+
+        .camera-container img {
+            width: 100%;
+            height: 100%;
+            opacity: 0.5;
+            position: absolute;
+        }
+
         button {
             color: rgba(127, 255, 255, 0.75);
             background: transparent;
@@ -126,11 +150,14 @@
     <script src="js/libs/tween.min.js"></script>
     <script src="js/libs/TrackballControls.js"></script>
     <script src="js/CSS3DRenderer.js"></script>
-
+    <video id="video" autoplay="true"></video>
+    <video id="video" autoplay="true"></video>
+    <input type="file" id="thefile" accept="audio/*" />
+    <audio id="audio" src='./media/testMusic.mp3' autoplay controls></audio>
     <div id="container"></div>
 
     <script>
-        var table = [
+        var table2 = [
             { "name": "user0", "like": 21, "comment": 20 },
             { "name": "user1", "like": 19, "comment": 7 },
             { "name": "user2", "like": 27, "comment": 18 },
@@ -333,12 +360,155 @@
             { "name": "user199", "like": 36, "comment": 7 },
             { "name": "user200", "like": 12, "comment": 14 }
         ];
+        const table = [];
+        let likeDomain = [], commentDomain = [], ringRange = [1, 5], scene;
+
         const scaleRing = (val, domain, range) => {
             return range[0] + ((val - domain[0]) / (domain[1] - domain[0])) * (range[1] - range[0]);
         }
 
+        const dynamicRScale = (r, domain) => {
+            const range = [80, 120];
+            return range[0] + (range[1] - range[0]) * (r - domain[0]) / (domain[1] - domain[0]);
+        }
 
-        var camera, scene, renderer;
+        const loadAudio = (file) => {
+            const audio = document.getElementById('audio');
+            audio.src = URL.createObjectURL(file);
+            audio.load();
+            audio.play();
+            var context = new AudioContext();
+            var src = context.createMediaElementSource(audio);
+            var analyser = context.createAnalyser();
+
+            src.connect(analyser);
+            analyser.connect(context.destination);
+            analyser.fftSize = 256;
+            var bufferLength = analyser.frequencyBinCount;
+
+            var dataArray = new Uint8Array(bufferLength);
+
+            let count = 0;
+            const colors = [[65, 32, 137], [17, 101, 171], [58, 176, 53], [245, 182, 27], [231, 32, 25]];
+            function renderFrame() {
+                requestAnimationFrame(renderFrame);
+                if (count % 60 === 0) {
+                    analyser.getByteFrequencyData(dataArray);
+                    timeGap = Math.random() * 60 + 100;
+                    dataArray = dataArray.sort().reverse();
+                    let r = dynamicRScale(dataArray[0], [120, dataArray[0]]);
+                    const data = {
+                        name: 'userX',
+                        like: Math.ceil(Math.random() * 30 + 20),
+                        comment: Math.ceil(Math.random() * 15 + 5)
+                    }
+                    const tmpPlanet = createPlanet(data, r, [], false, false);
+                    transformOnePlanet(tmpPlanet, 10000);
+                }
+                count++;
+            }
+
+            renderFrame();
+        }
+
+        var file = document.getElementById("thefile");
+        file.onchange = function () {
+            var files = this.files;
+            loadAudio(files[0]);
+        }
+        // document.getElementById('testButton').addEventListener("click", function () {
+        //     console.log(this);
+        //     loadAudio();
+        // });
+
+        const loadCameraOnHidden = () => {
+            const canvas = document.getElementById('cameraCanvas');
+            const video = document.getElementById('video');
+            // const canvas = document.createElement('canvas');
+            // canvas.width = 800;
+            // canvas.height = 600;
+            // var canvas = document.getElementById('canvasVideo');
+            const ctx = canvas.getContext('2d');
+            if (navigator.mediaDevices.getUserMedia) {
+                var successCallback = function (stream) {
+                    video.srcObject = stream;
+                };
+                var errorCallback = function (error) {
+                    console.log(error);
+                };
+                navigator.mediaDevices.getUserMedia({
+                    audio: false,
+                    video: { facingMode: 'environment' }
+                }).then(successCallback, errorCallback);
+                requestAnimationFrame(renderFrame);
+            }
+
+            function renderFrame() {
+                requestAnimationFrame(renderFrame);
+                if (video.readyState === video.HAVE_ENOUGH_DATA) {
+                    ctx.drawImage(video, 0, 0, 800, 600);
+                }
+            }
+            renderFrame();
+        }
+
+        const createPlanet = (data, size, objects, adding, randomCoords) => {
+            var element = document.createElement('div');
+            element.className = 'element';
+            element.style.width = size + 'px';
+            element.style.height = size + 'px';
+
+            const likeRing = document.createElement('div');
+            likeRing.className = 'like-ring';
+            const likeBorder = scaleRing(data.like, likeDomain, ringRange);
+            likeRing.style.width = (size + padding * 2 + likeBorder) + 'px';
+            likeRing.style.height = (size + padding * 2 + likeBorder) + 'px';
+            likeRing.style.borderWidth = likeBorder + 'px';
+
+            const commentRing = document.createElement('div');
+            commentRing.className = 'comment-ring';
+            const commentBorder = scaleRing(data.comment, commentDomain, ringRange);
+            commentRing.style.width = (size + padding * 4 + commentBorder + likeBorder * 2) + 'px';
+            commentRing.style.height = (size + padding * 4 + commentBorder + likeBorder * 2) + 'px';
+            commentRing.style.borderWidth = commentBorder + 'px';
+
+            const eleObj = new THREE.CSS3DObject(element);
+            const x = randomCoords ? Math.random() * 3000 - 1500 : 0;
+            const y = randomCoords ? Math.random() * 3000 - 1500 : 0;
+            const z = randomCoords ? Math.random() * 3000 - 1500 : -100;
+            eleObj.position.x = x;
+            eleObj.position.y = y;
+            eleObj.position.z = z;
+
+            const likeRingObj = new THREE.CSS3DObject(likeRing);
+            likeRingObj.position.x = x;
+            likeRingObj.position.y = y;
+            likeRingObj.position.z = z;
+            likeRingObj.rotation.x = Math.random() * Math.PI * 2;
+            likeRingObj.rotation.y = Math.random() * Math.PI * 2;
+            likeRingObj.rotation.z = Math.random() * Math.PI * 2;
+
+            const commentRingObj = new THREE.CSS3DObject(commentRing);
+            commentRingObj.position.x = x;
+            commentRingObj.position.y = y;
+            commentRingObj.position.z = z;
+            commentRingObj.rotation.x = Math.random() * Math.PI * 2;
+            commentRingObj.rotation.y = Math.random() * Math.PI * 2;
+            commentRingObj.rotation.z = Math.random() * Math.PI * 2;
+
+            const group = new THREE.Group();
+            group.add(eleObj);
+            group.add(likeRingObj);
+            group.add(commentRingObj);
+
+            scene.add(group);
+            if (adding) {
+                objects.push(group);
+            }
+            return group;
+        }
+
+        var camera, renderer, cameraCanvas;
         var controls;
 
         var objects = [];
@@ -347,8 +517,8 @@
 
         init();
         animate();
-
-
+        loadCameraOnHidden(cameraCanvas);
+        loadAudio();
 
         function init() {
             camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 10000);
@@ -372,152 +542,52 @@
                 minComment = minComment > item.comment ? item.comment : minComment;
                 maxComment = maxComment < item.comment ? item.comment : maxComment;
             })
-            const ringRange = [2, 8];
 
-
+            likeDomain = [minLike, maxLike];
+            commentDomain = [minComment, maxComment];
             // table
             for (var i = 0; i < table.length; i += 5) {
-
-                var element = document.createElement('div');
-                element.className = 'element';
                 const size = Math.random() * 80 + 20;
-                element.style.width = size + 'px';
-                element.style.height = size + 'px';
-                // element.style.backgroundColor = 'rgba(0,127,127,' + (Math.random() * 0.5 + 0.25) + ')';
-
-                const likeRing = document.createElement('div');
-                likeRing.className = 'like-ring';
-                const likeBorder = scaleRing(table[i].like, [minLike, maxLike], ringRange);
-                likeRing.style.width = (size + padding * 2 + likeBorder) + 'px';
-                likeRing.style.height = (size + padding * 2 + likeBorder) + 'px';
-                likeRing.style.borderWidth = likeBorder + 'px';
-
-                const commentRing = document.createElement('div');
-                commentRing.className = 'comment-ring';
-                const commentBorder = scaleRing(table[i].comment, [minComment, maxComment], ringRange);
-                commentRing.style.width = (size + padding * 4 + commentBorder + likeBorder * 2) + 'px';
-                commentRing.style.height = (size + padding * 4 + commentBorder + likeBorder * 2) + 'px';
-                commentRing.style.borderWidth = commentBorder + 'px';
-
-                // var number = document.createElement('div');
-                // number.className = 'number';
-                // number.textContent = (i / 5) + 1;
-                // element.appendChild(number);
-
-                // var symbol = document.createElement('div');
-                // symbol.className = 'symbol';
-                // symbol.textContent = table[i];
-                // element.appendChild(symbol);
-
-                // var details = document.createElement('div');
-                // details.className = 'details';
-                // details.innerHTML = table[i + 1] + '<br>' + table[i + 2];
-                // element.appendChild(details);
-
-                const eleObj = new THREE.CSS3DObject(element);
-                const x = Math.random() * 4000 - 2000;
-                const y = Math.random() * 4000 - 2000;
-                const z = Math.random() * 4000 - 2000;
-                eleObj.position.x = x;
-                eleObj.position.y = y;
-                eleObj.position.z = z;
-
-                const likeRingObj = new THREE.CSS3DObject(likeRing);
-                likeRingObj.position.x = x;
-                likeRingObj.position.y = y;
-                likeRingObj.position.z = z;
-                likeRingObj.rotation.x = Math.random() * Math.PI * 2;
-                likeRingObj.rotation.y = Math.random() * Math.PI * 2;
-                likeRingObj.rotation.z = Math.random() * Math.PI * 2;
-
-                const commentRingObj = new THREE.CSS3DObject(commentRing);
-                commentRingObj.position.x = x;
-                commentRingObj.position.y = y;
-                commentRingObj.position.z = z;
-                commentRingObj.rotation.x = Math.random() * Math.PI * 2;
-                commentRingObj.rotation.y = Math.random() * Math.PI * 2;
-                commentRingObj.rotation.z = Math.random() * Math.PI * 2;
-
-                const group = new THREE.Group();
-                group.add(eleObj);
-                group.add(likeRingObj);
-                group.add(commentRingObj);
-
-                scene.add(group);
-
-                objects.push(group);
+                createPlanet(table[i], size, objects, true, true);
             }
-
-            // sphere
-
-            // var vector = new THREE.Vector3();
-            // var spherical = new THREE.Spherical();
-
-            // for (var i = 0, l = objects.length; i < l; i++) {
-
-            //     var phi = Math.acos(-1 + (2 * i) / l);
-            //     var theta = Math.sqrt(l * Math.PI) * phi;
-
-            //     var object = new THREE.Object3D();
-
-            //     spherical.set(800, phi, theta);
-
-            //     object.position.setFromSpherical(spherical);
-
-            //     vector.copy(object.position).multiplyScalar(2);
-
-            //     object.lookAt(vector);
-
-            //     targets.sphere.push(object);
-
-            // }
-
-            // helix
-
-            // var vector = new THREE.Vector3();
-            // var cylindrical = new THREE.Cylindrical();
-
-            // for (var i = 0, l = objects.length; i < l; i++) {
-
-            //     var theta = i * 0.175 + Math.PI;
-            //     var y = - (i * 8) + 450;
-
-            //     var object = new THREE.Object3D();
-
-            //     cylindrical.set(900, theta, y);
-
-            //     object.position.setFromCylindrical(cylindrical);
-
-            //     vector.x = object.position.x * 2;
-            //     vector.y = object.position.y;
-            //     vector.z = object.position.z * 2;
-
-            //     object.lookAt(vector);
-
-            //     targets.helix.push(object);
-
-            // }
-
-            // grid
 
             for (var i = 0; i < objects.length; i++) {
 
                 var object = new THREE.Object3D();
 
-                object.position.x = Math.random() * 4000 - 2000;
-                object.position.y = Math.random() * 4000 - 2000;
-                object.position.z = Math.random() * 4000 - 2000;
+                object.position.x = Math.random() * 3000 - 1500;
+                object.position.y = Math.random() * 3000 - 1500;
+                object.position.z = Math.random() * 3000 - 1500;
 
                 targets.grid.push(object);
 
             }
 
+            //init video container
+            const cameraContainer = document.createElement('div');
+            const videoSize = 600;
+            cameraContainer.className = 'camera-container';
+            cameraContainer.style.width = videoSize + 'px';
+            cameraContainer.style.height = videoSize + 'px';
+            const cameraCanvas = document.createElement('canvas');
+            cameraCanvas.id = 'cameraCanvas';
+            cameraCanvas.width = videoSize;
+            cameraCanvas.height = videoSize;
+            cameraContainer.appendChild(cameraCanvas);
+            const coverImg = document.createElement('img');
+            coverImg.src = './images/bubble_blue.png';
+            cameraContainer.appendChild(coverImg);
+
+            const cameraObj = new THREE.CSS3DObject(cameraContainer);
+            cameraObj.position.x = 0;
+            cameraObj.position.y = 0;
+            cameraObj.position.z = 0;
+            scene.add(cameraObj);
+
             renderer = new THREE.CSS3DRenderer();
             renderer.setSize(window.innerWidth, window.innerHeight);
             renderer.domElement.style.position = 'absolute';
             document.getElementById('container').appendChild(renderer.domElement);
-
-            //
 
             controls = new THREE.TrackballControls(camera, renderer.domElement);
             controls.rotateSpeed = 0.5;
@@ -528,17 +598,25 @@
             transform(targets.grid, 80000);
 
             window.addEventListener('resize', onWindowResize, false);
-
         }
 
-
+        function transformOnePlanet(object, duration) {
+            const targetX = Math.random() * 3000 - 1500;
+            const targetY = Math.random() * 3000 - 1500;
+            const targetZ = Math.random() * 3000 - 1500;
+            new TWEEN.Tween(object.position)
+                .to({ x: targetX, y: targetY, z: targetZ }, Math.random() * duration + duration)
+                .easing(TWEEN.Easing.Exponential.InOut)
+                .start();
+            new TWEEN.Tween(this)
+                .to({}, duration * 2)
+                .onUpdate(render)
+                .start();
+        }
 
         function transform(targets, duration) {
-
             TWEEN.removeAll();
-
             for (var i = 0; i < objects.length; i++) {
-
                 var object = objects[i];
                 var target = targets[i];
 
@@ -551,7 +629,6 @@
                     .to({ x: target.rotation.x, y: target.rotation.y, z: target.rotation.z }, Math.random() * duration + duration)
                     .easing(TWEEN.Easing.Linear.None)
                     .start();
-
             }
 
             new TWEEN.Tween(this)
