@@ -49,6 +49,8 @@
             border: 1px solid rgba(127, 255, 255, 0.25);
             text-align: center;
             cursor: default;
+            background: url("./images/bubble_blue.png");
+            background-size: 100% 100%;
         }
 
         .element:hover {
@@ -255,22 +257,22 @@
 
                 var element = document.createElement('div');
                 element.className = 'element';
-                element.style.backgroundColor = 'rgba(0,127,127,' + (Math.random() * 0.5 + 0.25) + ')';
+                // element.style.backgroundColor = 'rgba(0,127,127,' + (Math.random() * 0.5 + 0.25) + ')';
 
-                var number = document.createElement('div');
-                number.className = 'number';
-                number.textContent = (i / 5) + 1;
-                element.appendChild(number);
+                // var number = document.createElement('div');
+                // number.className = 'number';
+                // number.textContent = (i / 5) + 1;
+                // element.appendChild(number);
 
-                var symbol = document.createElement('div');
-                symbol.className = 'symbol';
-                symbol.textContent = table[i];
-                element.appendChild(symbol);
+                // var symbol = document.createElement('div');
+                // symbol.className = 'symbol';
+                // symbol.textContent = table[i];
+                // element.appendChild(symbol);
 
-                var details = document.createElement('div');
-                details.className = 'details';
-                details.innerHTML = table[i + 1] + '<br>' + table[i + 2];
-                element.appendChild(details);
+                // var details = document.createElement('div');
+                // details.className = 'details';
+                // details.innerHTML = table[i + 1] + '<br>' + table[i + 2];
+                // element.appendChild(details);
 
                 var object = new THREE.CSS3DObject(element);
                 object.position.x = Math.random() * 4000 - 2000;
@@ -367,7 +369,7 @@
             controls.maxDistance = 6000;
             controls.addEventListener('change', render);
 
-            transform(targets.grid, 50000);
+            transform(targets.grid, 80000);
 
             window.addEventListener('resize', onWindowResize, false);
 
@@ -384,12 +386,12 @@
 
                 new TWEEN.Tween(object.position)
                     .to({ x: target.position.x, y: target.position.y, z: target.position.z }, Math.random() * duration + duration)
-                    .easing(TWEEN.Easing.Exponential.InOut)
+                    .easing(TWEEN.Easing.Linear.None)
                     .start();
 
                 new TWEEN.Tween(object.rotation)
                     .to({ x: target.rotation.x, y: target.rotation.y, z: target.rotation.z }, Math.random() * duration + duration)
-                    .easing(TWEEN.Easing.Exponential.InOut)
+                    .easing(TWEEN.Easing.Linear.None)
                     .start();
 
             }
