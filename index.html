@@ -4,363 +4,21 @@
     <title>Live Performance</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <style>
-        html,
-        body {
-            height: 100%;
-        }
-
-        body {
-            background-color: #000000;
-            margin: 0;
-            font-family: Helvetica, sans-serif;
-            ;
-            overflow: hidden;
-        }
-
-        a {
-            color: #ffffff;
-        }
-
-        video, audio {
-            display: none;
-        }
-
-        #info {
-            position: absolute;
-            width: 100%;
-            color: #ffffff;
-            padding: 5px;
-            font-family: Monospace;
-            font-size: 13px;
-            font-weight: bold;
-            text-align: center;
-            z-index: 1;
-        }
-
-        #menu {
-            position: absolute;
-            bottom: 20px;
-            width: 100%;
-            text-align: center;
-        }
-
-        .element {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            box-shadow: 0px 0px 12px rgba(0, 255, 255, 0.5);
-            border: 1px solid rgba(127, 255, 255, 0.25);
-            text-align: center;
-            cursor: default;
-            background: url("./images/bubble_blue.png");
-            background-size: 100% 100%;
-        }
-
-        .element:hover {
-            box-shadow: 0px 0px 12px rgba(0, 255, 255, 0.75);
-            border: 1px solid rgba(127, 255, 255, 0.75);
-        }
-
-        .like-ring,
-        .comment-ring {
-            box-sizing: border-box;
-            border-radius: 50%;
-            box-shadow: 0px 0px 6px rgba(0, 255, 255, 0.5);
-            border-style: solid;
-            border-color: rgba(127, 255, 255, 0.25);
-            background: rgba(0, 0, 0, 0);
-        }
-
-        .like-ring:hover,
-        .comment-ring:hover {
-            box-shadow: 0px 0px 12px rgba(0, 255, 255, 0.75);
-        }
-
-        .element .number {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 12px;
-            color: rgba(127, 255, 255, 0.75);
-        }
-
-        .element .symbol {
-            position: absolute;
-            top: 40px;
-            left: 0px;
-            right: 0px;
-            font-size: 60px;
-            font-weight: bold;
-            color: rgba(255, 255, 255, 0.75);
-            text-shadow: 0 0 10px rgba(0, 255, 255, 0.95);
-        }
-
-        .element .details {
-            position: absolute;
-            bottom: 15px;
-            left: 0px;
-            right: 0px;
-            font-size: 12px;
-            color: rgba(127, 255, 255, 0.75);
-        }
-
-        .camera-container {
-            border-radius: 50%;
-            box-shadow: 0px 0px 12px rgba(0, 255, 255, 0.5);
-            border: 1px solid rgba(127, 255, 255, 0.25);
-            background-color: #000000;
-        }
-
-        .camera-container canvas {
-            border-radius: 50%;
-            opacity: 0.5;
-            position: absolute;
-        }
-
-        .camera-container img {
-            width: 100%;
-            height: 100%;
-            opacity: 0.5;
-            position: absolute;
-        }
-
-        button {
-            color: rgba(127, 255, 255, 0.75);
-            background: transparent;
-            outline: 1px solid rgba(127, 255, 255, 0.75);
-            border: 0px;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: rgba(0, 255, 255, 0.5);
-        }
-
-        button:active {
-            color: #000000;
-            background-color: rgba(0, 255, 255, 0.75);
-        }
-    </style>
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
+    <script src='./js/randData/audiance.js'></script>
     <script src="js/libs/three.js"></script>
     <script src="js/libs/tween.min.js"></script>
     <script src="js/libs/TrackballControls.js"></script>
     <script src="js/CSS3DRenderer.js"></script>
-    <video id="video" autoplay="true"></video>
+    <script src='js/Planet.js'></script>
     <video id="video" autoplay="true"></video>
     <input type="file" id="thefile" accept="audio/*" />
     <audio id="audio" src='./media/testMusic.mp3' autoplay controls></audio>
     <div id="container"></div>
-
     <script>
-        var table2 = [
-            { "name": "user0", "like": 21, "comment": 20 },
-            { "name": "user1", "like": 19, "comment": 7 },
-            { "name": "user2", "like": 27, "comment": 18 },
-            { "name": "user3", "like": 12, "comment": 9 },
-            { "name": "user4", "like": 25, "comment": 7 },
-            { "name": "user5", "like": 29, "comment": 15 },
-            { "name": "user6", "like": 17, "comment": 19 },
-            { "name": "user7", "like": 20, "comment": 9 },
-            { "name": "user8", "like": 21, "comment": 18 },
-            { "name": "user9", "like": 21, "comment": 15 },
-            { "name": "user10", "like": 35, "comment": 15 },
-            { "name": "user11", "like": 11, "comment": 14 },
-            { "name": "user12", "like": 41, "comment": 15 },
-            { "name": "user13", "like": 39, "comment": 18 },
-            { "name": "user14", "like": 24, "comment": 7 },
-            { "name": "user15", "like": 40, "comment": 7 },
-            { "name": "user16", "like": 36, "comment": 10 },
-            { "name": "user17", "like": 26, "comment": 11 },
-            { "name": "user18", "like": 11, "comment": 6 },
-            { "name": "user19", "like": 49, "comment": 6 },
-            { "name": "user20", "like": 19, "comment": 18 },
-            { "name": "user21", "like": 20, "comment": 12 },
-            { "name": "user22", "like": 29, "comment": 17 },
-            { "name": "user23", "like": 38, "comment": 14 },
-            { "name": "user24", "like": 20, "comment": 14 },
-            { "name": "user25", "like": 40, "comment": 9 },
-            { "name": "user26", "like": 36, "comment": 20 },
-            { "name": "user27", "like": 22, "comment": 17 },
-            { "name": "user28", "like": 30, "comment": 19 },
-            { "name": "user29", "like": 24, "comment": 6 },
-            { "name": "user30", "like": 27, "comment": 19 },
-            { "name": "user31", "like": 11, "comment": 18 },
-            { "name": "user32", "like": 46, "comment": 8 },
-            { "name": "user33", "like": 32, "comment": 6 },
-            { "name": "user34", "like": 22, "comment": 6 },
-            { "name": "user35", "like": 27, "comment": 10 },
-            { "name": "user36", "like": 49, "comment": 6 },
-            { "name": "user37", "like": 11, "comment": 12 },
-            { "name": "user38", "like": 28, "comment": 19 },
-            { "name": "user39", "like": 16, "comment": 15 },
-            { "name": "user40", "like": 15, "comment": 20 },
-            { "name": "user41", "like": 15, "comment": 13 },
-            { "name": "user42", "like": 16, "comment": 17 },
-            { "name": "user43", "like": 40, "comment": 13 },
-            { "name": "user44", "like": 30, "comment": 13 },
-            { "name": "user45", "like": 48, "comment": 16 },
-            { "name": "user46", "like": 49, "comment": 9 },
-            { "name": "user47", "like": 47, "comment": 8 },
-            { "name": "user48", "like": 37, "comment": 9 },
-            { "name": "user49", "like": 23, "comment": 10 },
-            { "name": "user50", "like": 14, "comment": 6 },
-            { "name": "user51", "like": 37, "comment": 19 },
-            { "name": "user52", "like": 26, "comment": 13 },
-            { "name": "user53", "like": 49, "comment": 10 },
-            { "name": "user54", "like": 15, "comment": 19 },
-            { "name": "user55", "like": 12, "comment": 19 },
-            { "name": "user56", "like": 18, "comment": 17 },
-            { "name": "user57", "like": 40, "comment": 7 },
-            { "name": "user58", "like": 48, "comment": 16 },
-            { "name": "user59", "like": 34, "comment": 8 },
-            { "name": "user60", "like": 19, "comment": 17 },
-            { "name": "user61", "like": 32, "comment": 11 },
-            { "name": "user62", "like": 45, "comment": 8 },
-            { "name": "user63", "like": 19, "comment": 16 },
-            { "name": "user64", "like": 27, "comment": 17 },
-            { "name": "user65", "like": 34, "comment": 19 },
-            { "name": "user66", "like": 40, "comment": 6 },
-            { "name": "user67", "like": 15, "comment": 9 },
-            { "name": "user68", "like": 38, "comment": 14 },
-            { "name": "user69", "like": 23, "comment": 13 },
-            { "name": "user70", "like": 50, "comment": 8 },
-            { "name": "user71", "like": 33, "comment": 16 },
-            { "name": "user72", "like": 32, "comment": 19 },
-            { "name": "user73", "like": 50, "comment": 10 },
-            { "name": "user74", "like": 33, "comment": 18 },
-            { "name": "user75", "like": 43, "comment": 17 },
-            { "name": "user76", "like": 21, "comment": 7 },
-            { "name": "user77", "like": 31, "comment": 13 },
-            { "name": "user78", "like": 40, "comment": 17 },
-            { "name": "user79", "like": 30, "comment": 17 },
-            { "name": "user80", "like": 25, "comment": 15 },
-            { "name": "user81", "like": 30, "comment": 19 },
-            { "name": "user82", "like": 19, "comment": 8 },
-            { "name": "user83", "like": 49, "comment": 7 },
-            { "name": "user84", "like": 25, "comment": 6 },
-            { "name": "user85", "like": 48, "comment": 13 },
-            { "name": "user86", "like": 46, "comment": 18 },
-            { "name": "user87", "like": 45, "comment": 6 },
-            { "name": "user88", "like": 45, "comment": 6 },
-            { "name": "user89", "like": 36, "comment": 12 },
-            { "name": "user90", "like": 45, "comment": 14 },
-            { "name": "user91", "like": 29, "comment": 10 },
-            { "name": "user92", "like": 21, "comment": 16 },
-            { "name": "user93", "like": 35, "comment": 18 },
-            { "name": "user94", "like": 48, "comment": 20 },
-            { "name": "user95", "like": 25, "comment": 13 },
-            { "name": "user96", "like": 47, "comment": 10 },
-            { "name": "user97", "like": 38, "comment": 19 },
-            { "name": "user98", "like": 35, "comment": 17 },
-            { "name": "user99", "like": 38, "comment": 10 },
-            { "name": "user100", "like": 31, "comment": 11 },
-            { "name": "user101", "like": 48, "comment": 16 },
-            { "name": "user102", "like": 20, "comment": 9 },
-            { "name": "user103", "like": 44, "comment": 16 },
-            { "name": "user104", "like": 37, "comment": 19 },
-            { "name": "user105", "like": 45, "comment": 6 },
-            { "name": "user106", "like": 44, "comment": 18 },
-            { "name": "user107", "like": 35, "comment": 12 },
-            { "name": "user108", "like": 44, "comment": 16 },
-            { "name": "user109", "like": 40, "comment": 8 },
-            { "name": "user110", "like": 17, "comment": 18 },
-            { "name": "user111", "like": 20, "comment": 13 },
-            { "name": "user112", "like": 43, "comment": 19 },
-            { "name": "user113", "like": 36, "comment": 19 },
-            { "name": "user114", "like": 18, "comment": 11 },
-            { "name": "user115", "like": 33, "comment": 15 },
-            { "name": "user116", "like": 48, "comment": 19 },
-            { "name": "user117", "like": 46, "comment": 13 },
-            { "name": "user118", "like": 41, "comment": 12 },
-            { "name": "user119", "like": 18, "comment": 15 },
-            { "name": "user120", "like": 24, "comment": 9 },
-            { "name": "user121", "like": 41, "comment": 13 },
-            { "name": "user122", "like": 22, "comment": 8 },
-            { "name": "user123", "like": 18, "comment": 19 },
-            { "name": "user124", "like": 21, "comment": 9 },
-            { "name": "user125", "like": 29, "comment": 7 },
-            { "name": "user126", "like": 42, "comment": 9 },
-            { "name": "user127", "like": 35, "comment": 16 },
-            { "name": "user128", "like": 28, "comment": 11 },
-            { "name": "user129", "like": 24, "comment": 19 },
-            { "name": "user130", "like": 50, "comment": 14 },
-            { "name": "user131", "like": 35, "comment": 12 },
-            { "name": "user132", "like": 37, "comment": 13 },
-            { "name": "user133", "like": 45, "comment": 18 },
-            { "name": "user134", "like": 49, "comment": 7 },
-            { "name": "user135", "like": 45, "comment": 18 },
-            { "name": "user136", "like": 27, "comment": 16 },
-            { "name": "user137", "like": 42, "comment": 15 },
-            { "name": "user138", "like": 29, "comment": 17 },
-            { "name": "user139", "like": 49, "comment": 10 },
-            { "name": "user140", "like": 14, "comment": 8 },
-            { "name": "user141", "like": 40, "comment": 13 },
-            { "name": "user142", "like": 29, "comment": 13 },
-            { "name": "user143", "like": 45, "comment": 19 },
-            { "name": "user144", "like": 46, "comment": 12 },
-            { "name": "user145", "like": 44, "comment": 14 },
-            { "name": "user146", "like": 14, "comment": 12 },
-            { "name": "user147", "like": 38, "comment": 15 },
-            { "name": "user148", "like": 12, "comment": 13 },
-            { "name": "user149", "like": 18, "comment": 12 },
-            { "name": "user150", "like": 11, "comment": 20 },
-            { "name": "user151", "like": 45, "comment": 19 },
-            { "name": "user152", "like": 45, "comment": 8 },
-            { "name": "user153", "like": 22, "comment": 16 },
-            { "name": "user154", "like": 20, "comment": 10 },
-            { "name": "user155", "like": 38, "comment": 16 },
-            { "name": "user156", "like": 17, "comment": 17 },
-            { "name": "user157", "like": 23, "comment": 10 },
-            { "name": "user158", "like": 28, "comment": 8 },
-            { "name": "user159", "like": 47, "comment": 6 },
-            { "name": "user160", "like": 23, "comment": 17 },
-            { "name": "user161", "like": 18, "comment": 17 },
-            { "name": "user162", "like": 50, "comment": 9 },
-            { "name": "user163", "like": 36, "comment": 19 },
-            { "name": "user164", "like": 24, "comment": 10 },
-            { "name": "user165", "like": 15, "comment": 18 },
-            { "name": "user166", "like": 30, "comment": 9 },
-            { "name": "user167", "like": 31, "comment": 17 },
-            { "name": "user168", "like": 22, "comment": 17 },
-            { "name": "user169", "like": 14, "comment": 7 },
-            { "name": "user170", "like": 26, "comment": 15 },
-            { "name": "user171", "like": 22, "comment": 13 },
-            { "name": "user172", "like": 40, "comment": 17 },
-            { "name": "user173", "like": 49, "comment": 10 },
-            { "name": "user174", "like": 14, "comment": 16 },
-            { "name": "user175", "like": 39, "comment": 17 },
-            { "name": "user176", "like": 12, "comment": 12 },
-            { "name": "user177", "like": 15, "comment": 8 },
-            { "name": "user178", "like": 13, "comment": 19 },
-            { "name": "user179", "like": 17, "comment": 7 },
-            { "name": "user180", "like": 44, "comment": 11 },
-            { "name": "user181", "like": 45, "comment": 19 },
-            { "name": "user182", "like": 33, "comment": 20 },
-            { "name": "user183", "like": 49, "comment": 18 },
-            { "name": "user184", "like": 45, "comment": 12 },
-            { "name": "user185", "like": 24, "comment": 7 },
-            { "name": "user186", "like": 42, "comment": 11 },
-            { "name": "user187", "like": 33, "comment": 7 },
-            { "name": "user188", "like": 19, "comment": 11 },
-            { "name": "user189", "like": 40, "comment": 6 },
-            { "name": "user190", "like": 27, "comment": 15 },
-            { "name": "user191", "like": 48, "comment": 18 },
-            { "name": "user192", "like": 34, "comment": 6 },
-            { "name": "user193", "like": 40, "comment": 8 },
-            { "name": "user194", "like": 25, "comment": 15 },
-            { "name": "user195", "like": 50, "comment": 11 },
-            { "name": "user196", "like": 11, "comment": 15 },
-            { "name": "user197", "like": 45, "comment": 19 },
-            { "name": "user198", "like": 21, "comment": 17 },
-            { "name": "user199", "like": 36, "comment": 7 },
-            { "name": "user200", "like": 12, "comment": 14 }
-        ];
-        const table = [];
         let likeDomain = [], commentDomain = [], ringRange = [1, 5], scene;
 
         const scaleRing = (val, domain, range) => {
@@ -416,18 +74,10 @@
             var files = this.files;
             loadAudio(files[0]);
         }
-        // document.getElementById('testButton').addEventListener("click", function () {
-        //     console.log(this);
-        //     loadAudio();
-        // });
 
         const loadCameraOnHidden = () => {
             const canvas = document.getElementById('cameraCanvas');
             const video = document.getElementById('video');
-            // const canvas = document.createElement('canvas');
-            // canvas.width = 800;
-            // canvas.height = 600;
-            // var canvas = document.getElementById('canvasVideo');
             const ctx = canvas.getContext('2d');
             if (navigator.mediaDevices.getUserMedia) {
                 var successCallback = function (stream) {
@@ -452,67 +102,67 @@
             renderFrame();
         }
 
-        const createPlanet = (data, size, objects, adding, randomCoords) => {
-            var element = document.createElement('div');
-            element.className = 'element';
-            element.style.width = size + 'px';
-            element.style.height = size + 'px';
+        // const createPlanet = (data, size, objects, adding, randomCoords) => {
+        //     var element = document.createElement('div');
+        //     element.className = 'element';
+        //     element.style.width = size + 'px';
+        //     element.style.height = size + 'px';
 
-            const likeRing = document.createElement('div');
-            likeRing.className = 'like-ring';
-            const likeBorder = scaleRing(data.like, likeDomain, ringRange);
-            likeRing.style.width = (size + padding * 2 + likeBorder) + 'px';
-            likeRing.style.height = (size + padding * 2 + likeBorder) + 'px';
-            likeRing.style.borderWidth = likeBorder + 'px';
+        //     const likeRing = document.createElement('div');
+        //     likeRing.className = 'like-ring';
+        //     const likeBorder = scaleRing(data.like, likeDomain, ringRange);
+        //     likeRing.style.width = (size + padding * 2 + likeBorder) + 'px';
+        //     likeRing.style.height = (size + padding * 2 + likeBorder) + 'px';
+        //     likeRing.style.borderWidth = likeBorder + 'px';
 
-            const commentRing = document.createElement('div');
-            commentRing.className = 'comment-ring';
-            const commentBorder = scaleRing(data.comment, commentDomain, ringRange);
-            commentRing.style.width = (size + padding * 4 + commentBorder + likeBorder * 2) + 'px';
-            commentRing.style.height = (size + padding * 4 + commentBorder + likeBorder * 2) + 'px';
-            commentRing.style.borderWidth = commentBorder + 'px';
+        //     const commentRing = document.createElement('div');
+        //     commentRing.className = 'comment-ring';
+        //     const commentBorder = scaleRing(data.comment, commentDomain, ringRange);
+        //     commentRing.style.width = (size + padding * 4 + commentBorder + likeBorder * 2) + 'px';
+        //     commentRing.style.height = (size + padding * 4 + commentBorder + likeBorder * 2) + 'px';
+        //     commentRing.style.borderWidth = commentBorder + 'px';
 
-            const eleObj = new THREE.CSS3DObject(element);
-            const x = randomCoords ? Math.random() * 3000 - 1500 : 0;
-            const y = randomCoords ? Math.random() * 3000 - 1500 : 0;
-            const z = randomCoords ? Math.random() * 3000 - 1500 : -100;
-            eleObj.position.x = x;
-            eleObj.position.y = y;
-            eleObj.position.z = z;
+        //     const eleObj = new THREE.CSS3DObject(element);
+        //     const x = randomCoords ? Math.random() * 3000 - 1000 : 0;
+        //     const y = randomCoords ? Math.random() * 3000 - 1000 : 0;
+        //     const z = randomCoords ? Math.random() * 3000 - 1000 : -100;
+        //     eleObj.position.x = x;
+        //     eleObj.position.y = y;
+        //     eleObj.position.z = z;
 
-            const likeRingObj = new THREE.CSS3DObject(likeRing);
-            likeRingObj.position.x = x;
-            likeRingObj.position.y = y;
-            likeRingObj.position.z = z;
-            likeRingObj.rotation.x = Math.random() * Math.PI * 2;
-            likeRingObj.rotation.y = Math.random() * Math.PI * 2;
-            likeRingObj.rotation.z = Math.random() * Math.PI * 2;
+        //     const likeRingObj = new THREE.CSS3DObject(likeRing);
+        //     likeRingObj.position.x = x;
+        //     likeRingObj.position.y = y;
+        //     likeRingObj.position.z = z;
+        //     likeRingObj.rotation.x = Math.random() * Math.PI * 2;
+        //     likeRingObj.rotation.y = Math.random() * Math.PI * 2;
+        //     likeRingObj.rotation.z = Math.random() * Math.PI * 2;
 
-            const commentRingObj = new THREE.CSS3DObject(commentRing);
-            commentRingObj.position.x = x;
-            commentRingObj.position.y = y;
-            commentRingObj.position.z = z;
-            commentRingObj.rotation.x = Math.random() * Math.PI * 2;
-            commentRingObj.rotation.y = Math.random() * Math.PI * 2;
-            commentRingObj.rotation.z = Math.random() * Math.PI * 2;
+        //     const commentRingObj = new THREE.CSS3DObject(commentRing);
+        //     commentRingObj.position.x = x;
+        //     commentRingObj.position.y = y;
+        //     commentRingObj.position.z = z;
+        //     commentRingObj.rotation.x = Math.random() * Math.PI * 2;
+        //     commentRingObj.rotation.y = Math.random() * Math.PI * 2;
+        //     commentRingObj.rotation.z = Math.random() * Math.PI * 2;
 
-            const group = new THREE.Group();
-            group.add(eleObj);
-            group.add(likeRingObj);
-            group.add(commentRingObj);
+        //     const group = new THREE.Group();
+        //     group.add(eleObj);
+        //     group.add(likeRingObj);
+        //     group.add(commentRingObj);
 
-            scene.add(group);
-            if (adding) {
-                objects.push(group);
-            }
-            return group;
-        }
+        //     scene.add(group);
+        //     if (adding) {
+        //         objects.push(group);
+        //     }
+        //     return group;
+        // }
 
         var camera, renderer, cameraCanvas;
         var controls;
 
         var objects = [];
-        var targets = { table: [], sphere: [], helix: [], grid: [] };
+        var targets = { grid: [] };
         const padding = 12;
 
         init();
@@ -536,7 +186,7 @@
 
             //calculate like border scale
             let minLike = 1000000, maxLike = 0, minComment = 1000000, maxComment = 0;
-            table.forEach(item => {
+            randAudiance.forEach(item => {
                 minLike = minLike > item.like ? item.like : minLike;
                 maxLike = maxLike < item.like ? item.like : maxLike;
                 minComment = minComment > item.comment ? item.comment : minComment;
@@ -545,23 +195,19 @@
 
             likeDomain = [minLike, maxLike];
             commentDomain = [minComment, maxComment];
-            // table
-            for (var i = 0; i < table.length; i += 5) {
-                const size = Math.random() * 80 + 20;
-                createPlanet(table[i], size, objects, true, true);
+            // randAudiance
+            alert(randAudiance.length);
+            for (var i = 0; i < randAudiance.length; i++) {
+                const size = Math.random() * 100 + 80;
+                const x = Math.random() * 2000 - 1000;
+                const y = Math.random() * 2000 - 1000;
+                const z = Math.random() * 5000 - 2500;
+                const tmpPlanet = new Planet(scene, randAudiance[i], size, { x: x, y: y, z: z });
+                tmpPlanet.createPlanet(true, [likeDomain, commentDomain]);
+                // createPlanet(randAudiance[i], size, objects, true, true);
             }
+            Planet.generateTargetPosi();
 
-            for (var i = 0; i < objects.length; i++) {
-
-                var object = new THREE.Object3D();
-
-                object.position.x = Math.random() * 3000 - 1500;
-                object.position.y = Math.random() * 3000 - 1500;
-                object.position.z = Math.random() * 3000 - 1500;
-
-                targets.grid.push(object);
-
-            }
 
             //init video container
             const cameraContainer = document.createElement('div');
@@ -595,15 +241,15 @@
             controls.maxDistance = 6000;
             controls.addEventListener('change', render);
 
-            transform(targets.grid, 80000);
+            Planet.transformTargetPosis(80000);
 
             window.addEventListener('resize', onWindowResize, false);
         }
 
         function transformOnePlanet(object, duration) {
-            const targetX = Math.random() * 3000 - 1500;
-            const targetY = Math.random() * 3000 - 1500;
-            const targetZ = Math.random() * 3000 - 1500;
+            const targetX = Math.random() * 2000 - 1000;
+            const targetY = Math.random() * 2000 - 1000;
+            const targetZ = Math.random() * 5000 - 2500;
             new TWEEN.Tween(object.position)
                 .to({ x: targetX, y: targetY, z: targetZ }, Math.random() * duration + duration)
                 .easing(TWEEN.Easing.Exponential.InOut)
@@ -612,30 +258,6 @@
                 .to({}, duration * 2)
                 .onUpdate(render)
                 .start();
-        }
-
-        function transform(targets, duration) {
-            TWEEN.removeAll();
-            for (var i = 0; i < objects.length; i++) {
-                var object = objects[i];
-                var target = targets[i];
-
-                new TWEEN.Tween(object.position)
-                    .to({ x: target.position.x, y: target.position.y, z: target.position.z }, Math.random() * duration + duration)
-                    .easing(TWEEN.Easing.Linear.None)
-                    .start();
-
-                new TWEEN.Tween(object.rotation)
-                    .to({ x: target.rotation.x, y: target.rotation.y, z: target.rotation.z }, Math.random() * duration + duration)
-                    .easing(TWEEN.Easing.Linear.None)
-                    .start();
-            }
-
-            new TWEEN.Tween(this)
-                .to({}, duration * 2)
-                .onUpdate(render)
-                .start();
-
         }
 
         function onWindowResize() {
