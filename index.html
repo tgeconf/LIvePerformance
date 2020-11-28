@@ -209,7 +209,7 @@
                 tmpPlanet.createPlanet(true, [likeDomain, commentDomain]);
                 // createPlanet(randAudiance[i], size, objects, true, true);
             }
-            Planet.generateTargetPosi();
+            // Planet.generateTargetPosi();
 
 
             //init video container
@@ -232,6 +232,7 @@
             cameraObj.position.y = 0;
             cameraObj.position.z = 0;
             scene.add(cameraObj);
+            console.log('adding camera: ', cameraObj, cameraContainer);
 
             renderer = new THREE.CSS3DRenderer();
             renderer.setSize(window.innerWidth, window.innerHeight);
@@ -244,15 +245,15 @@
             controls.maxDistance = 6000;
             controls.addEventListener('change', render);
 
-            Planet.transformTargetPosis(80000);
+            Planet.transformTargetPosis();
 
             window.addEventListener('resize', onWindowResize, false);
         }
 
         function transformOnePlanet(object, duration) {
-            const targetX = Math.random() * 2000 - 1000;
-            const targetY = Math.random() * 2000 - 1000;
-            const targetZ = Math.random() * 5000 - 2500;
+            const targetX = Math.random() * Planet.sceneRangeX - Planet.sceneRangeX / 2;
+            const targetY = Math.random() * Planet.sceneRangeY - Planet.sceneRangeY / 2;
+            const targetZ = Math.random() * Planet.sceneRangeZ - Planet.sceneRangeZ / 2;
             new TWEEN.Tween(object.position)
                 .to({ x: targetX, y: targetY, z: targetZ }, Math.random() * duration + duration)
                 .easing(TWEEN.Easing.Exponential.InOut)
@@ -277,7 +278,8 @@
         function animate() {
 
             requestAnimationFrame(animate);
-
+            Planet.transformTargetPosis();
+            Planet.animatePlanets();
             TWEEN.update();
 
             controls.update();
@@ -285,6 +287,7 @@
         }
 
         function render() {
+
 
             renderer.render(scene, camera);
 

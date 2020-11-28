@@ -5,6 +5,7 @@ class Star {
         this.r = r;
         this.rChange = 0.05;
         this.color = color;
+        this.hasStar = Math.random() > 0.3;
     }
     static context;
     static C_WIDTH;
@@ -58,18 +59,41 @@ class Star {
     }
 
     render() {
-        Star.context.beginPath();
-        Star.context.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
-        Star.context.shadowBlur = 8;
-        Star.context.shadowColor = "white";
-        Star.context.fillStyle = 'rgba(255, 255, 255, ' + this.opacityScale(this.r) + ')';
-        // Star.context.fillStyle = this.color;
-        Star.context.fill();
+        const fill = 'rgba(255, 255, 255, ' + this.opacityScale(this.r) + ')';
+        this.drawHolo(fill);
+        if (this.hasStar) {
+            this.drawStar(4, this.r * 3, this.r / 3, fill);
+        }
     }
     update() {
         if (this.r > 2 || this.r < .8) {
             this.rChange = -this.rChange;
         }
         this.r += this.rChange;
+    }
+
+    drawHolo(fill) {
+        Star.context.beginPath();
+        Star.context.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
+        Star.context.shadowBlur = 8;
+        Star.context.shadowColor = "white";
+        Star.context.fillStyle = fill;
+        // Star.context.fillStyle = this.color;
+        Star.context.fill();
+    }
+
+    drawStar(points, outer, inner, fill) {
+        // define the star
+        Star.context.beginPath();
+        Star.context.moveTo(this.x, this.y + outer);
+        for (var i = 0; i < 2 * points + 1; i++) {
+            var r = (i % 2 == 0) ? outer : inner;
+            var a = Math.PI * i / points;
+            Star.context.lineTo(this.x + r * Math.sin(a), this.y + r * Math.cos(a));
+        };
+        Star.context.closePath();
+        // draw
+        Star.context.fillStyle = fill;
+        Star.context.fill();
     }
 }
