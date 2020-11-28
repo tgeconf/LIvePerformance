@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/bubble.css">
 </head>
 
 <body>
@@ -14,7 +15,8 @@
     <script src="js/libs/TrackballControls.js"></script>
     <script src="js/CSS3DRenderer.js"></script>
     <script src="./js/star.js"></script>
-    <script src='js/Planet.js'></script>
+    <script src='js/planet.js'></script>
+    <script src='js/bubble.js'></script>
     <canvas id="starContainer" class='star-container'></canvas>
     <video id="video" autoplay="true"></video>
     <input type="file" id="thefile" accept="audio/*" />
@@ -160,11 +162,12 @@
         //     return group;
         // }
 
-        var camera, renderer, cameraCanvas;
-        var controls;
+        let camera, renderer, cameraCanvas;
+        let controls;
+        let timer = 0;
 
-        var objects = [];
-        var targets = { grid: [] };
+        let objects = [];
+        let targets = { grid: [] };
         const padding = 12;
 
         Star.initAllStars();
@@ -245,7 +248,7 @@
             controls.maxDistance = 6000;
             controls.addEventListener('change', render);
 
-            Planet.transformTargetPosis();
+            Planet.transform();
 
             window.addEventListener('resize', onWindowResize, false);
         }
@@ -275,20 +278,27 @@
 
         }
 
+
+
         function animate() {
-
             requestAnimationFrame(animate);
-            Planet.transformTargetPosis();
-            Planet.animatePlanets();
+
+            if (timer % 60 === 0) {
+                Planet.popUpRatio = Math.random() * 0.7 + 0.3;
+            } else {
+                Planet.popUpRatio = 0;
+            }
+            console.log(Planet.popUpRatio);
+
+            Planet.transform();
+            Planet.updateAllPlanets();
+            Bubble.updateAllBubbles();
             TWEEN.update();
-
             controls.update();
-
+            timer++;
         }
 
         function render() {
-
-
             renderer.render(scene, camera);
 
         }

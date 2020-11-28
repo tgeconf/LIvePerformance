@@ -19,7 +19,7 @@ class Planet {
     //         this.targetPosis.push(object);
     //     }
     // }
-    static transformTargetPosis() {
+    static transform() {
         TWEEN.removeAll();
         // for (var i = 0; i < this.planets.length; i++) {
         //     var object = this.planets[i];
@@ -42,14 +42,22 @@ class Planet {
             .start();
     }
 
-    static animatePlanets() {
+    static updateAllPlanets() {
         let count = 0;
-
         this.planets.forEach(p => {
             p.updatePosition();
             count++;
             if (count <= Planet.planets.length * Planet.popUpRatio) {
-                
+                console.log('going to pop', Planet.planets.length * Planet.popUpRatio, count);
+                const tmpBubble = new Bubble(
+                    p.x,
+                    p.y,
+                    p.z - 100,
+                    Math.random() * p.size / 4 + p.size / 4,
+                    { r: 255, g: 255, b: 255 },
+                    0.5,
+                    p.scene);
+                tmpBubble.init();
             }
         })
     }
@@ -58,7 +66,9 @@ class Planet {
         this.scene = scene;
         this.data = data;
         this.size = size;
-        this.initCoords = initCoords;
+        this.x = initCoords.x;
+        this.y = initCoords.y;
+        this.z = initCoords.z;
         this.planetObj;
         this.xSpeed = (Math.random() * 0.5 + 0.2) * (Math.random() >= 0.5 ? 1 : -1);
         this.ySpeed = (Math.random() * 0.5 + 0.2) * (Math.random() >= 0.5 ? 1 : -1);
@@ -75,7 +85,7 @@ class Planet {
         return [ring, borderW];
     }
 
-    createRingObj(ringDom, x, y, z, rx = 0, ry = 0, rz = 0) {
+    createRingObj(ringDom, rx = 0, ry = 0, rz = 0) {
         const ringObj = new THREE.CSS3DObject(ringDom);
         ringObj.position.x = 0;
         ringObj.position.y = 0;
@@ -99,18 +109,14 @@ class Planet {
         const [likeRing, likeBorder] = this.createRing(this.data.like, 'like-ring', domains[0], 0);
         const [commentRing, commentBorder] = this.createRing(this.data.comment, 'comment-ring', domains[1], likeBorder * 2);
 
-        const x = this.initCoords.x;
-        const y = this.initCoords.y;
-        const z = this.initCoords.z;
-
-        const eleObj = this.createRingObj(element, x, y, z);
-        const likeRingObj = this.createRingObj(likeRing, x, y, z, this.randAngle(), this.randAngle(), this.randAngle());
-        const commentRingObj = this.createRingObj(commentRing, x, y, z, this.randAngle(), this.randAngle(), this.randAngle());
+        const eleObj = this.createRingObj(element);
+        const likeRingObj = this.createRingObj(likeRing, this.randAngle(), this.randAngle(), this.randAngle());
+        const commentRingObj = this.createRingObj(commentRing, this.randAngle(), this.randAngle(), this.randAngle());
 
         this.planetObj = new THREE.Group();
-        this.planetObj.position.x = x;
-        this.planetObj.position.y = y;
-        this.planetObj.position.z = z;
+        this.planetObj.position.x = this.x;
+        this.planetObj.position.y = this.x;
+        this.planetObj.position.z = this.x;
         this.planetObj.add(eleObj);
         this.planetObj.add(likeRingObj);
         this.planetObj.add(commentRingObj);
@@ -131,8 +137,11 @@ class Planet {
         if (Math.abs(this.planetObj.position.z) > Planet.sceneRangeZ / 2) {
             this.zSpeed *= -1;
         }
-        this.planetObj.position.x += this.xSpeed;
-        this.planetObj.position.y += this.ySpeed;
-        this.planetObj.position.z += this.zSpeed;
+        this.x += this.xSpeed;
+        this.y += this.ySpeed;
+        this.z += this.zSpeed;
+        this.planetObj.position.x = this.x;
+        this.planetObj.position.y = this.y;
+        this.planetObj.position.z = this.z;
     }
 }
