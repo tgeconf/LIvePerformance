@@ -39,7 +39,6 @@ class Planet {
     }
 
     constructor(scene, data, size, initCoords) {
-        console.log('data', data);
         this.scene = scene;
         this.data = data;
         this.size = size;

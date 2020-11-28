@@ -37,6 +37,14 @@ video, audio {
     text-align: center;
 }
 
+.star-container, input {
+    position: absolute;
+}
+
+#container {
+    position: absolute;
+}
+
 .element {
     width: 120px;
     height: 120px;

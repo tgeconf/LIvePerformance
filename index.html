@@ -13,7 +13,9 @@
     <script src="js/libs/tween.min.js"></script>
     <script src="js/libs/TrackballControls.js"></script>
     <script src="js/CSS3DRenderer.js"></script>
+    <script src="./js/star.js"></script>
     <script src='js/Planet.js'></script>
+    <canvas id="starContainer" class='star-container'></canvas>
     <video id="video" autoplay="true"></video>
     <input type="file" id="thefile" accept="audio/*" />
     <audio id="audio" src='./media/testMusic.mp3' autoplay controls></audio>
@@ -165,6 +167,8 @@
         var targets = { grid: [] };
         const padding = 12;
 
+        Star.initAllStars();
+        Star.animateAllStars();
         init();
         animate();
         loadCameraOnHidden(cameraCanvas);
@@ -196,7 +200,6 @@
             likeDomain = [minLike, maxLike];
             commentDomain = [minComment, maxComment];
             // randAudiance
-            alert(randAudiance.length);
             for (var i = 0; i < randAudiance.length; i++) {
                 const size = Math.random() * 100 + 80;
                 const x = Math.random() * 2000 - 1000;
