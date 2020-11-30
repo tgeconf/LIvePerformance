@@ -3,15 +3,27 @@ class Bubble {
     static sceneRangeY = 2000;
     static sceneRangeZ = 5000;
     static scaleStep = 0.2;
+    static opacitySpeed = 0.002;
     static bubbles = [];
+    static bubbleLimit = 2000;
+    static idCount = 0;
 
     static updateAllBubbles() {
-        this.bubbles.forEach(b => {
-            b.update();
+        const removeIdx = [];
+        this.bubbles.forEach((b, i) => {
+            const remove = b.update();
+            if (remove) {
+                removeIdx.push(i);
+            }
+        })
+        const that = this;
+        removeIdx.reverse().forEach(idx => {
+            that.bubbles.splice(idx, 1);
         })
     }
 
     constructor(x, y, z, r, color, opacity, scene) {
+        this.id;
         this.x = x;
         this.y = y;
         this.z = z;
@@ -28,6 +40,8 @@ class Bubble {
 
     init() {
         const that = this;
+        that.id = Bubble.idCount;
+        Bubble.idCount++;
         that.bubbleDiv = document.createElement('div');
         that.bubbleDiv.className = 'bubble';
         that.bubbleDiv.style.width = (that.r * 2) + 'px';
@@ -61,9 +75,17 @@ class Bubble {
         this.bubbleObj.position.y += this.ySpeed;
         this.bubbleObj.position.z += this.zSpeed;
 
-        if(this.bubbleObj.scale.x < 1){
+        if (this.bubbleObj.scale.x < 1) {
             this.bubbleObj.scale.x += Bubble.scaleStep;
             this.bubbleObj.scale.y += Bubble.scaleStep;
+        } else {
+            this.opacity -= Bubble.opacitySpeed;
+            this.bubbleDiv.style.opacity = this.opacity;
+            if (this.opacity <= 0) {
+                this.scene.remove(this.bubbleObj);
+                return true;
+            }
         }
+        return false;
     }
 }

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="./css/bubble.css">
 </head>
 
-<body>
+<body class='bg-color-transition cold-bg-color'>
     <script src='./js/randData/audiance.js'></script>
     <script src="js/libs/three.js"></script>
     <script src="js/libs/tween.min.js"></script>
@@ -17,12 +17,22 @@
     <script src="./js/star.js"></script>
     <script src='js/planet.js'></script>
     <script src='js/bubble.js'></script>
+    <div id='coldBgColor' class='bg-color cold-bg-color shown'></div>
+    <div id='hotBgColor' class='bg-color hot-bg-color'></div>
     <canvas id="starContainer" class='star-container'></canvas>
     <video id="video" autoplay="true"></video>
     <input type="file" id="thefile" accept="audio/*" />
+    <button onclick="testBgChange()">test</button>
     <audio id="audio" src='./media/testMusic.mp3' autoplay controls></audio>
     <div id="container"></div>
     <script>
+        function testBgChange() {
+            document.getElementById('coldBgColor').classList.toggle('shown');
+            document.getElementById('hotBgColor').classList.toggle('shown');
+            Planet.updateAllPlanetsColor();
+        }
+
+
         let likeDomain = [], commentDomain = [], ringRange = [1, 5], scene;
 
         const scaleRing = (val, domain, range) => {
@@ -105,62 +115,6 @@
             }
             renderFrame();
         }
-
-        // const createPlanet = (data, size, objects, adding, randomCoords) => {
-        //     var element = document.createElement('div');
-        //     element.className = 'element';
-        //     element.style.width = size + 'px';
-        //     element.style.height = size + 'px';
-
-        //     const likeRing = document.createElement('div');
-        //     likeRing.className = 'like-ring';
-        //     const likeBorder = scaleRing(data.like, likeDomain, ringRange);
-        //     likeRing.style.width = (size + padding * 2 + likeBorder) + 'px';
-        //     likeRing.style.height = (size + padding * 2 + likeBorder) + 'px';
-        //     likeRing.style.borderWidth = likeBorder + 'px';
-
-        //     const commentRing = document.createElement('div');
-        //     commentRing.className = 'comment-ring';
-        //     const commentBorder = scaleRing(data.comment, commentDomain, ringRange);
-        //     commentRing.style.width = (size + padding * 4 + commentBorder + likeBorder * 2) + 'px';
-        //     commentRing.style.height = (size + padding * 4 + commentBorder + likeBorder * 2) + 'px';
-        //     commentRing.style.borderWidth = commentBorder + 'px';
-
-        //     const eleObj = new THREE.CSS3DObject(element);
-        //     const x = randomCoords ? Math.random() * 3000 - 1000 : 0;
-        //     const y = randomCoords ? Math.random() * 3000 - 1000 : 0;
-        //     const z = randomCoords ? Math.random() * 3000 - 1000 : -100;
-        //     eleObj.position.x = x;
-        //     eleObj.position.y = y;
-        //     eleObj.position.z = z;
-
-        //     const likeRingObj = new THREE.CSS3DObject(likeRing);
-        //     likeRingObj.position.x = x;
-        //     likeRingObj.position.y = y;
-        //     likeRingObj.position.z = z;
-        //     likeRingObj.rotation.x = Math.random() * Math.PI * 2;
-        //     likeRingObj.rotation.y = Math.random() * Math.PI * 2;
-        //     likeRingObj.rotation.z = Math.random() * Math.PI * 2;
-
-        //     const commentRingObj = new THREE.CSS3DObject(commentRing);
-        //     commentRingObj.position.x = x;
-        //     commentRingObj.position.y = y;
-        //     commentRingObj.position.z = z;
-        //     commentRingObj.rotation.x = Math.random() * Math.PI * 2;
-        //     commentRingObj.rotation.y = Math.random() * Math.PI * 2;
-        //     commentRingObj.rotation.z = Math.random() * Math.PI * 2;
-
-        //     const group = new THREE.Group();
-        //     group.add(eleObj);
-        //     group.add(likeRingObj);
-        //     group.add(commentRingObj);
-
-        //     scene.add(group);
-        //     if (adding) {
-        //         objects.push(group);
-        //     }
-        //     return group;
-        // }
 
         let camera, renderer, cameraCanvas;
         let controls;

@@ -6,8 +6,29 @@ body {
     background-color: #000000;
     margin: 0;
     font-family: Helvetica, sans-serif;
-    ;
     overflow: hidden;
+}
+
+.bg-color {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    transition: all 3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+    opacity: 0;
+}
+
+.cold-bg-color {
+    background-image: linear-gradient(to bottom, #000000, #321e2b, #543a60, #5f5fa2, #2b8de7);
+}
+
+.hot-bg-color {
+    background-image: linear-gradient(to bottom, #000000, #441c22, #84332e, #c2532a, #f48103);
+}
+
+.shown {
+    opacity: 1;
 }
 
 a {
@@ -55,6 +76,16 @@ video, audio {
     cursor: default;
     background: url("../images/bubble_blue.png");
     background-size: 100% 100%;
+    transition: filter 3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+
+.hot-element {
+    filter: hue-rotate(160deg);
+}
+
+.cold-element {
+    /* filter: hue-rotate(0deg); */
+    filter: none;
 }
 
 .element:hover {
@@ -107,12 +138,12 @@ video, audio {
     border-radius: 50%;
     box-shadow: 0px 0px 12px rgba(0, 255, 255, 0.5);
     border: 1px solid rgba(127, 255, 255, 0.25);
-    background-color: #000000;
+    /* background-color: #000000; */
 }
 
 .camera-container canvas {
     border-radius: 50%;
-    opacity: 0.5;
+    /* opacity: 0.5; */
     position: absolute;
 }
 
@@ -124,6 +155,10 @@ video, audio {
 }
 
 button {
+    position: absolute;
+    top: 50px;
+    left: 0px;
+    z-index: 99999;
     color: rgba(127, 255, 255, 0.75);
     background: transparent;
     outline: 1px solid rgba(127, 255, 255, 0.75);

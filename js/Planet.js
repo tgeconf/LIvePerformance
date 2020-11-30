@@ -48,7 +48,6 @@ class Planet {
             p.updatePosition();
             count++;
             if (count <= Planet.planets.length * Planet.popUpRatio) {
-                console.log('going to pop', Planet.planets.length * Planet.popUpRatio, count);
                 const tmpBubble = new Bubble(
                     p.x,
                     p.y,
@@ -62,6 +61,13 @@ class Planet {
         })
     }
 
+    static updateAllPlanetsColor() {
+        this.planets.forEach(p => {
+            p.planetDiv.classList.toggle('cold-element');
+            p.planetDiv.classList.toggle('hot-element');
+        })
+    }
+
     constructor(scene, data, size, initCoords) {
         this.scene = scene;
         this.data = data;
@@ -69,6 +75,7 @@ class Planet {
         this.x = initCoords.x;
         this.y = initCoords.y;
         this.z = initCoords.z;
+        this.planetDiv;
         this.planetObj;
         this.xSpeed = (Math.random() * 0.5 + 0.2) * (Math.random() >= 0.5 ? 1 : -1);
         this.ySpeed = (Math.random() * 0.5 + 0.2) * (Math.random() >= 0.5 ? 1 : -1);
@@ -101,15 +108,15 @@ class Planet {
     }
 
     createPlanet(adding, domains) {
-        const element = document.createElement('div');
-        element.className = 'element';
-        element.style.width = this.size + 'px';
-        element.style.height = this.size + 'px';
+        this.planetDiv = document.createElement('div');
+        this.planetDiv.className = 'element cold-element';
+        this.planetDiv.style.width = this.size + 'px';
+        this.planetDiv.style.height = this.size + 'px';
 
         const [likeRing, likeBorder] = this.createRing(this.data.like, 'like-ring', domains[0], 0);
         const [commentRing, commentBorder] = this.createRing(this.data.comment, 'comment-ring', domains[1], likeBorder * 2);
 
-        const eleObj = this.createRingObj(element);
+        const eleObj = this.createRingObj(this.planetDiv);
         const likeRingObj = this.createRingObj(likeRing, this.randAngle(), this.randAngle(), this.randAngle());
         const commentRingObj = this.createRingObj(commentRing, this.randAngle(), this.randAngle(), this.randAngle());
 
