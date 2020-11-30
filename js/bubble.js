@@ -2,8 +2,8 @@ class Bubble {
     static sceneRangeX = 2000;
     static sceneRangeY = 2000;
     static sceneRangeZ = 5000;
-    static scaleStep = 0.2;
-    static opacitySpeed = 0.002;
+    static scaleStep = 0.3;
+    static opacitySpeed = 0.004;
     static bubbles = [];
     static bubbleLimit = 2000;
     static idCount = 0;
@@ -22,12 +22,13 @@ class Bubble {
         })
     }
 
-    constructor(x, y, z, r, color, opacity, scene) {
+    constructor(x, y, z, r, color, opacity, delay, scene) {
         this.id;
         this.x = x;
         this.y = y;
         this.z = z;
         this.r = r;
+        this.delay = delay;
         this.opacity = opacity;
         this.scene = scene;
         this.xSpeed = (Math.random() * 0.5 + 0.2) * (Math.random() >= 0.5 ? 1 : -1);
@@ -62,28 +63,35 @@ class Bubble {
     }
 
     update() {
-        if (Math.abs(this.bubbleObj.position.x) > Bubble.sceneRangeX / 2) {
-            this.xSpeed *= -1;
-        }
-        if (Math.abs(this.bubbleObj.position.y) > Bubble.sceneRangeY / 2) {
-            this.ySpeed *= -1;
-        }
-        if (Math.abs(this.bubbleObj.position.z) > Bubble.sceneRangeZ / 2) {
-            this.zSpeed *= -1;
-        }
-        this.bubbleObj.position.x += this.xSpeed;
-        this.bubbleObj.position.y += this.ySpeed;
-        this.bubbleObj.position.z += this.zSpeed;
-
-        if (this.bubbleObj.scale.x < 1) {
-            this.bubbleObj.scale.x += Bubble.scaleStep;
-            this.bubbleObj.scale.y += Bubble.scaleStep;
+        if (this.delay > 0) {
+            this.delay--;
         } else {
-            this.opacity -= Bubble.opacitySpeed;
-            this.bubbleDiv.style.opacity = this.opacity;
-            if (this.opacity <= 0) {
-                this.scene.remove(this.bubbleObj);
-                return true;
+            if (Math.abs(this.bubbleObj.position.x) > Bubble.sceneRangeX / 2) {
+                this.xSpeed *= -1;
+            }
+            if (Math.abs(this.bubbleObj.position.y) > Bubble.sceneRangeY / 2) {
+                this.ySpeed *= -1;
+            }
+            if (Math.abs(this.bubbleObj.position.z) > Bubble.sceneRangeZ / 2) {
+                this.zSpeed *= -1;
+            }
+            this.bubbleObj.position.x += this.xSpeed;
+            this.bubbleObj.position.y += this.ySpeed;
+            this.bubbleObj.position.z += this.zSpeed;
+
+            if (this.bubbleObj.scale.x < 1) {
+                this.bubbleObj.scale.x += Bubble.scaleStep;
+                this.bubbleObj.scale.y += Bubble.scaleStep;
+            } else {
+                this.opacity -= Bubble.opacitySpeed;
+                if (this.opacity < 0) {
+                    this.opacity = 0;
+                }
+                this.bubbleDiv.style.opacity = this.opacity;
+                if (this.opacity === 0) {
+                    this.scene.remove(this.bubbleObj);
+                    return true;
+                }
             }
         }
         return false;

@@ -26,6 +26,22 @@
     <audio id="audio" src='./media/testMusic.mp3' autoplay controls></audio>
     <div id="container"></div>
     <script>
+
+        for (var a = [], i = 0; i < 100; ++i) a[i] = i;
+
+        function shuffle(array) {
+            var tmp, current, top = array.length;
+            if (top) while (--top) {
+                current = Math.floor(Math.random() * (top + 1));
+                tmp = array[current];
+                array[current] = array[top];
+                array[top] = tmp;
+            }
+            return array;
+        }
+
+        a = shuffle(a);
+        console.log(a);
         function testBgChange() {
             document.getElementById('coldBgColor').classList.toggle('shown');
             document.getElementById('hotBgColor').classList.toggle('shown');
@@ -61,21 +77,55 @@
             var dataArray = new Uint8Array(bufferLength);
 
             let count = 0;
+            let voiceCount = 0;
+            let preAllVoiceSum = 0;
+            let voiceRise = 0;
+            let preVoice = 1;
+            let rising = false;
             const colors = [[65, 32, 137], [17, 101, 171], [58, 176, 53], [245, 182, 27], [231, 32, 25]];
             function renderFrame() {
+
                 requestAnimationFrame(renderFrame);
-                if (count % 60 === 0) {
+                if (count % 10 === 0) {
+                    voiceCount++;
                     analyser.getByteFrequencyData(dataArray);
                     timeGap = Math.random() * 60 + 100;
-                    dataArray = dataArray.sort().reverse();
+                    // dataArray = dataArray.sort().reverse();
+                    let highVoice = 0;
+                    let voiceAvg = 0;
+                    let voiceAAvg = 0;
+                    let maxAAvg = 0;
+                    dataArray.forEach((v, i) => {
+                        if (v >= 200) {
+                            highVoice++;
+                        }
+                        voiceAvg += v;
+                        voiceAAvg += ((i / dataArray.length) * v);
+                        maxAAvg += ((i / dataArray.length) * 255);
+                    })
+                    voiceAvg /= dataArray.length;
+                    voiceAAvg /= dataArray.length;
+                    maxAAvg /= dataArray.length;
+                    preAllVoiceSum += voiceAAvg;
+                    const preAllVoiceAvg = preAllVoiceSum / voiceCount;
+                    let newVoiceRise = (voiceAAvg - preVoice) / preVoice;
+                    console.log('voice line: ', voiceAAvg, preAllVoiceAvg, maxAAvg);
+
                     let r = dynamicRScale(dataArray[0], [120, dataArray[0]]);
-                    const data = {
-                        name: 'userX',
-                        like: Math.ceil(Math.random() * 30 + 20),
-                        comment: Math.ceil(Math.random() * 15 + 5)
+                    if (newVoiceRise > 0.1 || (rising && (voiceAAvg - preVoice > 0 || (preVoice - voiceAAvg) / preVoice < 0.1))) {
+                        rising = true;
+                        // if ((voiceRise < 0 && newVoiceRise > 0.2) || (voiceAAvg > 8 * preAllVoiceAvg / 5)) {
+                        Planet.popUpRatio = voiceAAvg / maxAAvg / 2;
+                    } else {
+                        rising = false;
                     }
-                    const tmpPlanet = createPlanet(data, r, [], false, false);
-                    transformOnePlanet(tmpPlanet, 10000);
+                    preVoice = voiceAAvg === 0 ? 0.1 : voiceAAvg;
+                    voiceRise = newVoiceRise;
+                    // Planet.popUpRatio = voiceAvg / 255;
+                    // Planet.popUpRatio = highVoice / dataArray.length;
+                    // console.log(Planet.popUpRatio);
+                } else {
+                    Planet.popUpRatio = 0;
                 }
                 count++;
             }
@@ -129,7 +179,7 @@
         init();
         animate();
         loadCameraOnHidden(cameraCanvas);
-        loadAudio();
+        // loadAudio();
 
         function init() {
             camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 10000);
@@ -237,12 +287,12 @@
         function animate() {
             requestAnimationFrame(animate);
 
-            if (timer % 60 === 0) {
-                Planet.popUpRatio = Math.random() * 0.7 + 0.3;
-            } else {
-                Planet.popUpRatio = 0;
-            }
-            console.log(Planet.popUpRatio);
+            // if (timer % 60 === 0) {
+            //     Planet.popUpRatio = Math.random() * 0.7 + 0.3;
+            // } else {
+            //     Planet.popUpRatio = 0;
+            // }
+            // console.log(Planet.popUpRatio);
 
             Planet.transform();
             Planet.updateAllPlanets();

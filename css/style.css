@@ -62,6 +62,10 @@ video, audio {
     position: absolute;
 }
 
+input{
+    z-index: 99999;
+}
+
 #container {
     position: absolute;
 }

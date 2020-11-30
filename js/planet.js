@@ -42,8 +42,20 @@ class Planet {
             .start();
     }
 
+    static shuffle(array) {
+        var tmp, current, top = array.length;
+        if (top) while (--top) {
+            current = Math.floor(Math.random() * (top + 1));
+            tmp = array[current];
+            array[current] = array[top];
+            array[top] = tmp;
+        }
+        return array;
+    }
+
     static updateAllPlanets() {
         let count = 0;
+        this.planets = this.shuffle(this.planets);
         this.planets.forEach(p => {
             p.updatePosition();
             count++;
@@ -55,6 +67,7 @@ class Planet {
                     Math.random() * p.size / 4 + p.size / 4,
                     { r: 255, g: 255, b: 255 },
                     0.5,
+                    Math.floor(Math.random() * 30),
                     p.scene);
                 tmpBubble.init();
             }
@@ -117,16 +130,16 @@ class Planet {
         const [commentRing, commentBorder] = this.createRing(this.data.comment, 'comment-ring', domains[1], likeBorder * 2);
 
         const eleObj = this.createRingObj(this.planetDiv);
-        const likeRingObj = this.createRingObj(likeRing, this.randAngle(), this.randAngle(), this.randAngle());
-        const commentRingObj = this.createRingObj(commentRing, this.randAngle(), this.randAngle(), this.randAngle());
+        // const likeRingObj = this.createRingObj(likeRing, this.randAngle(), this.randAngle(), this.randAngle());
+        // const commentRingObj = this.createRingObj(commentRing, this.randAngle(), this.randAngle(), this.randAngle());
 
         this.planetObj = new THREE.Group();
         this.planetObj.position.x = this.x;
         this.planetObj.position.y = this.x;
         this.planetObj.position.z = this.x;
         this.planetObj.add(eleObj);
-        this.planetObj.add(likeRingObj);
-        this.planetObj.add(commentRingObj);
+        // this.planetObj.add(likeRingObj);
+        // this.planetObj.add(commentRingObj);
 
         this.scene.add(this.planetObj);
         if (adding) {
