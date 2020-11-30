@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/bubble.css">
+    <link rel="stylesheet" href="./css/meteor.css">
 </head>
 
 <body class='bg-color-transition cold-bg-color'>
@@ -17,31 +18,18 @@
     <script src="./js/star.js"></script>
     <script src='js/planet.js'></script>
     <script src='js/bubble.js'></script>
+    <script src='js/meteor.js'></script>
     <div id='coldBgColor' class='bg-color cold-bg-color shown'></div>
     <div id='hotBgColor' class='bg-color hot-bg-color'></div>
     <canvas id="starContainer" class='star-container'></canvas>
     <video id="video" autoplay="true"></video>
     <input type="file" id="thefile" accept="audio/*" />
-    <button onclick="testBgChange()">test</button>
+    <button style="top: 0px; left: 100px;" onclick="testBgChange()">test</button>
+    <button style="top: 0px; left: 200px;" onclick="randMeteors()">meteors</button>
     <audio id="audio" src='./media/testMusic.mp3' autoplay controls></audio>
     <div id="container"></div>
     <script>
 
-        for (var a = [], i = 0; i < 100; ++i) a[i] = i;
-
-        function shuffle(array) {
-            var tmp, current, top = array.length;
-            if (top) while (--top) {
-                current = Math.floor(Math.random() * (top + 1));
-                tmp = array[current];
-                array[current] = array[top];
-                array[top] = tmp;
-            }
-            return array;
-        }
-
-        a = shuffle(a);
-        console.log(a);
         function testBgChange() {
             document.getElementById('coldBgColor').classList.toggle('shown');
             document.getElementById('hotBgColor').classList.toggle('shown');
@@ -174,6 +162,15 @@
         let targets = { grid: [] };
         const padding = 12;
 
+        function randMeteors() {
+            let num = Math.floor(Math.random() * 10 + 5);
+            while (num > 0) {
+                const tmpMeteor = new Meteor(scene);
+                tmpMeteor.init();
+                num--;
+            }
+        }
+
         Star.initAllStars();
         Star.animateAllStars();
         init();
@@ -297,6 +294,7 @@
             Planet.transform();
             Planet.updateAllPlanets();
             Bubble.updateAllBubbles();
+            Meteor.updateAll();
             TWEEN.update();
             controls.update();
             timer++;
