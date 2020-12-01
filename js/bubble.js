@@ -31,9 +31,9 @@ class Bubble {
         this.delay = delay;
         this.opacity = opacity;
         this.scene = scene;
-        this.xSpeed = (Math.random() * 0.5 + 0.2) * (Math.random() >= 0.5 ? 1 : -1);
-        this.ySpeed = (Math.random() * 0.5 + 0.2) * (Math.random() >= 0.5 ? 1 : -1);
-        this.zSpeed = (Math.random() * 0.5 + 0.2) * (Math.random() >= 0.5 ? 1 : -1);
+        this.xSpeed = (Math.random() * 0.5 + 1) * (Math.random() >= 0.5 ? 1 : -1);
+        this.ySpeed = (Math.random() * 0.5 + 1) * (Math.random() >= 0.5 ? 1 : -1);
+        this.zSpeed = (Math.random() * 0.5 + 1) * (Math.random() >= 0.5 ? 1 : -1);
         this.color = color;
         this.bubbleDiv;
         this.bubbleObj;

@@ -10,6 +10,7 @@ class Planet {
     static planets = [];
     static targetPosis = [];
     static popUpRatio = 0;
+    static musicHzNum = 128;
     static scaleRing(val, domain) {
         return Planet.ringRange[0] + ((val - domain[0]) / (domain[1] - domain[0])) * (Planet.ringRange[1] - Planet.ringRange[0]);
     }
@@ -107,6 +108,8 @@ class Planet {
         this.xSpeed = (Math.random() * 0.5 + 0.2) * (Math.random() >= 0.5 ? 1 : -1);
         this.ySpeed = (Math.random() * 0.5 + 0.2) * (Math.random() >= 0.5 ? 1 : -1);
         this.zSpeed = (Math.random() * 0.5 + 0.2) * (Math.random() >= 0.5 ? 1 : -1);
+        this.musicCanvas;
+        this.musicCanvasObj;
     }
 
     createRing(dataVal, className, domain, extraPadding) {
@@ -134,7 +137,126 @@ class Planet {
         return Math.random() * Math.PI * 2;
     }
 
-    createPlanet(adding, domains) {
+    createMusicCanvas() {
+        const padding = 30, innerCircleStroke = 12, tmpBgBarWidth = 160;
+        this.musicCanvas = document.createElement('canvas');
+        const cSize = this.size + padding * 4 + innerCircleStroke * 2 + tmpBgBarWidth * 2;
+        this.musicCanvas.width = cSize;
+        this.musicCanvas.height = cSize;
+        const ctx = this.musicCanvas.getContext('2d');
+
+        const grad1 = ctx.createLinearGradient(0, 0, cSize, cSize);
+        grad1.addColorStop(0, "#16b7ed00");
+        grad1.addColorStop(0.25, "#00abff22");
+        grad1.addColorStop(0.5, "#2a97ff44");
+        grad1.addColorStop(0.75, "#9476ff22");
+        grad1.addColorStop(1, "#e12efb00");
+
+        const grad2 = ctx.createLinearGradient(tmpBgBarWidth / 2, tmpBgBarWidth / 2, cSize - tmpBgBarWidth, cSize - tmpBgBarWidth);
+        grad2.addColorStop(0, "#16b7ed");
+        grad2.addColorStop(0.25, "#00abff");
+        grad2.addColorStop(0.5, "#2a97ff");
+        grad2.addColorStop(0.75, "#9476ff");
+        grad2.addColorStop(1, "#e12efb");
+
+        ctx.shadowColor = "#2a97ff";
+        ctx.lineWidth = innerCircleStroke;
+        ctx.strokeStyle = grad2;
+        ctx.shadowBlur = 20;
+        ctx.beginPath();
+        ctx.arc(cSize / 2, cSize / 2, this.size / 2 + padding + innerCircleStroke / 2, 0, 2 * Math.PI);
+        ctx.stroke();
+
+        //draw background
+        const innerR = this.size / 2 + padding * 2 + innerCircleStroke;
+        const outterR = this.size / 2 + padding * 2 + innerCircleStroke + tmpBgBarWidth;
+        const outterR2 = this.size / 2 + padding * 2 + innerCircleStroke + tmpBgBarWidth / 2;
+
+        ctx.lineWidth = 12;
+        let radStep = Math.PI * 2 / Planet.musicHzNum;
+        for (let i = 0; i < Planet.musicHzNum; i++) {
+            ctx.shadowBlur = 0;
+            ctx.strokeStyle = grad1;
+            ctx.beginPath();
+            ctx.lineCap = "round";
+            ctx.moveTo(cSize / 2 + Math.cos(radStep * i) * innerR, cSize / 2 + Math.sin(radStep * i) * innerR);
+            ctx.lineTo(cSize / 2 + Math.cos(radStep * i) * outterR, cSize / 2 + Math.sin(radStep * i) * outterR);
+            ctx.stroke();
+
+            ctx.shadowBlur = 20;
+            ctx.strokeStyle = grad2;
+            ctx.beginPath();
+            ctx.lineCap = "round";
+            ctx.moveTo(cSize / 2 + Math.cos(radStep * i) * innerR, cSize / 2 + Math.sin(radStep * i) * innerR);
+            ctx.lineTo(cSize / 2 + Math.cos(radStep * i) * outterR2, cSize / 2 + Math.sin(radStep * i) * outterR2);
+            ctx.stroke();
+        }
+
+        this.musicCanvasObj = new THREE.CSS3DObject(this.musicCanvas);
+        this.musicCanvasObj.position.x = 0;
+        this.musicCanvasObj.position.y = 0;
+        this.musicCanvasObj.position.z = 0;
+    }
+
+    updateMusicCanvas(vals, maxVal) {
+        const padding = 30, innerCircleStroke = 12, tmpBgBarWidth = 160;
+        const cSize = this.size + padding * 4 + innerCircleStroke * 2 + tmpBgBarWidth * 2;
+        const ctx = this.musicCanvas.getContext('2d');
+        ctx.clearRect(0, 0, cSize, cSize);
+
+        const grad1 = ctx.createLinearGradient(0, 0, cSize, cSize);
+        grad1.addColorStop(0, "#16b7ed00");
+        grad1.addColorStop(0.25, "#00abff22");
+        grad1.addColorStop(0.5, "#2a97ff44");
+        grad1.addColorStop(0.75, "#9476ff22");
+        grad1.addColorStop(1, "#e12efb00");
+
+        const grad2 = ctx.createLinearGradient(tmpBgBarWidth / 2, tmpBgBarWidth / 2, cSize - tmpBgBarWidth, cSize - tmpBgBarWidth);
+        grad2.addColorStop(0, "#16b7ed");
+        grad2.addColorStop(0.25, "#00abff");
+        grad2.addColorStop(0.5, "#2a97ff");
+        grad2.addColorStop(0.75, "#9476ff");
+        grad2.addColorStop(1, "#e12efb");
+
+        ctx.shadowColor = "#2a97ff";
+        ctx.lineWidth = innerCircleStroke;
+        ctx.strokeStyle = grad2;
+        ctx.shadowBlur = 20;
+        ctx.beginPath();
+        ctx.arc(cSize / 2, cSize / 2, this.size / 2 + padding + innerCircleStroke / 2, 0, 2 * Math.PI);
+        ctx.stroke();
+
+        const innerR = this.size / 2 + padding * 2 + innerCircleStroke;
+        ctx.lineWidth = 12;
+        let radStep = Math.PI * 2 / Planet.musicHzNum;
+        for (let i = 0; i < Planet.musicHzNum; i++) {
+            let barLen = vals[i] / maxVal * tmpBgBarWidth;
+            if (barLen < 1) {
+                barLen = 1;
+            }
+
+            const outterR = this.size / 2 + padding * 2 + innerCircleStroke + barLen;
+            const outterR2 = this.size / 2 + padding * 2 + innerCircleStroke + barLen / 2;
+
+            ctx.shadowBlur = 0;
+            ctx.strokeStyle = grad1;
+            ctx.beginPath();
+            ctx.lineCap = "round";
+            ctx.moveTo(cSize / 2 + Math.cos(radStep * i) * innerR, cSize / 2 + Math.sin(radStep * i) * innerR);
+            ctx.lineTo(cSize / 2 + Math.cos(radStep * i) * outterR, cSize / 2 + Math.sin(radStep * i) * outterR);
+            ctx.stroke();
+
+            ctx.shadowBlur = 20;
+            ctx.strokeStyle = grad2;
+            ctx.beginPath();
+            ctx.lineCap = "round";
+            ctx.moveTo(cSize / 2 + Math.cos(radStep * i) * innerR, cSize / 2 + Math.sin(radStep * i) * innerR);
+            ctx.lineTo(cSize / 2 + Math.cos(radStep * i) * outterR2, cSize / 2 + Math.sin(radStep * i) * outterR2);
+            ctx.stroke();
+        }
+    }
+
+    createPlanet(adding, domains, musicCanvas = false) {
         this.planetDiv = document.createElement('div');
         this.planetDiv.className = 'element cold-element';
         this.planetDiv.style.width = this.size + 'px';
@@ -151,6 +273,12 @@ class Planet {
         this.planetObj.position.x = this.x;
         this.planetObj.position.y = this.x;
         this.planetObj.position.z = this.x;
+
+        if (musicCanvas) {
+            this.createMusicCanvas();
+            this.planetObj.add(this.musicCanvasObj);
+        }
+
         this.planetObj.add(eleObj);
         // this.planetObj.add(likeRingObj);
         // this.planetObj.add(commentRingObj);

@@ -37,7 +37,7 @@
         }
 
 
-        let likeDomain = [], commentDomain = [], ringRange = [1, 5], scene;
+        let likeDomain = [], commentDomain = [], ringRange = [1, 5], cameraPlanet, scene;
 
         const scaleRing = (val, domain, range) => {
             return range[0] + ((val - domain[0]) / (domain[1] - domain[0])) * (range[1] - range[0]);
@@ -74,10 +74,10 @@
             function renderFrame() {
 
                 requestAnimationFrame(renderFrame);
+                analyser.getByteFrequencyData(dataArray);
+                cameraPlanet.updateMusicCanvas(dataArray, 255);
                 if (count % 10 === 0) {
                     voiceCount++;
-                    analyser.getByteFrequencyData(dataArray);
-                    timeGap = Math.random() * 60 + 100;
                     // dataArray = dataArray.sort().reverse();
                     let highVoice = 0;
                     let voiceAvg = 0;
@@ -217,26 +217,36 @@
 
 
             //init video container
-            const cameraContainer = document.createElement('div');
-            const videoSize = 600;
-            cameraContainer.className = 'camera-container';
-            cameraContainer.style.width = videoSize + 'px';
-            cameraContainer.style.height = videoSize + 'px';
+            const videoSize = 1000;
             const cameraCanvas = document.createElement('canvas');
             cameraCanvas.id = 'cameraCanvas';
             cameraCanvas.width = videoSize;
             cameraCanvas.height = videoSize;
-            cameraContainer.appendChild(cameraCanvas);
+
+            cameraPlanet = new Planet(scene, { like: 0, comment: 0 }, videoSize, { x: 0, y: 0, z: 0 });
+            cameraPlanet.createPlanet(false, [[0, 1], [0, 1]], true);
+            cameraPlanet.planetDiv.appendChild(cameraCanvas);
+            cameraPlanet.planetDiv.classList.add('camera-container')
             const coverImg = document.createElement('img');
             coverImg.src = './images/bubble_blue.png';
-            cameraContainer.appendChild(coverImg);
+            cameraPlanet.planetDiv.appendChild(coverImg);
 
-            const cameraObj = new THREE.CSS3DObject(cameraContainer);
-            cameraObj.position.x = 0;
-            cameraObj.position.y = 0;
-            cameraObj.position.z = 0;
-            scene.add(cameraObj);
-            console.log('adding camera: ', cameraObj, cameraContainer);
+            // const cameraContainer = document.createElement('div');
+            // cameraContainer.className = 'camera-container';
+            // cameraContainer.style.width = videoSize + 'px';
+            // cameraContainer.style.height = videoSize + 'px';
+
+            // cameraContainer.appendChild(cameraCanvas);
+            // const coverImg = document.createElement('img');
+            // coverImg.src = './images/bubble_blue.png';
+            // cameraContainer.appendChild(coverImg);
+
+            // const cameraObj = new THREE.CSS3DObject(cameraContainer);
+            // cameraObj.position.x = 0;
+            // cameraObj.position.y = 0;
+            // cameraObj.position.z = 0;
+            // scene.add(cameraObj);
+            // console.log('adding camera: ', cameraObj, cameraContainer);
 
             renderer = new THREE.CSS3DRenderer();
             renderer.setSize(window.innerWidth, window.innerHeight);
