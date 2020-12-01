@@ -47,7 +47,8 @@ class Bubble {
         that.bubbleDiv.className = 'bubble';
         that.bubbleDiv.style.width = (that.r * 2) + 'px';
         that.bubbleDiv.style.height = (that.r * 2) + 'px';
-        that.bubbleDiv.style.background = 'rgb(' + that.color.r + ',' + that.color.g + ',' + that.color.b + ')';
+        that.bubbleDiv.style.background = 'linear-gradient(to bottom, #fff, rgba(' + that.color.r + ',' + that.color.g + ',' + that.color.b + ', 0.1))';
+        // that.bubbleDiv.style.background = 'rgb(' + that.color.r + ',' + that.color.g + ',' + that.color.b + ')';
         that.bubbleDiv.style.boxShadow = '0px 0px 12px rgba(' + that.color.r + ',' + that.color.g + ',' + that.color.b + ', 0.5)';
         that.bubbleDiv.style.border = '1px solid rgba(' + that.color.r + ',' + that.color.g + ',' + that.color.b + ', 0.25)';
         // that.bubbleDiv.style.opacity = 0;
