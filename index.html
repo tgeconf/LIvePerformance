@@ -224,7 +224,7 @@
             cameraCanvas.height = videoSize;
 
             cameraPlanet = new Planet(scene, { like: 0, comment: 0 }, videoSize, { x: 0, y: 0, z: 0 });
-            cameraPlanet.createPlanet(false, [[0, 1], [0, 1]], true);
+            cameraPlanet.createPlanet(false, [[0, 1], [0, 1]]);
             cameraPlanet.planetDiv.appendChild(cameraCanvas);
             cameraPlanet.planetDiv.classList.add('camera-container')
             const coverImg = document.createElement('img');
