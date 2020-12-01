@@ -284,15 +284,17 @@
         function animate() {
             requestAnimationFrame(animate);
 
-            // if (timer % 60 === 0) {
-            //     Planet.popUpRatio = Math.random() * 0.7 + 0.3;
-            // } else {
-            //     Planet.popUpRatio = 0;
-            // }
-            // console.log(Planet.popUpRatio);
+            let like = false;
+            if (timer % 60 === 0) {
+                // Planet.popUpRatio = Math.random() * 0.7 + 0.3;
+                like = true;
+            } else {
+                // Planet.popUpRatio = 0;
+            }
+            console.log(Planet.popUpRatio);
 
             Planet.transform();
-            Planet.updateAllPlanets();
+            Planet.updateAllPlanets(like);
             Bubble.updateAllBubbles();
             Meteor.updateAll();
             TWEEN.update();

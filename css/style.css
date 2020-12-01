@@ -62,7 +62,7 @@ video, audio {
     position: absolute;
 }
 
-input{
+input {
     z-index: 99999;
 }
 
@@ -74,25 +74,27 @@ input{
     width: 120px;
     height: 120px;
     border-radius: 50%;
-    box-shadow: 0px 0px 12px rgba(0, 255, 255, 0.5);
-    border: 1px solid rgba(127, 255, 255, 0.25);
     text-align: center;
     cursor: default;
     background: url("../images/bubble_blue.png");
     background-size: 100% 100%;
-    transition: filter 3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+    transition: all 3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
 }
 
 .hot-element {
     filter: hue-rotate(160deg);
+    box-shadow: 0px 0px 12px rgba(255, 153, 0, 0.5);
+    border: 1px solid rgba(255, 185, 127, 0.25);
 }
 
 .cold-element {
     /* filter: hue-rotate(0deg); */
     filter: none;
+    box-shadow: 0px 0px 12px rgba(0, 255, 255, 0.5);
+    border: 1px solid rgba(127, 255, 255, 0.25);
 }
 
-.element:hover {
+.cold-element:hover {
     box-shadow: 0px 0px 12px rgba(0, 255, 255, 0.75);
     border: 1px solid rgba(127, 255, 255, 0.75);
 }
@@ -110,32 +112,12 @@ input{
     box-shadow: 0px 0px 12px rgba(0, 255, 255, 0.75);
 }
 
-.element .number {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 12px;
-    color: rgba(127, 255, 255, 0.75);
-}
-
-.element .symbol {
-    position: absolute;
-    top: 40px;
-    left: 0px;
-    right: 0px;
-    font-size: 60px;
-    font-weight: bold;
-    color: rgba(255, 255, 255, 0.75);
-    text-shadow: 0 0 10px rgba(0, 255, 255, 0.95);
-}
-
-.element .details {
-    position: absolute;
-    bottom: 15px;
-    left: 0px;
-    right: 0px;
-    font-size: 12px;
-    color: rgba(127, 255, 255, 0.75);
+.heart:before {
+    font-family: 'Archivo Black', sans-serif;
+    content: '\2665';
+    background: -webkit-linear-gradient(rgba(255, 0, 0, 1), rgba(255, 0, 0, 0));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .camera-container {

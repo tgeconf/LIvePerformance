@@ -20,7 +20,6 @@ class Star {
     static initAllStars() {
         const canvas = document.getElementById("starContainer");
         this.context = canvas.getContext("2d");
-        console.log(canvas, this.context);
 
         this.C_WIDTH = canvas.width = document.body.offsetWidth;
         this.C_HEIGHT = canvas.height = document.body.offsetHeight;

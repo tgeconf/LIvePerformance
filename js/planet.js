@@ -3,6 +3,9 @@ class Planet {
     static sceneRangeY = 2000;
     static sceneRangeZ = 5000;
     static ringPadding = 12;
+    static heartSpeed = 2;
+    static heartDelay = 20;
+    static heartOpacitySpeed = 0.01;
     static ringRange = [1, 5];
     static planets = [];
     static targetPosis = [];
@@ -53,8 +56,9 @@ class Planet {
         return array;
     }
 
-    static updateAllPlanets() {
-        let count = 0;
+    static updateAllPlanets(like) {
+        let count = 0, likeCount = 0;
+        const numLike = Math.floor(Math.random() * 5);
         this.planets = this.shuffle(this.planets);
         this.planets.forEach(p => {
             p.updatePosition();
@@ -71,6 +75,10 @@ class Planet {
                     p.scene);
                 tmpBubble.init();
             }
+            if (likeCount < numLike && like) {
+                p.creatingHeart = true;
+            }
+            likeCount++;
         })
     }
 
@@ -88,8 +96,14 @@ class Planet {
         this.x = initCoords.x;
         this.y = initCoords.y;
         this.z = initCoords.z;
+        this.hearts = [];
+        this.heartSpans = [];
         this.planetDiv;
         this.planetObj;
+        this.creatingHeart = false;
+        this.heartNum = 0;
+        this.heartDelay = Planet.heartDelay;
+        this.maxHeartNum = Math.floor(Math.random() * 3 + 5);
         this.xSpeed = (Math.random() * 0.5 + 0.2) * (Math.random() >= 0.5 ? 1 : -1);
         this.ySpeed = (Math.random() * 0.5 + 0.2) * (Math.random() >= 0.5 ? 1 : -1);
         this.zSpeed = (Math.random() * 0.5 + 0.2) * (Math.random() >= 0.5 ? 1 : -1);
@@ -163,5 +177,53 @@ class Planet {
         this.planetObj.position.x = this.x;
         this.planetObj.position.y = this.y;
         this.planetObj.position.z = this.z;
+        if (this.creatingHeart) {
+            if (this.heartDelay > 0) {
+                this.heartDelay--;
+            } else {
+                if (this.heartNum >= this.maxHeartNum) {
+                    this.heartNum = 0;
+                    this.creatingHeart = false;
+                } else {
+                    this.createHeart();
+                }
+            }
+        }
+
+        if (this.hearts.length > 0) {
+            const that = this;
+            const removeIdx = [];
+            this.hearts.forEach((h, i) => {
+                h.position.y += Planet.heartSpeed;
+                h.position.x += Math.random() * 2 - 1;
+                const targetOpacity = parseFloat(that.heartSpans[i].style.opacity) - Planet.heartOpacitySpeed;
+                that.heartSpans[i].style.opacity = targetOpacity;
+                if (targetOpacity <= 0) {
+                    that.scene.remove(h);
+                    removeIdx.push(i);
+                }
+            })
+            removeIdx.reverse().forEach(idx => {
+                that.heartSpans.splice(idx, 1);
+                that.hearts.splice(idx, 1);
+            })
+        }
+    }
+
+    createHeart() {
+        const heartSpan = document.createElement('span');
+        heartSpan.className = 'heart';
+        heartSpan.style.opacity = 1;
+        const fontSize = Math.random() * 3 + 2;
+        heartSpan.style.fontSize = fontSize + 'em';
+        const heartObj = new THREE.CSS3DObject(heartSpan);
+        heartObj.position.x = this.x;
+        heartObj.position.y = this.y;
+        heartObj.position.z = this.z;
+        this.heartSpans.push(heartSpan);
+        this.hearts.push(heartObj);
+        this.scene.add(heartObj);
+        this.heartNum++;
+        this.heartDelay = Planet.heartDelay;
     }
 }
