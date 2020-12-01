@@ -3,3 +3,7 @@
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
 }
+
+.main-bubble {
+    box-shadow: 0 0 30px rgba(10, 125, 232, 0.9);
+}

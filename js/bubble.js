@@ -3,7 +3,7 @@ class Bubble {
     static sceneRangeY = 2000;
     static sceneRangeZ = 5000;
     static scaleStep = 0.3;
-    static opacitySpeed = 0.004;
+    static opacitySpeed = 0.003;
     static bubbles = [];
     static bubbleLimit = 2000;
     static idCount = 0;
@@ -22,7 +22,7 @@ class Bubble {
         })
     }
 
-    constructor(x, y, z, r, color, opacity, delay, scene) {
+    constructor(x, y, z, r, color, opacity, delay, scene, main = false) {
         this.id;
         this.x = x;
         this.y = y;
@@ -31,12 +31,18 @@ class Bubble {
         this.delay = delay;
         this.opacity = opacity;
         this.scene = scene;
-        this.xSpeed = (Math.random() * 0.5 + 1) * (Math.random() >= 0.5 ? 1 : -1);
-        this.ySpeed = (Math.random() * 0.5 + 1) * (Math.random() >= 0.5 ? 1 : -1);
-        this.zSpeed = (Math.random() * 0.5 + 1) * (Math.random() >= 0.5 ? 1 : -1);
+        this.xSpeed = (Math.random() * 2 + 0.5) * (Math.random() >= 0.5 ? 1 : -1);
+        this.ySpeed = (Math.random() * 2 + 0.5) * (Math.random() >= 0.5 ? 1 : -1);
+        this.zSpeed = (Math.random() * 2 + 0.5) * (Math.random() >= 0.5 ? 1 : -1);
         this.color = color;
         this.bubbleDiv;
         this.bubbleObj;
+        this.main = main;
+        if (main) {
+            this.xSpeed *= 5;
+            this.ySpeed *= 5;
+            this.zSpeed *= 5;
+        }
     }
 
     init() {
@@ -45,11 +51,19 @@ class Bubble {
         Bubble.idCount++;
         that.bubbleDiv = document.createElement('div');
         that.bubbleDiv.className = 'bubble';
+        if (this.main) {
+            that.bubbleDiv.classList.add('main-bubble');
+        }
         that.bubbleDiv.style.width = (that.r * 2) + 'px';
         that.bubbleDiv.style.height = (that.r * 2) + 'px';
-        that.bubbleDiv.style.background = 'linear-gradient(to bottom, #fff, rgba(' + that.color.r + ',' + that.color.g + ',' + that.color.b + ', 0.1))';
+        if (this.main) {
+            that.bubbleDiv.style.background = 'linear-gradient(to bottom, rgba(' + that.color.r + ',' + that.color.g + ',' + that.color.b + ', 1), rgba(' + that.color.r + ',' + that.color.g + ',' + that.color.b + ', 0.5))';
+            that.bubbleDiv.style.boxShadow = '0px 0px 30px rgba(' + that.color.r + ',' + that.color.g + ',' + that.color.b + ', 0.9)';
+        } else {
+            that.bubbleDiv.style.background = 'linear-gradient(to bottom, #fff, rgba(' + 255 + ',' + 255 + ',' + 255 + ', 0.1))';
+            that.bubbleDiv.style.boxShadow = '0px 0px 6px rgba(' + that.color.r + ',' + that.color.g + ',' + that.color.b + ', 0.5)';
+        }
         // that.bubbleDiv.style.background = 'rgb(' + that.color.r + ',' + that.color.g + ',' + that.color.b + ')';
-        that.bubbleDiv.style.boxShadow = '0px 0px 12px rgba(' + that.color.r + ',' + that.color.g + ',' + that.color.b + ', 0.5)';
         that.bubbleDiv.style.border = '1px solid rgba(' + that.color.r + ',' + that.color.g + ',' + that.color.b + ', 0.25)';
         // that.bubbleDiv.style.opacity = 0;
         that.bubbleObj = new THREE.CSS3DObject(that.bubbleDiv);
@@ -84,7 +98,11 @@ class Bubble {
                 this.bubbleObj.scale.x += Bubble.scaleStep;
                 this.bubbleObj.scale.y += Bubble.scaleStep;
             } else {
-                this.opacity -= Bubble.opacitySpeed;
+                if (this.main) {
+                    this.opacity -= 0.001;
+                } else {
+                    this.opacity -= Bubble.opacitySpeed;
+                }
                 if (this.opacity < 0) {
                     this.opacity = 0;
                 }

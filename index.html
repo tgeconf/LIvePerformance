@@ -84,20 +84,33 @@
                     let voiceAAvg = 0;
                     let maxAAvg = 0;
                     dataArray.forEach((v, i) => {
-                        if (v >= 200) {
+                        if (v >= 220) {
                             highVoice++;
                         }
                         voiceAvg += v;
                         voiceAAvg += ((i / dataArray.length) * v);
                         maxAAvg += ((i / dataArray.length) * 255);
                     })
+
                     voiceAvg /= dataArray.length;
                     voiceAAvg /= dataArray.length;
                     maxAAvg /= dataArray.length;
                     preAllVoiceSum += voiceAAvg;
                     const preAllVoiceAvg = preAllVoiceSum / voiceCount;
                     let newVoiceRise = (voiceAAvg - preVoice) / preVoice;
-                    console.log('voice line: ', voiceAAvg, preAllVoiceAvg, maxAAvg);
+
+                    for (let i = 0; i < (voiceAvg / 255 * 6); i++) {
+                        const tmpBubble = new Bubble(
+                            cameraPlanet.x,
+                            cameraPlanet.y,
+                            cameraPlanet.z - 100,
+                            Math.random() * cameraPlanet.size / 10 + cameraPlanet.size / 30,
+                            { r: 92, g: 176, b: 255 },
+                            Math.random() * 0.6 + 0.2,
+                            Math.floor(Math.random() * 30),
+                            cameraPlanet.scene, true);
+                        tmpBubble.init();
+                    }
 
                     let r = dynamicRScale(dataArray[0], [120, dataArray[0]]);
                     if (newVoiceRise > 0.1 || (rising && (voiceAAvg - preVoice > 0 || (preVoice - voiceAAvg) / preVoice < 0.1))) {

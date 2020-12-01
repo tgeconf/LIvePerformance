@@ -145,7 +145,7 @@ input {
     position: absolute;
     left: 0;
     border-radius: 50%;
-    box-shadow: 0 0 250px rgba(255, 0, 0, 1) inset;
+    box-shadow: 0 0 250px rgba(10, 125, 232, 1) inset;
 }
 
 button {
