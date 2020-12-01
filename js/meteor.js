@@ -21,7 +21,7 @@ class Meteor {
         this.x = Math.random() * Meteor.sceneRangeX - Meteor.sceneRangeX / 2;
         this.y = Meteor.sceneRangeY / 2;
         this.z = Math.random() * Meteor.sceneRangeZ / 2 - Meteor.sceneRangeZ / 2;
-        this.len = Math.random() * 150 + 50;
+        this.len = Math.random() * 250 + 100;
         this.speed = -Math.random() * 30 - 10;
         this.star;
         this.starObj;

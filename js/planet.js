@@ -105,9 +105,9 @@ class Planet {
         this.heartNum = 0;
         this.heartDelay = Planet.heartDelay;
         this.maxHeartNum = Math.floor(Math.random() * 3 + 5);
-        this.xSpeed = (Math.random() * 0.5 + 0.2) * (Math.random() >= 0.5 ? 1 : -1);
-        this.ySpeed = (Math.random() * 0.5 + 0.2) * (Math.random() >= 0.5 ? 1 : -1);
-        this.zSpeed = (Math.random() * 0.5 + 0.2) * (Math.random() >= 0.5 ? 1 : -1);
+        this.xSpeed = (Math.random() * 3 + 1) * (Math.random() >= 0.5 ? 1 : -1);
+        this.ySpeed = (Math.random() * 3 + 1) * (Math.random() >= 0.5 ? 1 : -1);
+        this.zSpeed = (Math.random() * 3 + 1) * (Math.random() >= 0.5 ? 1 : -1);
         this.musicCanvas;
         this.musicCanvasObj;
     }
