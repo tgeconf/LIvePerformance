@@ -148,7 +148,7 @@
             function renderFrame() {
                 requestAnimationFrame(renderFrame);
                 if (video.readyState === video.HAVE_ENOUGH_DATA) {
-                    ctx.drawImage(video, 0, 0, 800, 600);
+                    ctx.drawImage(video, 0, 0, 1600, 1200);
                 }
             }
             renderFrame();
@@ -228,7 +228,7 @@
             cameraPlanet.planetDiv.appendChild(cameraCanvas);
             cameraPlanet.planetDiv.classList.add('camera-container')
             const coverImg = document.createElement('img');
-            coverImg.src = './images/bubble_blue.png';
+            coverImg.src = './images/5.png';
             cameraPlanet.planetDiv.appendChild(coverImg);
 
             // const cameraContainer = document.createElement('div');
