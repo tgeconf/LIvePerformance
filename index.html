@@ -41,6 +41,8 @@
         function testBgChange() {
             document.getElementById('coldBgColor').classList.toggle('shown');
             document.getElementById('hotBgColor').classList.toggle('shown');
+            document.getElementById('cameraColdImg').classList.toggle('shown');
+            document.getElementById('cameraHotImg').classList.toggle('shown');
             Planet.updateAllPlanetsColor();
         }
 
@@ -242,8 +244,15 @@
             cameraPlanet.planetDiv.appendChild(cameraCanvas);
             cameraPlanet.planetDiv.classList.add('camera-container')
             const coverImg = document.createElement('img');
+            coverImg.id = 'cameraColdImg';
+            coverImg.className = 'cold-img shown';
             coverImg.src = './images/5.png';
             cameraPlanet.planetDiv.appendChild(coverImg);
+            const coverImg2 = document.createElement('img');
+            coverImg2.id = 'cameraHotImg';
+            coverImg2.className = 'hot-img';
+            coverImg2.src = './images/3.png';
+            cameraPlanet.planetDiv.appendChild(coverImg2);
 
             // const cameraContainer = document.createElement('div');
             // cameraContainer.className = 'camera-container';

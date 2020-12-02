@@ -88,7 +88,8 @@ input {
 }
 
 .hot-element {
-    filter: hue-rotate(160deg);
+    background: url("../images/3.png");
+    background-size: 100%;
     box-shadow: 0px 0px 12px rgba(255, 153, 0, 0.5);
     border: 1px solid rgba(255, 185, 127, 0.25);
 }
@@ -147,11 +148,18 @@ input {
 .camera-container img {
     width: 100%;
     height: 100%;
-    /* opacity: 0.5; */
+    opacity: 0;
     position: absolute;
     left: 0;
     border-radius: 50%;
+}
+
+.camera-container .cold-img {
     box-shadow: 0 0 250px rgba(10, 125, 232, 1) inset;
+}
+
+.camera-container .hot-img {
+    box-shadow: 0 0 250px rgba(255, 153, 0, 1) inset;
 }
 
 button {
