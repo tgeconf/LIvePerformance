@@ -48,6 +48,14 @@
             document.getElementById('cameraColdImg').classList.toggle('shown');
             document.getElementById('cameraHotImg').classList.toggle('shown');
             Planet.updateAllPlanetsColor();
+            switch (environment) {
+                case 'cold':
+                    environment = 'hot';
+                    break;
+                case 'hot':
+                    environment = 'cold';
+                    break;
+            }
         }
 
 

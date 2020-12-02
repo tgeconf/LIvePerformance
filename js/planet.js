@@ -428,6 +428,9 @@ class Planet {
         this.tmpTargetY = Math.random() * Planet.sceneRangeY / 2 - Planet.sceneRangeY / 4;
         this.tmpTargetZ = 0;
 
+        this._xSpeed = this.xSpeed;
+        this._ySpeed = this.ySpeed;
+        this._zSpeed = this.zSpeed;
         this.xSpeed = (this.tmpTargetX - this.x) / 30;
         this.ySpeed = (this.tmpTargetY - this.y) / 30;
         this.zSpeed = (this.tmpTargetZ - this.z) / 30;
@@ -444,18 +447,33 @@ class Planet {
     }
 
     handleClick() {
-        console.log(this);
         globalVar.movingCamera = true;
-        this.main = true;
-        this.planetDiv.style.width = this.size * 3 + 'px';
-        this.planetDiv.style.height = this.size * 3 + 'px';
-        this.transformMain();
+        if (!this.main) {
+            this.main = true;
+            this.planetDiv.style.width = this.size * 3 + 'px';
+            this.planetDiv.style.height = this.size * 3 + 'px';
+            this.transformMain();
 
-        const bgIdx = Math.floor(Math.random() * 2 + 1);
-        if (this.planetDiv.classList.contains('hot-element')) {
-            this.planetDiv.classList.add('hot-gif-bg' + bgIdx);
-        } else if (this.planetDiv.classList.contains('cold-element')) {
-            this.planetDiv.classList.add('cold-gif-bg' + bgIdx);
+            const bgIdx = Math.floor(Math.random() * 2 + 1);
+            if (this.planetDiv.classList.contains('hot-element')) {
+                this.planetDiv.classList.add('hot-gif-bg' + bgIdx);
+            } else if (this.planetDiv.classList.contains('cold-element')) {
+                this.planetDiv.classList.add('cold-gif-bg' + bgIdx);
+            }
+        } else {
+            this.main = false;
+            this.planetDiv.style.width = this.size + 'px';
+            this.planetDiv.style.height = this.size + 'px';
+            // this.transformMain();
+            this.xSpeed = this._xSpeed;
+            this.ySpeed = this._ySpeed;
+            this.zSpeed = this._zSpeed;
+
+            if (this.planetDiv.classList.contains('hot-element')) {
+                this.planetDiv.className = 'element hot-element';
+            } else if (this.planetDiv.classList.contains('cold-element')) {
+                this.planetDiv.className = 'element cold-element';
+            }
         }
 
     }
