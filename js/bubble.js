@@ -3,7 +3,7 @@ class Bubble {
     static sceneRangeY = 3000;
     static sceneRangeZ = 2500;
     static scaleStep = 0.3;
-    static opacitySpeed = 0.003;
+    static opacitySpeed = 0.004;
     static bubbles = [];
     static bubbleLimit = 2000;
     static idCount = 0;
