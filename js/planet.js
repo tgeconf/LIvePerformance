@@ -116,6 +116,9 @@ class Planet {
         this.xSpeed = (Math.random() * 3 + 1) * (Math.random() >= 0.5 ? 1 : -1);
         this.ySpeed = (Math.random() * 3 + 1) * (Math.random() >= 0.5 ? 1 : -1);
         this.zSpeed = (Math.random() * 3 + 1) * (Math.random() >= 0.5 ? 1 : -1);
+        this.tmpTargetX = 10000000;
+        this.tmpTargetY = 10000000;
+        this.tmpTargetZ = 10000000;
         // this.xSpeed = 20;
         // this.ySpeed = 20;
         // this.zSpeed = 0;
@@ -276,6 +279,10 @@ class Planet {
         this.planetDiv.style.width = this.size + 'px';
         this.planetDiv.style.height = this.size + 'px';
         this.planetDiv.style.opacity = 0;
+        const that = this;
+        this.planetDiv.onclick = () => {
+            that.handleClick();
+        }
 
         const [likeRing, likeBorder] = this.createRing(this.data.like, 'like-ring', domains[0], 0);
         const [commentRing, commentBorder] = this.createRing(this.data.comment, 'comment-ring', domains[1], likeBorder * 2);
@@ -343,46 +350,29 @@ class Planet {
 
         this.updateScale();
 
-        // const targetX = this.planetObj.position.x;
-        // const targetY = this.planetObj.position.y;
-        // for (let i = 0; i < Planet.limitArea.length; i++) {
-        //     const la = Planet.limitArea[i];
-        //     if (targetX < la.center.x + la.r && targetX > la.center.x - la.r && targetY < la.center.y + la.r && targetY > la.center.y - la.r) {
-        //         if (targetX < la.center.x + la.r && targetX > la.center.x - la.r) {
-        //             this.xSpeed *= -1;
-        //             console.log('test2');
-        //         }
-        //         if (targetY < la.center.y + la.r && targetY > la.center.y - la.r) {
-        //             this.ySpeed *= -1;
-        //         }
-        //         break;
-        //     }
-        //     // const dis = Math.sqrt((targetX - la.center.x) * (targetX - la.center.x) + (targetY - la.center.y) * (targetY - la.center.y));
-        //     // const diff = la.r + 10 - dis;
-        //     // if (diff >= 0) {
-        //     //     if (targetX > la.center.x) {
-        //     //         this.xSpeed = Math.abs(this.xSpeed);
-        //     //     } else {
-        //     //         this.xSpeed = -Math.abs(this.xSpeed);
-        //     //     }
-        //     //     if (targetY > la.center.y) {
-        //     //         this.ySpeed = Math.abs(this.ySpeed);
-        //     //     } else {
-        //     //         this.ySpeed = -Math.abs(this.ySpeed);
-        //     //     }
-        //     //     // this.xSpeed *= -1;
-        //     //     // this.ySpeed *= -1;
-        //     //     console.log('clision', dis, la.r, this.data);
-        //     //     break;
-        //     // }
-        // }
-
         this.x += this.xSpeed;
         this.y += this.ySpeed;
         this.z += this.zSpeed;
+        if (Math.abs(this.tmpTargetX - this.x) < Math.abs(this.xSpeed)) {
+            this.x = this.tmpTargetX;
+            this.tmpTargetX = 1000000000;
+            this.xSpeed = 0;
+        }
+        if (Math.abs(this.tmpTargetY - this.y) < Math.abs(this.ySpeed)) {
+            this.y = this.tmpTargetY;
+            this.tmpTargetY = 1000000000;
+            this.ySpeed = 0;
+        }
+        if (Math.abs(this.tmpTargetZ - this.z) < Math.abs(this.zSpeed)) {
+            this.z = this.tmpTargetZ;
+            this.tmpTargetZ = 1000000000;
+            this.zSpeed = 0;
+        }
+
         this.planetObj.position.x = this.x;
         this.planetObj.position.y = this.y;
         this.planetObj.position.z = this.z;
+
         if (this.creatingHeart) {
             if (this.heartDelay > 0) {
                 this.heartDelay--;
@@ -431,5 +421,34 @@ class Planet {
         this.scene.add(heartObj);
         this.heartNum++;
         this.heartDelay = Planet.heartDelay;
+    }
+
+    transformMain() {
+        this.tmpTargetX = Math.random() * Planet.sceneRangeX / 4;
+        this.tmpTargetY = Math.random() * Planet.sceneRangeY / 2 - Planet.sceneRangeY / 4;
+        this.tmpTargetZ = 0;
+
+        this.xSpeed = (this.tmpTargetX - this.x) / 30;
+        this.ySpeed = (this.tmpTargetY - this.y) / 30;
+        this.zSpeed = (this.tmpTargetZ - this.z) / 30;
+        // TWEEN.removeAll();
+        // new TWEEN.Tween(this.planetObj.position)
+        //     .to({ x: randX, y: randY, z: 0 }, 3000)
+        //     .easing(TWEEN.Easing.Linear.None)
+        //     .start();
+
+        // new TWEEN.Tween(this)
+        //     .to({}, 10 * 2)
+        //     .onUpdate(render)
+        //     .start();
+    }
+
+    handleClick() {
+        console.log(this);
+        globalVar.movingCamera = true;
+        this.main = true;
+        this.planetDiv.style.width = this.size * 3 + 'px';
+        this.planetDiv.style.height = this.size * 3 + 'px';
+        this.transformMain();
     }
 }

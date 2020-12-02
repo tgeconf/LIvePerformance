@@ -1,3 +1,4 @@
+let globalVar = {};
 const randAudiance = [
     { "name": "user0", "like": 21, "comment": 20 },
     { "name": "user1", "like": 19, "comment": 7 },

@@ -224,6 +224,19 @@
             }
         }
 
+        Object.defineProperty(globalVar, 'movingCamera', {
+            get: function () {
+                return movingCamera;
+            },
+            set: function (newValue) {
+                movingCamera = newValue;
+                console.log('set :', newValue);
+                if (newValue) {
+                    cameraPlanet.planetObj.position.x = -1000;
+                }
+            }
+        })
+
         function init() {
             camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 10000);
             camera.position.z = 3000;
