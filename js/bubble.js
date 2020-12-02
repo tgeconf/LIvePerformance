@@ -56,15 +56,23 @@ class Bubble {
         }
         that.bubbleDiv.style.width = (that.r * 2) + 'px';
         that.bubbleDiv.style.height = (that.r * 2) + 'px';
+
+        let targetColor = { r: 255, g: 255, b: 255 };
+        if (environment === 'cold') {
+            targetColor = { r: 92, g: 176, b: 255 };
+        } else if (environment === 'hot') {
+            targetColor = { r: 255, g: 153, b: 0 };
+        }
+
         if (this.main) {
-            that.bubbleDiv.style.background = 'linear-gradient(to bottom, rgba(' + that.color.r + ',' + that.color.g + ',' + that.color.b + ', 1), rgba(' + that.color.r + ',' + that.color.g + ',' + that.color.b + ', 0.5))';
-            that.bubbleDiv.style.boxShadow = '0px 0px 30px rgba(' + that.color.r + ',' + that.color.g + ',' + that.color.b + ', 0.9)';
+            that.bubbleDiv.style.background = 'linear-gradient(to bottom, rgba(' + targetColor.r + ',' + targetColor.g + ',' + targetColor.b + ', 1), rgba(' + targetColor.r + ',' + targetColor.g + ',' + targetColor.b + ', 0.5))';
+            that.bubbleDiv.style.boxShadow = '0px 0px 30px rgba(' + targetColor.r + ',' + targetColor.g + ',' + targetColor.b + ', 0.9)';
         } else {
-            that.bubbleDiv.style.background = 'linear-gradient(to bottom, #fff, rgba(' + 255 + ',' + 255 + ',' + 255 + ', 0.1))';
-            that.bubbleDiv.style.boxShadow = '0px 0px 6px rgba(' + that.color.r + ',' + that.color.g + ',' + that.color.b + ', 0.5)';
+            that.bubbleDiv.style.background = 'linear-gradient(to bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.1))';
+            that.bubbleDiv.style.boxShadow = '0px 0px 6px rgba(' + targetColor.r + ',' + targetColor.g + ',' + targetColor.b + ', 0.5)';
         }
         // that.bubbleDiv.style.background = 'rgb(' + that.color.r + ',' + that.color.g + ',' + that.color.b + ')';
-        that.bubbleDiv.style.border = '1px solid rgba(' + that.color.r + ',' + that.color.g + ',' + that.color.b + ', 0.25)';
+        that.bubbleDiv.style.border = '1px solid rgba(' + targetColor.r + ',' + targetColor.g + ',' + targetColor.b + ', 0.25)';
         // that.bubbleDiv.style.opacity = 0;
         that.bubbleObj = new THREE.CSS3DObject(that.bubbleDiv);
         that.bubbleObj.position.x = that.x;
