@@ -107,8 +107,8 @@ class Planet {
         this.heartSpans = [];
         this.planetDiv;
         this.planetObj;
-        // this.delay = main ? 0 : Math.floor(Math.random() * 300 + 10);
-        this.delay = 0;
+        this.delay = main ? 0 : Math.floor(Math.random() * 300 + 10);
+        // this.delay = 0;
         this.creatingHeart = false;
         this.heartNum = 0;
         this.heartDelay = Planet.heartDelay;
