@@ -19,6 +19,10 @@ body {
     opacity: 0;
 }
 
+.black-bg-color {
+    background-image: linear-gradient(to bottom, #000000, #11000a, #170317, #150824, #011032);
+}
+
 .cold-bg-color {
     background-image: linear-gradient(to bottom, #000000, #321e2b, #543a60, #5f5fa2, #2b8de7);
 }
@@ -28,7 +32,7 @@ body {
 }
 
 .shown {
-    opacity: 1;
+    opacity: 1 ! important;
 }
 
 a {
@@ -60,6 +64,8 @@ video, audio {
 
 .star-container, input {
     position: absolute;
+    opacity: 0;
+    transition: opacity 3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
 }
 
 input {

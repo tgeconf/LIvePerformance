@@ -19,16 +19,24 @@
     <script src='js/planet.js'></script>
     <script src='js/bubble.js'></script>
     <script src='js/meteor.js'></script>
-    <div id='coldBgColor' class='bg-color cold-bg-color shown'></div>
+    <div id='blackBgColor' class='bg-color black-bg-color shown'></div>
+    <div id='coldBgColor' class='bg-color cold-bg-color'></div>
     <div id='hotBgColor' class='bg-color hot-bg-color'></div>
     <canvas id="starContainer" class='star-container'></canvas>
     <video id="video" autoplay="true"></video>
     <input type="file" id="thefile" accept="audio/*" />
-    <button style="top: 0px; left: 100px;" onclick="testBgChange()">test</button>
-    <button style="top: 0px; left: 200px;" onclick="randMeteors()">meteors</button>
+    <button style="top: 0px; left: 100px;" onclick="initBgColor()">load bgColor</button>
+    <button style="top: 0px; left: 200px;" onclick="testBgChange()">toggle bgColor</button>
+    <button style="top: 0px; left: 310px;" onclick="generateAudiance()">audiance</button>
+    <button style="top: 0px; left: 400px;" onclick="randMeteors()">meteors</button>
     <audio id="audio" src='./media/testMusic.mp3' autoplay controls></audio>
     <div id="container"></div>
     <script>
+        function initBgColor() {
+            document.getElementById('blackBgColor').classList.toggle('shown');
+            document.getElementById('coldBgColor').classList.toggle('shown');
+            document.getElementById('starContainer').classList.toggle('shown');
+        }
 
         function testBgChange() {
             document.getElementById('coldBgColor').classList.toggle('shown');
@@ -191,20 +199,7 @@
         loadCameraOnHidden(cameraCanvas);
         // loadAudio();
 
-        function init() {
-            camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 10000);
-            camera.position.z = 3000;
-
-            scene = new THREE.Scene();
-
-            // for (let i = 0; i < 300; i++) {
-            //     let obj = {};
-            //     obj.name = 'user' + i;
-            //     obj.like = Math.ceil(Math.random() * 40 + 10);
-            //     obj.comment = Math.ceil(Math.random() * 15 + 5);
-            //     console.log(JSON.stringify(obj));
-            // }
-
+        function generateAudiance() {
             //calculate like border scale
             let minLike = 1000000, maxLike = 0, minComment = 1000000, maxComment = 0;
             randAudiance.forEach(item => {
@@ -224,9 +219,15 @@
                 const z = Math.random() * 5000 - 2500;
                 const tmpPlanet = new Planet(scene, randAudiance[i], size, { x: x, y: y, z: z });
                 tmpPlanet.createPlanet(true, [likeDomain, commentDomain]);
-                // createPlanet(randAudiance[i], size, objects, true, true);
             }
-            // Planet.generateTargetPosi();
+        }
+
+        function init() {
+            camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 10000);
+            camera.position.z = 3000;
+
+            scene = new THREE.Scene();
+
 
 
             //init video container
@@ -236,7 +237,7 @@
             cameraCanvas.width = videoSize;
             cameraCanvas.height = videoSize;
 
-            cameraPlanet = new Planet(scene, { like: 0, comment: 0 }, videoSize, { x: 0, y: 0, z: 0 });
+            cameraPlanet = new Planet(scene, { like: 0, comment: 0 }, videoSize, { x: 0, y: 0, z: 0 }, true);
             cameraPlanet.createPlanet(false, [[0, 1], [0, 1]]);
             cameraPlanet.planetDiv.appendChild(cameraCanvas);
             cameraPlanet.planetDiv.classList.add('camera-container')
@@ -305,7 +306,6 @@
 
 
         function animate() {
-            requestAnimationFrame(animate);
 
             let like = false;
             if (timer % 60 === 0) {
@@ -314,8 +314,7 @@
             } else {
                 // Planet.popUpRatio = 0;
             }
-            console.log(Planet.popUpRatio);
-
+            cameraPlanet.updateScale();
             Planet.transform();
             Planet.updateAllPlanets(like);
             Bubble.updateAllBubbles();
@@ -323,6 +322,7 @@
             TWEEN.update();
             controls.update();
             timer++;
+            requestAnimationFrame(animate);
         }
 
         function render() {

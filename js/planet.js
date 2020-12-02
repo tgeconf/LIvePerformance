@@ -3,6 +3,7 @@ class Planet {
     static sceneRangeY = 2000;
     static sceneRangeZ = 5000;
     static ringPadding = 12;
+    static scaleStepNum = 10;
     static heartSpeed = 2;
     static heartDelay = 20;
     static heartOpacitySpeed = 0.01;
@@ -90,7 +91,7 @@ class Planet {
         })
     }
 
-    constructor(scene, data, size, initCoords) {
+    constructor(scene, data, size, initCoords, main = false) {
         this.scene = scene;
         this.data = data;
         this.size = size;
@@ -101,6 +102,7 @@ class Planet {
         this.heartSpans = [];
         this.planetDiv;
         this.planetObj;
+        this.delay = main ? 0 : Math.floor(Math.random() * 300 + 10);
         this.creatingHeart = false;
         this.heartNum = 0;
         this.heartDelay = Planet.heartDelay;
@@ -108,8 +110,11 @@ class Planet {
         this.xSpeed = (Math.random() * 0.5 + 0.2) * (Math.random() >= 0.5 ? 1 : -1);
         this.ySpeed = (Math.random() * 0.5 + 0.2) * (Math.random() >= 0.5 ? 1 : -1);
         this.zSpeed = (Math.random() * 0.5 + 0.2) * (Math.random() >= 0.5 ? 1 : -1);
+        this.opacitySpeed = 0.06;
+        this.opacity = 0;
         this.musicCanvas;
         this.musicCanvasObj;
+        this.main = main;
     }
 
     createRing(dataVal, className, domain, extraPadding) {
@@ -261,6 +266,7 @@ class Planet {
         this.planetDiv.className = 'element cold-element';
         this.planetDiv.style.width = this.size + 'px';
         this.planetDiv.style.height = this.size + 'px';
+        this.planetDiv.style.opacity = 0;
 
         const [likeRing, likeBorder] = this.createRing(this.data.like, 'like-ring', domains[0], 0);
         const [commentRing, commentBorder] = this.createRing(this.data.comment, 'comment-ring', domains[1], likeBorder * 2);
@@ -289,6 +295,32 @@ class Planet {
         }
     }
 
+    updateScale() {
+        if (this.delay > 0) {
+            this.delay--;
+        } else {
+            // if (this.scaleStepNum < Planet.scaleStepNum) {
+            //     console.log('update', this, this.planetObj.scale.x);
+            //     // const x = this.scaleStepNum / Planet.scaleStepNum;
+            //     // let scaleVal = 1 - Math.pow(1 - x, 3);
+            //     this.planetObj.scale.x += 0.1;
+            //     this.planetObj.scale.y += 0.1;
+            //     this.scaleStepNum++;
+            // }
+            this.opacity += this.opacitySpeed;
+            this.planetDiv.style.opacity = this.opacity;
+        }
+
+
+        // if (this.planetObj.scale.x + this.scaleSpeed > 1) {
+        //     this.planetObj.scale.x = 1;
+        //     this.planetObj.scale.y = 1;
+        // } else {
+        //     this.planetObj.scale.x += this.scaleSpeed;
+        //     this.planetObj.scale.y += this.scaleSpeed;
+        // }
+    }
+
     updatePosition() {
         if (Math.abs(this.planetObj.position.x) > Planet.sceneRangeX / 2) {
             this.xSpeed *= -1;
@@ -299,6 +331,9 @@ class Planet {
         if (Math.abs(this.planetObj.position.z) > Planet.sceneRangeZ / 2) {
             this.zSpeed *= -1;
         }
+
+        this.updateScale();
+
         this.x += this.xSpeed;
         this.y += this.ySpeed;
         this.z += this.zSpeed;
