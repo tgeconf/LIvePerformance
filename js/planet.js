@@ -450,6 +450,13 @@ class Planet {
         this.planetDiv.style.width = this.size * 3 + 'px';
         this.planetDiv.style.height = this.size * 3 + 'px';
         this.transformMain();
-        this.planetDiv.classList.add('test-double');
+
+        const bgIdx = Math.floor(Math.random() * 2 + 1);
+        if (this.planetDiv.classList.contains('hot-element')) {
+            this.planetDiv.classList.add('hot-gif-bg' + bgIdx);
+        } else if (this.planetDiv.classList.contains('cold-element')) {
+            this.planetDiv.classList.add('cold-gif-bg' + bgIdx);
+        }
+
     }
 }
