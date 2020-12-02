@@ -32,7 +32,9 @@
     <button style="top: 0px; left: 100px;" onclick="initBgColor()">load bgColor</button>
     <button style="top: 0px; left: 200px;" onclick="testBgChange()">toggle bgColor</button>
     <button style="top: 0px; left: 310px;" onclick="generateAudiance()">audiance</button>
-    <button style="top: 0px; left: 400px;" onclick="randMeteors()">meteors</button>
+    <button style="top: 0px; left: 387px;" onclick="randMeteors()">meteors</button>
+    <button style="top: 0px; left: 458px;" onclick="doLike()">like</button>
+    <button style="top: 0px; left: 502px;" onclick="hideAudiance()">hide</button>
     <audio id="audio" src='./media/testMusic.mp3' autoplay controls></audio>
     <div id="container"></div>
     <script>
@@ -58,6 +60,22 @@
             }
         }
 
+        function doLike() {
+            const tmpPlanets = Planet.shuffle(Planet.planets);
+            for (let i = 0; i < 10; i++) {
+                tmpPlanets[i].createHeart();
+            }
+        }
+
+        function hideAudiance() {
+            Planet.planets.forEach(p => {
+                if (!p.main) {
+                    console.log(p.planetDiv);
+                    p.planetDiv.style.opacity = 0;
+                    p.hide = true;
+                }
+            })
+        }
 
         let likeDomain = [], commentDomain = [], ringRange = [1, 5], cameraPlanet, scene;
 
@@ -262,7 +280,7 @@
             cameraCanvas.width = videoSize;
             cameraCanvas.height = videoSize;
 
-            cameraPlanet = new Planet(scene, { like: 0, comment: 0 }, videoSize, { x: 0, y: 0, z: 0 }, true);
+            cameraPlanet = new Planet(scene, { like: 0, comment: 0 }, videoSize, { x: 0, y: 0, z: 10 }, true);
             cameraPlanet.createPlanet(false, [[0, 1], [0, 1]]);
             Planet.limitArea.push({ center: { x: 0, y: 0, z: 0 }, r: videoSize / 2 });
             cameraPlanet.planetDiv.appendChild(cameraCanvas);

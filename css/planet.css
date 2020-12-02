@@ -61,6 +61,7 @@
 }
 
 .heart:before {
+    font-size: 3em;
     font-family: 'Archivo Black', sans-serif;
     content: '\2665';
     background: -webkit-linear-gradient(rgba(255, 0, 0, 1), rgba(255, 0, 0, 0));

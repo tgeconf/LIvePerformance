@@ -66,7 +66,7 @@ class Planet {
         this.planets.forEach(p => {
             p.updatePosition();
             count++;
-            if (count <= Planet.planets.length * Planet.popUpRatio) {
+            if (count <= Planet.planets.length * Planet.popUpRatio && !p.hide) {
                 const tmpBubble = new Bubble(
                     p.x,
                     p.y,
@@ -127,6 +127,7 @@ class Planet {
         this.musicCanvas;
         this.musicCanvasObj;
         this.main = main;
+        this.hide = false;
     }
 
     createRing(dataVal, className, domain, extraPadding) {
@@ -323,8 +324,10 @@ class Planet {
             //     this.planetObj.scale.y += 0.1;
             //     this.scaleStepNum++;
             // }
-            this.opacity += this.opacitySpeed;
-            this.planetDiv.style.opacity = this.opacity;
+            if (!this.hide && this.opacity < 1) {
+                this.opacity += this.opacitySpeed;
+                this.planetDiv.style.opacity = this.opacity;
+            }
         }
 
 
@@ -426,7 +429,7 @@ class Planet {
     transformMain() {
         this.tmpTargetX = Math.random() * Planet.sceneRangeX / 4;
         this.tmpTargetY = Math.random() * Planet.sceneRangeY / 2 - Planet.sceneRangeY / 4;
-        this.tmpTargetZ = 0;
+        this.tmpTargetZ = 10;
 
         this._xSpeed = this.xSpeed;
         this._ySpeed = this.ySpeed;
