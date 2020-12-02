@@ -1,7 +1,7 @@
 class Bubble {
-    static sceneRangeX = 2000;
-    static sceneRangeY = 2000;
-    static sceneRangeZ = 5000;
+    static sceneRangeX = 4000;
+    static sceneRangeY = 3000;
+    static sceneRangeZ = 2500;
     static scaleStep = 0.3;
     static opacitySpeed = 0.003;
     static bubbles = [];
@@ -31,9 +31,9 @@ class Bubble {
         this.delay = delay;
         this.opacity = opacity;
         this.scene = scene;
-        this.xSpeed = (Math.random() * 2 + 0.5) * (Math.random() >= 0.5 ? 1 : -1);
-        this.ySpeed = (Math.random() * 2 + 0.5) * (Math.random() >= 0.5 ? 1 : -1);
-        this.zSpeed = (Math.random() * 2 + 0.5) * (Math.random() >= 0.5 ? 1 : -1);
+        this.xSpeed = (Math.random() * 4 + 0.5) * (Math.random() >= 0.5 ? 1 : -1);
+        this.ySpeed = (Math.random() * 4 + 0.5) * (Math.random() >= 0.5 ? 1 : -1);
+        this.zSpeed = (Math.random() * 4 + 0.5) * (Math.random() >= 0.5 ? 1 : -1);
         this.color = color;
         this.bubbleDiv;
         this.bubbleObj;
@@ -87,7 +87,7 @@ class Bubble {
             if (Math.abs(this.bubbleObj.position.y) > Bubble.sceneRangeY / 2) {
                 this.ySpeed *= -1;
             }
-            if (Math.abs(this.bubbleObj.position.z) > Bubble.sceneRangeZ / 2) {
+            if (this.bubbleObj.position.z > -1 || this.bubbleObj.position.z < -Bubble.sceneRangeZ) {
                 this.zSpeed *= -1;
             }
             this.bubbleObj.position.x += this.xSpeed;

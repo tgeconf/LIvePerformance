@@ -215,10 +215,10 @@
             commentDomain = [minComment, maxComment];
             // randAudiance
             for (var i = 0; i < randAudiance.length; i++) {
-                const size = Math.random() * 100 + 80;
-                const x = Math.random() * 2000 - 1000;
-                const y = Math.random() * 2000 - 1000;
-                const z = Math.random() * 5000 - 2500;
+                const size = Math.random() * 200 + 80;
+                let x = Math.random() * Planet.sceneRangeX - Planet.sceneRangeX / 2;
+                let y = Math.random() * Planet.sceneRangeY - Planet.sceneRangeY / 2;
+                const z = -Math.random() * 2500 - 1;
                 const tmpPlanet = new Planet(scene, randAudiance[i], size, { x: x, y: y, z: z });
                 tmpPlanet.createPlanet(true, [likeDomain, commentDomain]);
             }
@@ -230,8 +230,6 @@
 
             scene = new THREE.Scene();
 
-
-
             //init video container
             const videoSize = 1000;
             const cameraCanvas = document.createElement('canvas');
@@ -241,6 +239,7 @@
 
             cameraPlanet = new Planet(scene, { like: 0, comment: 0 }, videoSize, { x: 0, y: 0, z: 0 }, true);
             cameraPlanet.createPlanet(false, [[0, 1], [0, 1]]);
+            Planet.limitArea.push({ center: { x: 0, y: 0, z: 0 }, r: videoSize / 2 });
             cameraPlanet.planetDiv.appendChild(cameraCanvas);
             cameraPlanet.planetDiv.classList.add('camera-container')
             const coverImg = document.createElement('img');

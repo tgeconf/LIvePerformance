@@ -1,7 +1,7 @@
 class Planet {
-    static sceneRangeX = 2000;
-    static sceneRangeY = 2000;
-    static sceneRangeZ = 5000;
+    static sceneRangeX = 4000;
+    static sceneRangeY = 3000;
+    static sceneRangeZ = 2500;
     static ringPadding = 12;
     static scaleStepNum = 10;
     static heartSpeed = 2;
@@ -12,6 +12,7 @@ class Planet {
     static targetPosis = [];
     static popUpRatio = 0;
     static musicHzNum = 128;
+    static limitArea = [];
     static scaleRing(val, domain) {
         return Planet.ringRange[0] + ((val - domain[0]) / (domain[1] - domain[0])) * (Planet.ringRange[1] - Planet.ringRange[0]);
     }
@@ -95,14 +96,19 @@ class Planet {
         this.scene = scene;
         this.data = data;
         this.size = size;
+        // this.x = initCoords.x;
+        // this.y = initCoords.y;
         this.x = initCoords.x;
         this.y = initCoords.y;
         this.z = initCoords.z;
+
+        // this.z = initCoords.z;
         this.hearts = [];
         this.heartSpans = [];
         this.planetDiv;
         this.planetObj;
-        this.delay = main ? 0 : Math.floor(Math.random() * 300 + 10);
+        // this.delay = main ? 0 : Math.floor(Math.random() * 300 + 10);
+        this.delay = 0;
         this.creatingHeart = false;
         this.heartNum = 0;
         this.heartDelay = Planet.heartDelay;
@@ -110,6 +116,9 @@ class Planet {
         this.xSpeed = (Math.random() * 3 + 1) * (Math.random() >= 0.5 ? 1 : -1);
         this.ySpeed = (Math.random() * 3 + 1) * (Math.random() >= 0.5 ? 1 : -1);
         this.zSpeed = (Math.random() * 3 + 1) * (Math.random() >= 0.5 ? 1 : -1);
+        // this.xSpeed = 20;
+        // this.ySpeed = 20;
+        // this.zSpeed = 0;
         this.opacitySpeed = 0.06;
         this.opacity = 0;
         this.musicCanvas;
@@ -322,17 +331,51 @@ class Planet {
     }
 
     updatePosition() {
-        if (Math.abs(this.planetObj.position.x) > Planet.sceneRangeX / 2) {
+        if (this.planetObj.position.x > Planet.sceneRangeX || this.planetObj.position.x < -Planet.sceneRangeX) {
             this.xSpeed *= -1;
         }
-        if (Math.abs(this.planetObj.position.y) > Planet.sceneRangeY / 2) {
+        if (this.planetObj.position.y > Planet.sceneRangeY || this.planetObj.position.y < -Planet.sceneRangeY) {
             this.ySpeed *= -1;
         }
-        if (Math.abs(this.planetObj.position.z) > Planet.sceneRangeZ / 2) {
+        if (this.planetObj.position.z > -1 || this.planetObj.position.z < -Planet.sceneRangeZ) {
             this.zSpeed *= -1;
         }
 
         this.updateScale();
+
+        // const targetX = this.planetObj.position.x;
+        // const targetY = this.planetObj.position.y;
+        // for (let i = 0; i < Planet.limitArea.length; i++) {
+        //     const la = Planet.limitArea[i];
+        //     if (targetX < la.center.x + la.r && targetX > la.center.x - la.r && targetY < la.center.y + la.r && targetY > la.center.y - la.r) {
+        //         if (targetX < la.center.x + la.r && targetX > la.center.x - la.r) {
+        //             this.xSpeed *= -1;
+        //             console.log('test2');
+        //         }
+        //         if (targetY < la.center.y + la.r && targetY > la.center.y - la.r) {
+        //             this.ySpeed *= -1;
+        //         }
+        //         break;
+        //     }
+        //     // const dis = Math.sqrt((targetX - la.center.x) * (targetX - la.center.x) + (targetY - la.center.y) * (targetY - la.center.y));
+        //     // const diff = la.r + 10 - dis;
+        //     // if (diff >= 0) {
+        //     //     if (targetX > la.center.x) {
+        //     //         this.xSpeed = Math.abs(this.xSpeed);
+        //     //     } else {
+        //     //         this.xSpeed = -Math.abs(this.xSpeed);
+        //     //     }
+        //     //     if (targetY > la.center.y) {
+        //     //         this.ySpeed = Math.abs(this.ySpeed);
+        //     //     } else {
+        //     //         this.ySpeed = -Math.abs(this.ySpeed);
+        //     //     }
+        //     //     // this.xSpeed *= -1;
+        //     //     // this.ySpeed *= -1;
+        //     //     console.log('clision', dis, la.r, this.data);
+        //     //     break;
+        //     // }
+        // }
 
         this.x += this.xSpeed;
         this.y += this.ySpeed;
