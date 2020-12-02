@@ -22,12 +22,13 @@ class Bubble {
         })
     }
 
-    constructor(x, y, z, r, color, opacity, delay, scene, main = false) {
+    constructor(x, y, z, r, color, opacity, delay, scene, level, main = false) {
         this.id;
         this.x = x;
         this.y = y;
         this.z = z;
         this.r = r;
+        this.level = level;
         this.delay = delay;
         this.opacity = opacity;
         this.scene = scene;
@@ -65,8 +66,14 @@ class Bubble {
         }
 
         if (this.main) {
-            that.bubbleDiv.style.background = 'linear-gradient(to bottom, rgba(' + targetColor.r + ',' + targetColor.g + ',' + targetColor.b + ', 1), rgba(' + targetColor.r + ',' + targetColor.g + ',' + targetColor.b + ', 0.5))';
-            that.bubbleDiv.style.boxShadow = '0px 0px 30px rgba(' + targetColor.r + ',' + targetColor.g + ',' + targetColor.b + ', 0.9)';
+            if (this.level === 0) {
+                that.bubbleDiv.style.background = 'linear-gradient(to bottom, rgba(' + targetColor.r + ',' + targetColor.g + ',' + targetColor.b + ', 1), rgba(' + targetColor.r + ',' + targetColor.g + ',' + targetColor.b + ', 0.5))';
+                that.bubbleDiv.style.boxShadow = '0px 0px 30px rgba(' + targetColor.r + ',' + targetColor.g + ',' + targetColor.b + ', 0.9)';
+            } else {
+                targetColor = { r: 192, g: 92, b: 255 };
+                that.bubbleDiv.style.background = 'linear-gradient(to bottom, rgba(' + targetColor.r + ',' + targetColor.g + ',' + targetColor.b + ', 1), rgba(' + targetColor.r + ',' + targetColor.g + ',' + targetColor.b + ', 0.5))';
+                that.bubbleDiv.style.boxShadow = '0px 0px 30px rgba(' + targetColor.r + ',' + targetColor.g + ',' + targetColor.b + ', 0.9)';
+            }
         } else {
             that.bubbleDiv.style.background = 'linear-gradient(to bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.1))';
             that.bubbleDiv.style.boxShadow = '0px 0px 6px rgba(' + targetColor.r + ',' + targetColor.g + ',' + targetColor.b + ', 0.5)';
@@ -107,7 +114,7 @@ class Bubble {
                 this.bubbleObj.scale.y += Bubble.scaleStep;
             } else {
                 if (this.main) {
-                    this.opacity -= 0.001;
+                    this.opacity -= 0.002;
                 } else {
                     this.opacity -= Bubble.opacitySpeed;
                 }

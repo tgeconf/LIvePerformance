@@ -148,8 +148,22 @@
                             { r: 92, g: 176, b: 255 },
                             Math.random() * 0.6 + 0.2,
                             Math.floor(Math.random() * 30),
-                            cameraPlanet.scene, true);
+                            cameraPlanet.scene, 0, true);
                         tmpBubble.init();
+                        Planet.mainPlanets.forEach(mp => {
+                            if (!mp.hide) {
+                                const tmpBubble = new Bubble(
+                                    mp.x,
+                                    mp.y,
+                                    mp.z - 100,
+                                    Math.random() * mp.size / 10 + mp.size / 30,
+                                    { r: 92, g: 176, b: 255 },
+                                    Math.random() * 0.6 + 0.2,
+                                    Math.floor(Math.random() * 30),
+                                    mp.scene, 1, true);
+                                tmpBubble.init();
+                            }
+                        })
                     }
 
                     let r = dynamicRScale(dataArray[0], [120, dataArray[0]]);
@@ -262,6 +276,7 @@
                 movingCamera = newValue;
                 console.log('set :', newValue);
                 if (newValue) {
+                    cameraPlanet.x = -1000;
                     cameraPlanet.planetObj.position.x = -1000;
                 }
             }

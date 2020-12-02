@@ -13,6 +13,7 @@ class Planet {
     static popUpRatio = 0;
     static musicHzNum = 128;
     static limitArea = [];
+    static mainPlanets = [];
     static scaleRing(val, domain) {
         return Planet.ringRange[0] + ((val - domain[0]) / (domain[1] - domain[0])) * (Planet.ringRange[1] - Planet.ringRange[0]);
     }
@@ -75,7 +76,8 @@ class Planet {
                     { r: 92, g: 176, b: 255 },
                     Math.random() * 0.6 + 0.2,
                     Math.floor(Math.random() * 30),
-                    p.scene);
+                    p.scene,
+                    2);
                 tmpBubble.init();
             }
             if (likeCount < numLike && like) {
@@ -450,6 +452,7 @@ class Planet {
     }
 
     handleClick() {
+        Planet.mainPlanets.push(this);
         globalVar.movingCamera = true;
         if (!this.main) {
             this.main = true;
