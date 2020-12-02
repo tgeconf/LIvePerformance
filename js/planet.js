@@ -71,7 +71,7 @@ class Planet {
                     p.x,
                     p.y,
                     p.z - 100,
-                    Math.random() * p.size / 2 + p.size / 10,
+                    Math.random() * p.size / 6 + p.size / 10,
                     { r: 92, g: 176, b: 255 },
                     Math.random() * 0.6 + 0.2,
                     Math.floor(Math.random() * 30),
