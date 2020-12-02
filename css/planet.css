@@ -1,0 +1,56 @@
+.element {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    text-align: center;
+    cursor: default;
+    background: url("../images/5.png");
+    background-size: 100% 100%;
+    transition: all 3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+
+.test-double {
+    background: url("../images/5.png"), url('../images/sing1.gif');
+    background-repeat: no-repeat, no-repeat;
+    background-size: 100% 100%, 100% 100%;
+}
+
+.hot-element {
+    background: url("../images/3.png");
+    background-size: 100%;
+    box-shadow: 0px 0px 12px rgba(255, 153, 0, 0.5);
+    border: 1px solid rgba(255, 185, 127, 0.25);
+}
+
+.cold-element {
+    /* filter: hue-rotate(0deg); */
+    /* filter: none; */
+    box-shadow: 0px 0px 12px rgba(0, 255, 255, 0.5);
+    border: 1px solid rgba(127, 255, 255, 0.25);
+}
+
+.cold-element:hover {
+    box-shadow: 0px 0px 12px rgba(0, 255, 255, 0.75);
+    border: 1px solid rgba(127, 255, 255, 0.75);
+}
+
+.like-ring, .comment-ring {
+    box-sizing: border-box;
+    border-radius: 50%;
+    box-shadow: 0px 0px 6px rgba(0, 255, 255, 0.5);
+    border-style: solid;
+    border-color: rgba(127, 255, 255, 0.25);
+    background: rgba(0, 0, 0, 0);
+}
+
+.like-ring:hover, .comment-ring:hover {
+    box-shadow: 0px 0px 12px rgba(0, 255, 255, 0.75);
+}
+
+.heart:before {
+    font-family: 'Archivo Black', sans-serif;
+    content: '\2665';
+    background: -webkit-linear-gradient(rgba(255, 0, 0, 1), rgba(255, 0, 0, 0));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

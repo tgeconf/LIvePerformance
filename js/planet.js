@@ -450,5 +450,6 @@ class Planet {
         this.planetDiv.style.width = this.size * 3 + 'px';
         this.planetDiv.style.height = this.size * 3 + 'px';
         this.transformMain();
+        this.planetDiv.classList.add('test-double');
     }
 }
