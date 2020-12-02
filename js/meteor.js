@@ -1,5 +1,5 @@
 class Meteor {
-    static sceneRangeX = 6000;
+    static sceneRangeX = 8000;
     static sceneRangeY = 4000;
     static sceneRangeZ = 2000;
     static meteors = [];
@@ -18,11 +18,11 @@ class Meteor {
         })
     }
     constructor(scene) {
-        this.x = Math.random() * Meteor.sceneRangeX - Meteor.sceneRangeX / 2;
+        this.x = Math.random() * Meteor.sceneRangeX - Meteor.sceneRangeX / 3;
         this.y = Meteor.sceneRangeY / 2;
         this.z = Math.random() * Meteor.sceneRangeZ / 2 - Meteor.sceneRangeZ / 2;
         this.len = Math.random() * 250 + 100;
-        this.speed = -Math.random() * 30 - 10;
+        this.speed = -Math.random() * 50 - 10;
         this.star;
         this.starObj;
         this.tail;
