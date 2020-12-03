@@ -99,13 +99,13 @@ class Planet {
         this.scene = scene;
         this.data = data;
         this.size = size;
+        this.x = -1000;
+        this.y = 0;
+        this.z = -10;
         // this.x = initCoords.x;
         // this.y = initCoords.y;
-        this.x = initCoords.x;
-        this.y = initCoords.y;
-        this.z = initCoords.z;
-
         // this.z = initCoords.z;
+
         this.hearts = [];
         this.heartSpans = [];
         this.planetDiv;
@@ -116,15 +116,15 @@ class Planet {
         this.heartNum = 0;
         this.heartDelay = Planet.heartDelay;
         this.maxHeartNum = Math.floor(Math.random() * 3 + 5);
-        this.xSpeed = (Math.random() * 3 + 1) * (Math.random() >= 0.5 ? 1 : -1);
-        this.ySpeed = (Math.random() * 3 + 1) * (Math.random() >= 0.5 ? 1 : -1);
-        this.zSpeed = (Math.random() * 3 + 1) * (Math.random() >= 0.5 ? 1 : -1);
+        // this.xSpeed = (Math.random() * 3 + 1) * (Math.random() >= 0.5 ? 1 : -1);
+        // this.ySpeed = (Math.random() * 3 + 1) * (Math.random() >= 0.5 ? 1 : -1);
+        // this.zSpeed = (Math.random() * 3 + 1) * (Math.random() >= 0.5 ? 1 : -1);
         this.tmpTargetX = 10000000;
         this.tmpTargetY = 10000000;
         this.tmpTargetZ = 10000000;
-        // this.xSpeed = 20;
-        // this.ySpeed = 20;
-        // this.zSpeed = 0;
+        this.xSpeed = 20;
+        this.ySpeed = 0;
+        this.zSpeed = 0;
         this.opacitySpeed = 0.06;
         this.opacity = 0;
         this.musicCanvas;
@@ -381,6 +381,7 @@ class Planet {
         this.planetObj.position.x = this.x;
         this.planetObj.position.y = this.y;
         this.planetObj.position.z = this.z;
+        console.log('!!!!!!!!!', this.x);
 
         if (this.creatingHeart) {
             if (this.heartDelay > 0) {
@@ -418,6 +419,7 @@ class Planet {
             if (this.commentMoveDis < this.size / 2) {
                 this.commentMoveDis += this.commentSpeed;
             }
+            console.log('test position: ', this.planetObj.position.x);
             this.commentObj.position.x = this.planetObj.position.x;
             this.commentObj.position.y = this.planetObj.position.y;
             this.commentObj.position.z = this.planetObj.position.z;

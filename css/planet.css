@@ -6,7 +6,7 @@
     cursor: default;
     background: url("../images/5.png");
     background-size: 100% 100%;
-    transition: all 1s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+    /* transition: all 1s cubic-bezier(0.445, 0.05, 0.55, 0.95); */
 }
 
 .cold-gif-bg1 {
