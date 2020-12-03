@@ -7,6 +7,7 @@ class Planet {
     static heartSpeed = 2;
     static heartDelay = 20;
     static heartOpacitySpeed = 0.01;
+    static commentStepNum = 10;
     static ringRange = [1, 5];
     static planets = [];
     static targetPosis = [];
@@ -44,7 +45,7 @@ class Planet {
         // }
 
         new TWEEN.Tween(this)
-            .to({}, 10 * 2)
+            .to({}, 1)
             .onUpdate(render)
             .start();
     }
@@ -109,8 +110,8 @@ class Planet {
         this.heartSpans = [];
         this.planetDiv;
         this.planetObj;
-        this.delay = main ? 0 : Math.floor(Math.random() * 300 + 10);
-        // this.delay = 0;
+        // this.delay = main ? 0 : Math.floor(Math.random() * 300 + 10);
+        this.delay = 0;
         this.creatingHeart = false;
         this.heartNum = 0;
         this.heartDelay = Planet.heartDelay;
@@ -130,6 +131,9 @@ class Planet {
         this.musicCanvasObj;
         this.main = main;
         this.hide = false;
+        this.commentSpeed = 0;
+        this.commentObj;
+        this.commentMoveDis = 0;
     }
 
     createRing(dataVal, className, domain, extraPadding) {
@@ -409,6 +413,19 @@ class Planet {
                 that.hearts.splice(idx, 1);
             })
         }
+
+        if (typeof this.commentObj !== 'undefined') {
+            if (this.commentMoveDis < this.size / 2) {
+                this.commentMoveDis += this.commentSpeed;
+            }
+            this.commentObj.position.x = this.planetObj.position.x;
+            this.commentObj.position.y = this.planetObj.position.y;
+            this.commentObj.position.z = this.planetObj.position.z;
+            if (this.commentObj.scale.x < 1) {
+                this.commentObj.scale.x += 1 / Planet.commentStepNum;
+                this.commentObj.scale.y += 1 / Planet.commentStepNum;
+            }
+        }
     }
 
     createHeart() {
@@ -418,14 +435,29 @@ class Planet {
         const fontSize = Math.random() * 3 + 2;
         heartSpan.style.fontSize = fontSize + 'em';
         const heartObj = new THREE.CSS3DObject(heartSpan);
-        heartObj.position.x = this.x;
-        heartObj.position.y = this.y;
-        heartObj.position.z = this.z;
+        heartObj.position.x = this.planetObj.position.x;
+        heartObj.position.y = this.planetObj.position.y;
+        heartObj.position.z = this.planetObj.position.z;
         this.heartSpans.push(heartSpan);
         this.hearts.push(heartObj);
         this.scene.add(heartObj);
         this.heartNum++;
         this.heartDelay = Planet.heartDelay;
+    }
+
+    createComment() {
+        const commentDiv = document.createElement('div');
+        commentDiv.className = 'comment';
+        // commentDiv.style.opacity = 1;
+        commentDiv.innerHTML = "this is a test";
+        this.commentObj = new THREE.CSS3DObject(commentDiv);
+        this.commentObj.position.x = this.planetObj.position.x;
+        this.commentObj.position.y = this.planetObj.position.y;
+        this.commentObj.position.z = this.planetObj.position.z;
+        this.commentObj.scale.x = 0;
+        this.commentObj.scale.y = 0;
+        this.commentSpeed = this.size / 2;
+        this.scene.add(this.commentObj);
     }
 
     transformMain() {

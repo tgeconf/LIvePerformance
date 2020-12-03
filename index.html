@@ -37,6 +37,7 @@
     <button style="top: 0px; left: 387px;" onclick="randMeteors()">meteors</button>
     <button style="top: 0px; left: 458px;" onclick="doLike()">like</button>
     <button style="top: 0px; left: 502px;" onclick="hideAudiance()">hide</button>
+    <button style="top: 0px; left: 552px;" onclick="doComment()">comment</button>
     <audio id="audio" src='./media/testMusic.mp3' autoplay controls></audio>
     <div id="container"></div>
     <script>
@@ -93,6 +94,12 @@
                     p.planetDiv.style.opacity = 0;
                     p.hide = true;
                 }
+            })
+        }
+
+        function doComment() {
+            Planet.planets.forEach(p => {
+                p.createComment();
             })
         }
 

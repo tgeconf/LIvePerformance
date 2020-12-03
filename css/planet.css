@@ -6,7 +6,7 @@
     cursor: default;
     background: url("../images/5.png");
     background-size: 100% 100%;
-    transition: all 3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+    transition: all 1s cubic-bezier(0.445, 0.05, 0.55, 0.95);
 }
 
 .cold-gif-bg1 {
@@ -37,14 +37,21 @@
     border: 1px solid rgba(255, 185, 127, 0.25);
 }
 
+.hot-element:hover {
+    box-shadow: 0px 0px 30px rgba(255, 153, 0, 0.9);
+    border: 1px solid rgba(255, 185, 127, 0.25);
+    background-color: rgba(255, 153, 0, 0.2);
+}
+
 .cold-element {
     box-shadow: 0px 0px 12px rgba(0, 255, 255, 0.5);
     border: 1px solid rgba(127, 255, 255, 0.25);
 }
 
 .cold-element:hover {
-    box-shadow: 0px 0px 12px rgba(0, 255, 255, 0.75);
+    box-shadow: 0px 0px 30px rgba(0, 255, 255, 0.9);
     border: 1px solid rgba(127, 255, 255, 0.75);
+    background-color: rgba(0, 255, 255, 0.2);
 }
 
 .like-ring, .comment-ring {
@@ -67,4 +74,30 @@
     background: -webkit-linear-gradient(rgba(255, 0, 0, 1), rgba(255, 0, 0, 0));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+.comment {
+    /* position: relative; */
+    /* background: #00aabb; */
+    width: 200px;
+    height: 80px;
+    color: rgba(0, 255, 255, 1);
+    padding: 10px;
+    border: 2px solid rgba(0, 255, 255, 1);
+    border-radius: .4em;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+}
+
+.comment:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border: 20px solid transparent;
+    border-top-color: rgba(0, 255, 255, 1);
+    border-bottom: 0;
+    margin-left: -20px;
+    margin-bottom: -20px;
 }
