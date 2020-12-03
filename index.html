@@ -23,6 +23,8 @@
     <div id='blackBgColor' class='bg-color black-bg-color shown'></div>
     <div id='coldBgColor' class='bg-color cold-bg-color'></div>
     <div id='hotBgColor' class='bg-color hot-bg-color'></div>
+    <div id='purpleBgColor' class='bg-color purple-bg-color'></div>
+    <div id='greenBgColor' class='bg-color green-bg-color'></div>
     <canvas id="starContainer" class='star-container'></canvas>
     <video id="video" autoplay="true"></video>
     <label for="thefile" class="custom-file-upload">
@@ -45,10 +47,27 @@
         }
 
         function testBgChange() {
-            document.getElementById('coldBgColor').classList.toggle('shown');
-            document.getElementById('hotBgColor').classList.toggle('shown');
             document.getElementById('cameraColdImg').classList.toggle('shown');
             document.getElementById('cameraHotImg').classList.toggle('shown');
+            const coldBg = document.getElementById('coldBgColor');
+            const greenBg = document.getElementById('greenBgColor');
+            const purpleBg = document.getElementById('purpleBgColor');
+            const hotBg = document.getElementById('hotBgColor');
+            if (coldBg.classList.contains('shown')) {
+                coldBg.classList.toggle('shown');
+                hotBg.classList.toggle('shown');
+            } else if (greenBg.classList.contains('shown')) {
+                greenBg.classList.toggle('shown');
+                coldBg.classList.toggle('shown');
+            } else if (purpleBg.classList.contains('shown')) {
+                purpleBg.classList.toggle('shown');
+                greenBg.classList.toggle('shown');
+            } else if (hotBg.classList.contains('shown')) {
+                hotBg.classList.toggle('shown');
+                purpleBg.classList.toggle('shown');
+            }
+            // document.getElementById('coldBgColor').classList.toggle('shown');
+            // document.getElementById('hotBgColor').classList.toggle('shown');
             Planet.updateAllPlanetsColor();
             switch (environment) {
                 case 'cold':

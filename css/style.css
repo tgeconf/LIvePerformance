@@ -27,6 +27,14 @@ body {
     background-image: linear-gradient(to bottom, #000000, #321e2b, #543a60, #5f5fa2, #2b8de7);
 }
 
+.purple-bg-color {
+    background-image: linear-gradient(to bottom, #3e0041, #4a0b61, #4e1d84, #4530ac, #0746d6);
+}
+
+.green-bg-color {
+    background-image: linear-gradient(to bottom, #051937, #004974, #007e8a, #00b069, #9ad80e);
+}
+
 .hot-bg-color {
     background-image: linear-gradient(to bottom, #000000, #441c22, #84332e, #c2532a, #f48103);
 }
