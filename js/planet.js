@@ -8,6 +8,7 @@ class Planet {
     static heartDelay = 20;
     static heartOpacitySpeed = 0.01;
     static commentStepNum = 10;
+    static commentLifeLen = 200;
     static ringRange = [1, 5];
     static planets = [];
     static targetPosis = [];
@@ -18,6 +19,15 @@ class Planet {
     static scaleRing(val, domain) {
         return Planet.ringRange[0] + ((val - domain[0]) / (domain[1] - domain[0])) * (Planet.ringRange[1] - Planet.ringRange[0]);
     }
+
+    static commentStrs = [
+        'You have a really good tone.',
+        'Great overall performance.',
+        'Vocally you have a booming voice.',
+        'Great power and control are all there!',
+        'You have a lovely tone to your voice.',
+        'Good control and projection.'
+    ]
     // static generateTargetPosi() {
     //     for (var i = 0; i < this.planets.length; i++) {
     //         var object = new THREE.Object3D();
@@ -99,41 +109,43 @@ class Planet {
         this.scene = scene;
         this.data = data;
         this.size = size;
-        this.x = -1000;
-        this.y = 0;
-        this.z = -10;
-        // this.x = initCoords.x;
-        // this.y = initCoords.y;
-        // this.z = initCoords.z;
+        // this.x = -1000;
+        // this.y = 0;
+        // this.z = -10;
+        this.x = initCoords.x;
+        this.y = initCoords.y;
+        this.z = initCoords.z;
 
         this.hearts = [];
         this.heartSpans = [];
         this.planetDiv;
         this.planetObj;
-        // this.delay = main ? 0 : Math.floor(Math.random() * 300 + 10);
-        this.delay = 0;
+        this.delay = main ? 0 : Math.floor(Math.random() * 500 + 10);
+        // this.delay = 0;
         this.creatingHeart = false;
         this.heartNum = 0;
         this.heartDelay = Planet.heartDelay;
         this.maxHeartNum = Math.floor(Math.random() * 3 + 5);
-        // this.xSpeed = (Math.random() * 3 + 1) * (Math.random() >= 0.5 ? 1 : -1);
-        // this.ySpeed = (Math.random() * 3 + 1) * (Math.random() >= 0.5 ? 1 : -1);
-        // this.zSpeed = (Math.random() * 3 + 1) * (Math.random() >= 0.5 ? 1 : -1);
+        this.xSpeed = (Math.random() * 2 + 0.5) * (Math.random() >= 0.5 ? 1 : -1);
+        this.ySpeed = (Math.random() * 2 + 0.5) * (Math.random() >= 0.5 ? 1 : -1);
+        this.zSpeed = (Math.random() * 2 + 0.5) * (Math.random() >= 0.5 ? 1 : -1);
         this.tmpTargetX = 10000000;
         this.tmpTargetY = 10000000;
         this.tmpTargetZ = 10000000;
-        this.xSpeed = 20;
-        this.ySpeed = 0;
-        this.zSpeed = 0;
+        // this.xSpeed = 0;
+        // this.ySpeed = 0;
+        // this.zSpeed = 0;
         this.opacitySpeed = 0.06;
         this.opacity = 0;
         this.musicCanvas;
         this.musicCanvasObj;
         this.main = main;
         this.hide = false;
+        this.commentLife = 0;
         this.commentSpeed = 0;
         this.commentObj;
         this.commentMoveDis = 0;
+        this.commentDelay = Math.floor(Math.random() * 50);
     }
 
     createRing(dataVal, className, domain, extraPadding) {
@@ -381,7 +393,6 @@ class Planet {
         this.planetObj.position.x = this.x;
         this.planetObj.position.y = this.y;
         this.planetObj.position.z = this.z;
-        console.log('!!!!!!!!!', this.x);
 
         if (this.creatingHeart) {
             if (this.heartDelay > 0) {
@@ -416,17 +427,34 @@ class Planet {
         }
 
         if (typeof this.commentObj !== 'undefined') {
-            if (this.commentMoveDis < this.size / 2) {
+            if (this.commentMoveDis < this.size / 2 + 60) {
                 this.commentMoveDis += this.commentSpeed;
             }
-            console.log('test position: ', this.planetObj.position.x);
             this.commentObj.position.x = this.planetObj.position.x;
-            this.commentObj.position.y = this.planetObj.position.y;
+            this.commentObj.position.y = this.planetObj.position.y + this.commentMoveDis;
             this.commentObj.position.z = this.planetObj.position.z;
-            if (this.commentObj.scale.x < 1) {
-                this.commentObj.scale.x += 1 / Planet.commentStepNum;
-                this.commentObj.scale.y += 1 / Planet.commentStepNum;
+            if (this.commentDelay > 0) {
+                this.commentDelay--;
+            } else {
+                if (this.commentObj.scale.x < 1 && this.commentLife === 0) {
+                    this.commentObj.scale.x += 1 / Planet.commentStepNum;
+                    this.commentObj.scale.y += 1 / Planet.commentStepNum;
+                } else {
+                    if (this.commentLife < Planet.commentLifeLen) {
+                        this.commentLife++;
+                    } else {
+                        if (this.commentObj.scale.x > 0) {
+                            this.commentObj.scale.x -= 1 / Planet.commentStepNum;
+                            this.commentObj.scale.y -= 1 / Planet.commentStepNum;
+                            if (this.commentObj.scale.x < 0) {
+                                this.commentObj.scale.x = 0;
+                                this.commentObj.scale.y = 0;
+                            }
+                        }
+                    }
+                }
             }
+
         }
     }
 
@@ -448,18 +476,25 @@ class Planet {
     }
 
     createComment() {
+        const targetComment = Planet.commentStrs[Math.floor(Math.random() * 6)];
+
+        const commentContainer = document.createElement('div');
+        commentContainer.className = 'comment-container';
         const commentDiv = document.createElement('div');
         commentDiv.className = 'comment';
         // commentDiv.style.opacity = 1;
-        commentDiv.innerHTML = "this is a test";
-        this.commentObj = new THREE.CSS3DObject(commentDiv);
+        commentDiv.innerHTML = targetComment;
+        commentContainer.appendChild(commentDiv);
+        this.commentObj = new THREE.CSS3DObject(commentContainer);
         this.commentObj.position.x = this.planetObj.position.x;
         this.commentObj.position.y = this.planetObj.position.y;
         this.commentObj.position.z = this.planetObj.position.z;
         this.commentObj.scale.x = 0;
         this.commentObj.scale.y = 0;
-        this.commentSpeed = this.size / 2;
+        console.log(commentDiv.clientHeight);
+        this.commentSpeed = (this.size / 2 + 60) / Planet.commentStepNum;
         this.scene.add(this.commentObj);
+        this.commentLife = 0;
     }
 
     transformMain() {

@@ -98,9 +98,10 @@
         }
 
         function doComment() {
-            Planet.planets.forEach(p => {
-                p.createComment();
-            })
+            const tmpPlanets = Planet.shuffle(Planet.planets);
+            for (let i = 0; i < 5; i++) {
+                tmpPlanets[i].createComment();
+            }
         }
 
         let likeDomain = [], commentDomain = [], ringRange = [1, 5], cameraPlanet, scene;
@@ -182,7 +183,7 @@
                                     mp.x,
                                     mp.y,
                                     mp.z - 100,
-                                    Math.random() * mp.size / 10 + mp.size / 30,
+                                    Math.random() * mp.size * 3 / 10 + mp.size / 10,
                                     { r: 92, g: 176, b: 255 },
                                     Math.random() * 0.6 + 0.2,
                                     Math.floor(Math.random() * 30),
