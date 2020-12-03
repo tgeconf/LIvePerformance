@@ -6,7 +6,7 @@
     cursor: default;
     background: url("../images/5.png");
     background-size: 100% 100%;
-    /* transition: all 1s cubic-bezier(0.445, 0.05, 0.55, 0.95); */
+    transition: background-color 0.5s cubic-bezier(0.445, 0.05, 0.55, 0.95);
 }
 
 .cold-gif-bg1 {
@@ -17,6 +17,318 @@
     background: url("../images/5.png"), url('../images/sing2.gif');
 }
 
+.cold-gif-bg3 {
+    background: url("../images/5.png"), url('../images/sing3.gif');
+}
+
+.cold-gif-bg4 {
+    background: url("../images/5.png"), url('../images/sing4.gif');
+}
+
+.cold-gif-bg5 {
+    background: url("../images/5.png"), url('../images/sing5.gif');
+}
+
+.cold-gif-bg6 {
+    background: url("../images/5.png"), url('../images/sing6.gif');
+}
+
+.cold-gif-bg7 {
+    background: url("../images/5.png"), url('../images/sing7.gif');
+}
+
+.cold-gif-bg8 {
+    background: url("../images/5.png"), url('../images/sing8.gif');
+}
+
+.cold-gif-bg9 {
+    background: url("../images/5.png"), url('../images/sing9.gif');
+}
+
+.cold-gif-bg10 {
+    background: url("../images/5.png"), url('../images/sing10.gif');
+}
+
+.cold-gif-bg11 {
+    background: url("../images/5.png"), url('../images/sing11.gif');
+}
+
+.cold-gif-bg12 {
+    background: url("../images/5.png"), url('../images/sing12.gif');
+}
+
+.cold-gif-bg13 {
+    background: url("../images/5.png"), url('../images/sing13.gif');
+}
+
+.cold-gif-bg14 {
+    background: url("../images/5.png"), url('../images/sing14.gif');
+}
+
+.cold-gif-bg15 {
+    background: url("../images/5.png"), url('../images/sing15.gif');
+}
+
+.cold-gif-bg16 {
+    background: url("../images/5.png"), url('../images/sing16.gif');
+}
+
+.cold-gif-bg17 {
+    background: url("../images/5.png"), url('../images/sing17.gif');
+}
+
+.cold-gif-bg18 {
+    background: url("../images/5.png"), url('../images/sing18.gif');
+}
+
+.cold-gif-bg19 {
+    background: url("../images/5.png"), url('../images/sing19.gif');
+}
+
+.cold-gif-bg20 {
+    background: url("../images/5.png"), url('../images/sing20.gif');
+}
+
+.cold-gif-bg21 {
+    background: url("../images/5.png"), url('../images/sing21.gif');
+}
+
+.cold-gif-bg22 {
+    background: url("../images/5.png"), url('../images/sing22.gif');
+}
+
+.cold-gif-bg23 {
+    background: url("../images/5.png"), url('../images/sing23.gif');
+}
+
+.cold-gif-bg24 {
+    background: url("../images/5.png"), url('../images/sing24.gif');
+}
+
+.cold-gif-bg25 {
+    background: url("../images/5.png"), url('../images/sing25.gif');
+}
+
+.cold-gif-bg26 {
+    background: url("../images/5.png"), url('../images/sing26.gif');
+}
+
+.cold-gif-bg27 {
+    background: url("../images/5.png"), url('../images/sing27.gif');
+}
+
+.cold-gif-bg28 {
+    background: url("../images/5.png"), url('../images/sing28.gif');
+}
+
+.cold-gif-bg29 {
+    background: url("../images/5.png"), url('../images/sing29.gif');
+}
+
+.cold-gif-bg30 {
+    background: url("../images/5.png"), url('../images/sing30.gif');
+}
+
+.cold-gif-bg31 {
+    background: url("../images/5.png"), url('../images/sing31.gif');
+}
+
+.cold-gif-bg32 {
+    background: url("../images/5.png"), url('../images/sing32.gif');
+}
+
+.cold-gif-bg33 {
+    background: url("../images/5.png"), url('../images/sing33.gif');
+}
+
+.cold-gif-bg34 {
+    background: url("../images/5.png"), url('../images/sing34.gif');
+}
+
+.cold-gif-bg35 {
+    background: url("../images/5.png"), url('../images/sing35.gif');
+}
+
+.cold-gif-bg36 {
+    background: url("../images/5.png"), url('../images/sing36.gif');
+}
+
+.cold-gif-bg37 {
+    background: url("../images/5.png"), url('../images/sing37.gif');
+}
+
+.cold-gif-bg38 {
+    background: url("../images/5.png"), url('../images/sing38.gif');
+}
+
+.cold-gif-bg39 {
+    background: url("../images/5.png"), url('../images/sing39.gif');
+}
+
+.cold-gif-bg40 {
+    background: url("../images/5.png"), url('../images/sing40.gif');
+}
+
+.cold-gif-bg41 {
+    background: url("../images/5.png"), url('../images/sing41.gif');
+}
+
+.cold-gif-bg42 {
+    background: url("../images/5.png"), url('../images/sing42.gif');
+}
+
+.cold-gif-bg43 {
+    background: url("../images/5.png"), url('../images/sing43.gif');
+}
+
+.cold-gif-bg44 {
+    background: url("../images/5.png"), url('../images/sing44.gif');
+}
+
+.cold-gif-bg45 {
+    background: url("../images/5.png"), url('../images/sing45.gif');
+}
+
+.cold-gif-bg46 {
+    background: url("../images/5.png"), url('../images/sing46.gif');
+}
+
+.cold-gif-bg47 {
+    background: url("../images/5.png"), url('../images/sing47.gif');
+}
+
+.cold-gif-bg48 {
+    background: url("../images/5.png"), url('../images/sing48.gif');
+}
+
+.cold-gif-bg49 {
+    background: url("../images/5.png"), url('../images/sing49.gif');
+}
+
+.cold-gif-bg50 {
+    background: url("../images/5.png"), url('../images/sing50.gif');
+}
+
+.cold-gif-bg51 {
+    background: url("../images/5.png"), url('../images/sing51.gif');
+}
+
+.cold-gif-bg52 {
+    background: url("../images/5.png"), url('../images/sing52.gif');
+}
+
+.cold-gif-bg53 {
+    background: url("../images/5.png"), url('../images/sing53.gif');
+}
+
+.cold-gif-bg54 {
+    background: url("../images/5.png"), url('../images/sing54.gif');
+}
+
+.cold-gif-bg55 {
+    background: url("../images/5.png"), url('../images/sing55.gif');
+}
+
+.cold-gif-bg56 {
+    background: url("../images/5.png"), url('../images/sing56.gif');
+}
+
+.cold-gif-bg57 {
+    background: url("../images/5.png"), url('../images/sing57.gif');
+}
+
+.cold-gif-bg58 {
+    background: url("../images/5.png"), url('../images/sing58.gif');
+}
+
+.cold-gif-bg59 {
+    background: url("../images/5.png"), url('../images/sing59.gif');
+}
+
+.cold-gif-bg60 {
+    background: url("../images/5.png"), url('../images/sing60.gif');
+}
+
+.cold-gif-bg61 {
+    background: url("../images/5.png"), url('../images/sing61.gif');
+}
+
+.cold-gif-bg62 {
+    background: url("../images/5.png"), url('../images/sing62.gif');
+}
+
+.cold-gif-bg63 {
+    background: url("../images/5.png"), url('../images/sing63.gif');
+}
+
+.cold-gif-bg64 {
+    background: url("../images/5.png"), url('../images/sing64.gif');
+}
+
+.cold-gif-bg65 {
+    background: url("../images/5.png"), url('../images/sing65.gif');
+}
+
+.cold-gif-bg66 {
+    background: url("../images/5.png"), url('../images/sing66.gif');
+}
+
+.cold-gif-bg67 {
+    background: url("../images/5.png"), url('../images/sing67.gif');
+}
+
+.cold-gif-bg68 {
+    background: url("../images/5.png"), url('../images/sing68.gif');
+}
+
+.cold-gif-bg69 {
+    background: url("../images/5.png"), url('../images/sing69.gif');
+}
+
+.cold-gif-bg70 {
+    background: url("../images/5.png"), url('../images/sing70.gif');
+}
+
+.cold-gif-bg71 {
+    background: url("../images/5.png"), url('../images/sing71.gif');
+}
+
+.cold-gif-bg72 {
+    background: url("../images/5.png"), url('../images/sing72.gif');
+}
+
+.cold-gif-bg73 {
+    background: url("../images/5.png"), url('../images/sing73.gif');
+}
+
+.cold-gif-bg74 {
+    background: url("../images/5.png"), url('../images/sing74.gif');
+}
+
+.cold-gif-bg75 {
+    background: url("../images/5.png"), url('../images/sing75.gif');
+}
+
+.cold-gif-bg76 {
+    background: url("../images/5.png"), url('../images/sing76.gif');
+}
+
+.cold-gif-bg77 {
+    background: url("../images/5.png"), url('../images/sing77.gif');
+}
+
+.cold-gif-bg78 {
+    background: url("../images/5.png"), url('../images/sing78.gif');
+}
+
+.cold-gif-bg79 {
+    background: url("../images/5.png"), url('../images/sing79.gif');
+}
+
+.cold-gif-bg80 {
+    background: url("../images/5.png"), url('../images/sing80.gif');
+}
+
 .hot-gif-bg1 {
     background: url("../images/3.png"), url('../images/sing1.gif');
 }
@@ -25,7 +337,319 @@
     background: url("../images/3.png"), url('../images/sing2.gif');
 }
 
-.cold-gif-bg1, .cold-gif-bg2, .hot-gif-bg1, .hot-gif-bg2 {
+.hot-gif-bg3 {
+    background: url("../images/3.png"), url('../images/sing3.gif');
+}
+
+.hot-gif-bg4 {
+    background: url("../images/3.png"), url('../images/sing4.gif');
+}
+
+.hot-gif-bg5 {
+    background: url("../images/3.png"), url('../images/sing5.gif');
+}
+
+.hot-gif-bg6 {
+    background: url("../images/3.png"), url('../images/sing6.gif');
+}
+
+.hot-gif-bg7 {
+    background: url("../images/3.png"), url('../images/sing7.gif');
+}
+
+.hot-gif-bg8 {
+    background: url("../images/3.png"), url('../images/sing8.gif');
+}
+
+.hot-gif-bg9 {
+    background: url("../images/3.png"), url('../images/sing9.gif');
+}
+
+.hot-gif-bg10 {
+    background: url("../images/3.png"), url('../images/sing10.gif');
+}
+
+.hot-gif-bg11 {
+    background: url("../images/3.png"), url('../images/sing11.gif');
+}
+
+.hot-gif-bg12 {
+    background: url("../images/3.png"), url('../images/sing12.gif');
+}
+
+.hot-gif-bg13 {
+    background: url("../images/3.png"), url('../images/sing13.gif');
+}
+
+.hot-gif-bg14 {
+    background: url("../images/3.png"), url('../images/sing14.gif');
+}
+
+.hot-gif-bg15 {
+    background: url("../images/3.png"), url('../images/sing15.gif');
+}
+
+.hot-gif-bg16 {
+    background: url("../images/3.png"), url('../images/sing16.gif');
+}
+
+.hot-gif-bg17 {
+    background: url("../images/3.png"), url('../images/sing17.gif');
+}
+
+.hot-gif-bg18 {
+    background: url("../images/3.png"), url('../images/sing18.gif');
+}
+
+.hot-gif-bg19 {
+    background: url("../images/3.png"), url('../images/sing19.gif');
+}
+
+.hot-gif-bg20 {
+    background: url("../images/3.png"), url('../images/sing20.gif');
+}
+
+.hot-gif-bg21 {
+    background: url("../images/3.png"), url('../images/sing21.gif');
+}
+
+.hot-gif-bg22 {
+    background: url("../images/3.png"), url('../images/sing22.gif');
+}
+
+.hot-gif-bg23 {
+    background: url("../images/3.png"), url('../images/sing23.gif');
+}
+
+.hot-gif-bg24 {
+    background: url("../images/3.png"), url('../images/sing24.gif');
+}
+
+.hot-gif-bg25 {
+    background: url("../images/3.png"), url('../images/sing25.gif');
+}
+
+.hot-gif-bg26 {
+    background: url("../images/3.png"), url('../images/sing26.gif');
+}
+
+.hot-gif-bg27 {
+    background: url("../images/3.png"), url('../images/sing27.gif');
+}
+
+.hot-gif-bg28 {
+    background: url("../images/3.png"), url('../images/sing28.gif');
+}
+
+.hot-gif-bg29 {
+    background: url("../images/3.png"), url('../images/sing29.gif');
+}
+
+.hot-gif-bg30 {
+    background: url("../images/3.png"), url('../images/sing30.gif');
+}
+
+.hot-gif-bg31 {
+    background: url("../images/3.png"), url('../images/sing31.gif');
+}
+
+.hot-gif-bg32 {
+    background: url("../images/3.png"), url('../images/sing32.gif');
+}
+
+.hot-gif-bg33 {
+    background: url("../images/3.png"), url('../images/sing33.gif');
+}
+
+.hot-gif-bg34 {
+    background: url("../images/3.png"), url('../images/sing34.gif');
+}
+
+.hot-gif-bg35 {
+    background: url("../images/3.png"), url('../images/sing35.gif');
+}
+
+.hot-gif-bg36 {
+    background: url("../images/3.png"), url('../images/sing36.gif');
+}
+
+.hot-gif-bg37 {
+    background: url("../images/3.png"), url('../images/sing37.gif');
+}
+
+.hot-gif-bg38 {
+    background: url("../images/3.png"), url('../images/sing38.gif');
+}
+
+.hot-gif-bg39 {
+    background: url("../images/3.png"), url('../images/sing39.gif');
+}
+
+.hot-gif-bg40 {
+    background: url("../images/3.png"), url('../images/sing40.gif');
+}
+
+.hot-gif-bg41 {
+    background: url("../images/3.png"), url('../images/sing41.gif');
+}
+
+.hot-gif-bg42 {
+    background: url("../images/3.png"), url('../images/sing42.gif');
+}
+
+.hot-gif-bg43 {
+    background: url("../images/3.png"), url('../images/sing43.gif');
+}
+
+.hot-gif-bg44 {
+    background: url("../images/3.png"), url('../images/sing44.gif');
+}
+
+.hot-gif-bg45 {
+    background: url("../images/3.png"), url('../images/sing45.gif');
+}
+
+.hot-gif-bg46 {
+    background: url("../images/3.png"), url('../images/sing46.gif');
+}
+
+.hot-gif-bg47 {
+    background: url("../images/3.png"), url('../images/sing47.gif');
+}
+
+.hot-gif-bg48 {
+    background: url("../images/3.png"), url('../images/sing48.gif');
+}
+
+.hot-gif-bg49 {
+    background: url("../images/3.png"), url('../images/sing49.gif');
+}
+
+.hot-gif-bg50 {
+    background: url("../images/3.png"), url('../images/sing50.gif');
+}
+
+.hot-gif-bg51 {
+    background: url("../images/3.png"), url('../images/sing51.gif');
+}
+
+.hot-gif-bg52 {
+    background: url("../images/3.png"), url('../images/sing52.gif');
+}
+
+.hot-gif-bg53 {
+    background: url("../images/3.png"), url('../images/sing53.gif');
+}
+
+.hot-gif-bg54 {
+    background: url("../images/3.png"), url('../images/sing54.gif');
+}
+
+.hot-gif-bg55 {
+    background: url("../images/3.png"), url('../images/sing55.gif');
+}
+
+.hot-gif-bg56 {
+    background: url("../images/3.png"), url('../images/sing56.gif');
+}
+
+.hot-gif-bg57 {
+    background: url("../images/3.png"), url('../images/sing57.gif');
+}
+
+.hot-gif-bg58 {
+    background: url("../images/3.png"), url('../images/sing58.gif');
+}
+
+.hot-gif-bg59 {
+    background: url("../images/3.png"), url('../images/sing59.gif');
+}
+
+.hot-gif-bg60 {
+    background: url("../images/3.png"), url('../images/sing60.gif');
+}
+
+.hot-gif-bg61 {
+    background: url("../images/3.png"), url('../images/sing61.gif');
+}
+
+.hot-gif-bg62 {
+    background: url("../images/3.png"), url('../images/sing62.gif');
+}
+
+.hot-gif-bg63 {
+    background: url("../images/3.png"), url('../images/sing63.gif');
+}
+
+.hot-gif-bg64 {
+    background: url("../images/3.png"), url('../images/sing64.gif');
+}
+
+.hot-gif-bg65 {
+    background: url("../images/3.png"), url('../images/sing65.gif');
+}
+
+.hot-gif-bg66 {
+    background: url("../images/3.png"), url('../images/sing66.gif');
+}
+
+.hot-gif-bg67 {
+    background: url("../images/3.png"), url('../images/sing67.gif');
+}
+
+.hot-gif-bg68 {
+    background: url("../images/3.png"), url('../images/sing68.gif');
+}
+
+.hot-gif-bg69 {
+    background: url("../images/3.png"), url('../images/sing69.gif');
+}
+
+.hot-gif-bg70 {
+    background: url("../images/3.png"), url('../images/sing70.gif');
+}
+
+.hot-gif-bg71 {
+    background: url("../images/3.png"), url('../images/sing71.gif');
+}
+
+.hot-gif-bg72 {
+    background: url("../images/3.png"), url('../images/sing72.gif');
+}
+
+.hot-gif-bg73 {
+    background: url("../images/3.png"), url('../images/sing73.gif');
+}
+
+.hot-gif-bg74 {
+    background: url("../images/3.png"), url('../images/sing74.gif');
+}
+
+.hot-gif-bg75 {
+    background: url("../images/3.png"), url('../images/sing75.gif');
+}
+
+.hot-gif-bg76 {
+    background: url("../images/3.png"), url('../images/sing76.gif');
+}
+
+.hot-gif-bg77 {
+    background: url("../images/3.png"), url('../images/sing77.gif');
+}
+
+.hot-gif-bg78 {
+    background: url("../images/3.png"), url('../images/sing78.gif');
+}
+
+.hot-gif-bg79 {
+    background: url("../images/3.png"), url('../images/sing79.gif');
+}
+
+.hot-gif-bg80 {
+    background: url("../images/3.png"), url('../images/sing80.gif');
+}
+
+.cold-gif-bg1, .cold-gif-bg2, .cold-gif-bg3, .cold-gif-bg4, .cold-gif-bg5, .cold-gif-bg6, .cold-gif-bg7, .cold-gif-bg8, .cold-gif-bg9, .cold-gif-bg10, .cold-gif-bg11, .cold-gif-bg12, .cold-gif-bg13, .cold-gif-bg14, .cold-gif-bg15, .cold-gif-bg16, .cold-gif-bg17, .cold-gif-bg18, .cold-gif-bg19, .cold-gif-bg20, .cold-gif-bg21, .cold-gif-bg22, .cold-gif-bg23, .cold-gif-bg24, .cold-gif-bg25, .cold-gif-bg26, .cold-gif-bg27, .cold-gif-bg28, .cold-gif-bg29, .cold-gif-bg30, .cold-gif-bg31, .cold-gif-bg32, .cold-gif-bg33, .cold-gif-bg34, .cold-gif-bg35, .cold-gif-bg36, .cold-gif-bg37, .cold-gif-bg38, .cold-gif-bg39, .cold-gif-bg40, .cold-gif-bg41, .cold-gif-bg42, .cold-gif-bg43, .cold-gif-bg44, .cold-gif-bg45, .cold-gif-bg46, .cold-gif-bg47, .cold-gif-bg48, .cold-gif-bg49, .cold-gif-bg50, .cold-gif-bg51, .cold-gif-bg52, .cold-gif-bg53, .cold-gif-bg54, .cold-gif-bg55, .cold-gif-bg56, .cold-gif-bg57, .cold-gif-bg58, .cold-gif-bg59, .cold-gif-bg60, .cold-gif-bg61, .cold-gif-bg62, .cold-gif-bg63, .cold-gif-bg64, .cold-gif-bg65, .cold-gif-bg66, .cold-gif-bg67, .cold-gif-bg68, .cold-gif-bg69, .cold-gif-bg70, .cold-gif-bg71, .cold-gif-bg72, .cold-gif-bg73, .cold-gif-bg74, .cold-gif-bg75, .cold-gif-bg76, .cold-gif-bg77, .cold-gif-bg78, .cold-gif-bg79, .cold-gif-bg80, .hot-gif-bg1, .hot-gif-bg2, .hot-gif-bg3, .hot-gif-bg4, .hot-gif-bg5, .hot-gif-bg6, .hot-gif-bg7, .hot-gif-bg8, .hot-gif-bg9, .hot-gif-bg10, .hot-gif-bg11, .hot-gif-bg12, .hot-gif-bg13, .hot-gif-bg14, .hot-gif-bg15, .hot-gif-bg16, .hot-gif-bg17, .hot-gif-bg18, .hot-gif-bg19, .hot-gif-bg20, .hot-gif-bg21, .hot-gif-bg22, .hot-gif-bg23, .hot-gif-bg24, .hot-gif-bg25, .hot-gif-bg26, .hot-gif-bg27, .hot-gif-bg28, .hot-gif-bg29, .hot-gif-bg30, .hot-gif-bg31, .hot-gif-bg32, .hot-gif-bg33, .hot-gif-bg34, .hot-gif-bg35, .hot-gif-bg36, .hot-gif-bg37, .hot-gif-bg38, .hot-gif-bg39, .hot-gif-bg40, .hot-gif-bg41, .hot-gif-bg42, .hot-gif-bg43, .hot-gif-bg44, .hot-gif-bg45, .hot-gif-bg46, .hot-gif-bg47, .hot-gif-bg48, .hot-gif-bg49, .hot-gif-bg50, .hot-gif-bg51, .hot-gif-bg52, .hot-gif-bg53, .hot-gif-bg54, .hot-gif-bg55, .hot-gif-bg56, .hot-gif-bg57, .hot-gif-bg58, .hot-gif-bg59, .hot-gif-bg60, .hot-gif-bg61, .hot-gif-bg62, .hot-gif-bg63, .hot-gif-bg64, .hot-gif-bg65, .hot-gif-bg66, .hot-gif-bg67, .hot-gif-bg68, .hot-gif-bg69, .hot-gif-bg70, .hot-gif-bg71, .hot-gif-bg72, .hot-gif-bg73, .hot-gif-bg74, .hot-gif-bg75, .hot-gif-bg76, .hot-gif-bg77, .hot-gif-bg78, .hot-gif-bg79, .hot-gif-bg80 {
     background-repeat: no-repeat, no-repeat;
     background-size: 100% 100%, 100% 100%;
 }
@@ -76,16 +700,9 @@
     -webkit-text-fill-color: transparent;
 }
 
-.comment-container {
-    /* padding: 0 0 20px 0; */
-    /* height: 360px; */
-}
-
 .comment {
     position: relative;
-    /* background: #00aabb; */
     width: 400px;
-    /* height: 80px; */
     min-height: 60px;
     font-size: 30px;
     overflow: hidden;

@@ -38,6 +38,12 @@
     <button style="top: 0px; left: 458px;" onclick="doLike()">like</button>
     <button style="top: 0px; left: 502px;" onclick="hideAudiance()">hide</button>
     <button style="top: 0px; left: 552px;" onclick="doComment()">comment</button>
+    <button style="top: 0px; left: 631px;" onclick="toggleGifs()">gifs</button>
+    <button style="top: 0px; left: 700px;" onclick="playVideo()">play</button>
+
+
+
+
     <audio id="audio" src='./media/testMusic.mp3' autoplay controls></audio>
     <div id="container"></div>
     <script>
@@ -102,6 +108,39 @@
             for (let i = 0; i < 5; i++) {
                 tmpPlanets[i].createComment();
             }
+        }
+
+        function toggleGifs() {
+            if (!gifMode) {
+                gifMode = true;
+                Planet.planets.forEach((p, i) => {
+                    console.log(i);
+                    // if (i + 1 <= 80) {
+                    if (p.planetDiv.classList.contains('hot-element')) {
+                        p.planetDiv.classList.add('hot-gif-bg' + (i + 1));
+                    } else if (p.planetDiv.classList.contains('cold-element')) {
+                        p.planetDiv.classList.add('cold-gif-bg' + (i + 1));
+                    }
+                    // }
+                })
+            } else {
+                gifMode = false;
+                Planet.planets.forEach((p, i) => {
+                    if (p.planetDiv.classList.contains('hot-element')) {
+                        p.planetDiv.className = 'element hot-element';
+                    } else if (p.planetDiv.classList.contains('cold-element')) {
+                        p.planetDiv.className = 'element cold-element';
+                    }
+                })
+
+            }
+
+
+        }
+
+
+        function playVideo(){
+            document.getElementById('bgVideo').play();
         }
 
         let likeDomain = [], commentDomain = [], ringRange = [1, 5], cameraPlanet, scene;
@@ -269,7 +308,7 @@
         Star.animateAllStars();
         init();
         animate();
-        loadCameraOnHidden(cameraCanvas);
+        // loadCameraOnHidden(cameraCanvas);
         // loadAudio();
 
         function generateAudiance() {
@@ -322,10 +361,22 @@
             cameraCanvas.width = videoSize;
             cameraCanvas.height = videoSize;
 
+            const bgVideo = document.createElement('video');
+            const source = document.createElement('source');
+            source.src = './images/video/test.mp4';
+            source.type = 'video/mp4';
+            bgVideo.appendChild(source);
+            bgVideo.id = 'bgVideo';
+            bgVideo.width = videoSize;
+            bgVideo.height = videoSize;
+            bgVideo.autoplay = true;
+            
+
             cameraPlanet = new Planet(scene, { like: 0, comment: 0 }, videoSize, { x: 0, y: 0, z: 10 }, true);
             cameraPlanet.createPlanet(false, [[0, 1], [0, 1]]);
             Planet.limitArea.push({ center: { x: 0, y: 0, z: 0 }, r: videoSize / 2 });
             cameraPlanet.planetDiv.appendChild(cameraCanvas);
+            cameraPlanet.planetDiv.appendChild(bgVideo);
             cameraPlanet.planetDiv.classList.add('camera-container')
             const coverImg = document.createElement('img');
             coverImg.id = 'cameraColdImg';
@@ -337,7 +388,6 @@
             coverImg2.className = 'hot-img';
             coverImg2.src = './images/3.png';
             cameraPlanet.planetDiv.appendChild(coverImg2);
-
             // const cameraContainer = document.createElement('div');
             // cameraContainer.className = 'camera-container';
             // cameraContainer.style.width = videoSize + 'px';

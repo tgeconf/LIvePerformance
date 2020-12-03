@@ -47,7 +47,7 @@ a {
     color: #ffffff;
 }
 
-video, audio {
+#video, audio {
     display: none;
 }
 
@@ -113,6 +113,13 @@ input[type="file"] {
     border-radius: 50%;
     /* opacity: 0.5; */
     position: absolute;
+}
+
+.camera-container video {
+    border-radius: 50%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
 }
 
 #cameraCanvas {
