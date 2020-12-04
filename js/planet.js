@@ -21,22 +21,22 @@ class Planet {
     }
 
     static commentStrs = [
-        'You have a really good tone.',
-        'Great overall performance.',
-        'Vocally you have a booming voice.',
-        'Great power and control are all there!',
-        'You have a lovely tone to your voice.',
-        'Good control and projection.'
-    ]
-    // static generateTargetPosi() {
-    //     for (var i = 0; i < this.planets.length; i++) {
-    //         var object = new THREE.Object3D();
-    //         object.position.x = Math.random() * 3000 - 1500;
-    //         object.position.y = Math.random() * 3000 - 1500;
-    //         object.position.z = Math.random() * 3000 - 1500;
-    //         this.targetPosis.push(object);
-    //     }
-    // }
+            'You have a really good tone.',
+            'Great overall performance.',
+            'Vocally you have a booming voice.',
+            'Great power and control are all there!',
+            'You have a lovely tone to your voice.',
+            'Good control and projection.'
+        ]
+        // static generateTargetPosi() {
+        //     for (var i = 0; i < this.planets.length; i++) {
+        //         var object = new THREE.Object3D();
+        //         object.position.x = Math.random() * 3000 - 1500;
+        //         object.position.y = Math.random() * 3000 - 1500;
+        //         object.position.z = Math.random() * 3000 - 1500;
+        //         this.targetPosis.push(object);
+        //     }
+        // }
     static transform() {
         TWEEN.removeAll();
         // for (var i = 0; i < this.planets.length; i++) {
@@ -62,17 +62,19 @@ class Planet {
 
     static shuffle(array) {
         var tmp, current, top = array.length;
-        if (top) while (--top) {
-            current = Math.floor(Math.random() * (top + 1));
-            tmp = array[current];
-            array[current] = array[top];
-            array[top] = tmp;
-        }
+        if (top)
+            while (--top) {
+                current = Math.floor(Math.random() * (top + 1));
+                tmp = array[current];
+                array[current] = array[top];
+                array[top] = tmp;
+            }
         return array;
     }
 
     static updateAllPlanets(like) {
-        let count = 0, likeCount = 0;
+        let count = 0,
+            likeCount = 0;
         const numLike = Math.floor(Math.random() * 5);
         this.planets = this.shuffle(this.planets);
         this.planets.forEach(p => {
@@ -83,8 +85,7 @@ class Planet {
                     p.x,
                     p.y,
                     p.z - 100,
-                    Math.random() * p.size / 6 + p.size / 10,
-                    { r: 92, g: 176, b: 255 },
+                    Math.random() * p.size / 6 + p.size / 10, { r: 92, g: 176, b: 255 },
                     Math.random() * 0.6 + 0.2,
                     Math.floor(Math.random() * 30),
                     p.scene,
@@ -146,6 +147,7 @@ class Planet {
         this.commentObj;
         this.commentMoveDis = 0;
         this.commentDelay = Math.floor(Math.random() * 50);
+        this.sideButtons = [];
     }
 
     createRing(dataVal, className, domain, extraPadding) {
@@ -174,7 +176,9 @@ class Planet {
     }
 
     createMusicCanvas() {
-        const padding = 30, innerCircleStroke = 12, tmpBgBarWidth = 160;
+        const padding = 30,
+            innerCircleStroke = 12,
+            tmpBgBarWidth = 160;
         this.musicCanvas = document.createElement('canvas');
         const cSize = this.size + padding * 4 + innerCircleStroke * 2 + tmpBgBarWidth * 2;
         this.musicCanvas.width = cSize;
@@ -235,7 +239,9 @@ class Planet {
     }
 
     updateMusicCanvas(vals, maxVal) {
-        const padding = 30, innerCircleStroke = 12, tmpBgBarWidth = 160;
+        const padding = 30,
+            innerCircleStroke = 12,
+            tmpBgBarWidth = 160;
         const cSize = this.size + padding * 4 + innerCircleStroke * 2 + tmpBgBarWidth * 2;
         const ctx = this.musicCanvas.getContext('2d');
         ctx.clearRect(0, 0, cSize, cSize);
@@ -389,6 +395,9 @@ class Planet {
             this.tmpTargetZ = 1000000000;
             this.zSpeed = 0;
         }
+        if (this.xSpeed === 0 && this.ySpeed === 0 && this.zSpeed === 0 && this.sideButtons.length === 0) {
+            this.createSideButtons();
+        }
 
         this.planetObj.position.x = this.x;
         this.planetObj.position.y = this.y;
@@ -456,6 +465,14 @@ class Planet {
             }
 
         }
+
+        const currentR = this.size + 180;
+        const that = this;
+        this.sideButtons.forEach((sb, i) => {
+            sb.position.x = that.x + currentR * Math.cos(-Math.PI / 8 + i * Math.PI / 8);
+            sb.position.y = that.y + currentR * Math.sin(-Math.PI / 8 + i * Math.PI / 8);
+            sb.position.z = that.z + 10;
+        })
     }
 
     createHeart() {
@@ -520,6 +537,23 @@ class Planet {
         //     .start();
     }
 
+    createSideButtons() {
+        let classNames = ['hi-button-bg', 'info-button-bg', 'sing-button-bg'];
+        classNames = classNames.reverse();
+        for (let i = 0; i < 3; i++) {
+            const buttonDiv1 = document.createElement('div');
+            buttonDiv1.className = 'side-button ' + classNames[i];
+            // buttonDiv1.innerHTML = 'test';
+            const buttonObj1 = new THREE.CSS3DObject(buttonDiv1);
+            const currentR = this.size / 2 + 170;
+            buttonObj1.position.x = this.x + currentR * Math.cos((3 - i) * Math.PI / 8);
+            buttonObj1.position.y = this.y + currentR * Math.sin((3 - i) * Math.PI / 8);
+            buttonObj1.position.z = this.z + 10;
+            this.sideButtons.push(buttonObj1);
+            this.scene.add(buttonObj1);
+        }
+    }
+
     handleClick() {
         Planet.mainPlanets.push(this);
         globalVar.movingCamera = true;
@@ -527,9 +561,10 @@ class Planet {
             this.main = true;
             this.planetDiv.style.width = this.size * 3 + 'px';
             this.planetDiv.style.height = this.size * 3 + 'px';
+
             this.transformMain();
 
-            const bgIdx = Math.floor(Math.random() * 2 + 1);
+            const bgIdx = Math.floor(Math.random() * 50 + 1);
             if (this.planetDiv.classList.contains('hot-element')) {
                 this.planetDiv.classList.add('hot-gif-bg' + bgIdx);
             } else if (this.planetDiv.classList.contains('cold-element')) {
@@ -543,6 +578,11 @@ class Planet {
             this.xSpeed = this._xSpeed;
             this.ySpeed = this._ySpeed;
             this.zSpeed = this._zSpeed;
+            const that = this;
+            this.sideButtons.forEach(sb => {
+                that.scene.remove(sb);
+            })
+            this.sideButtons = [];
 
             if (this.planetDiv.classList.contains('hot-element')) {
                 this.planetDiv.className = 'element hot-element';
