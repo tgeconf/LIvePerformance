@@ -33,12 +33,12 @@
     <input type="file" id="thefile" accept="audio/*" />
     <button style="top: 0px; left: 100px;" onclick="initBgColor()">load bgColor</button>
     <button style="top: 0px; left: 200px;" onclick="testBgChange()">toggle bgColor</button>
-    <button style="top: 0px; left: 310px;" onclick="generateAudiance()">audiance</button>
-    <button style="top: 0px; left: 387px;" onclick="randMeteors()">meteors</button>
-    <button style="top: 0px; left: 458px;" onclick="doLike()">like</button>
+    <button style="top: 0px; left: 310px;" onclick="generateAudiance()">memories</button>
+    <button style="top: 0px; left: 387px;" onclick="randMeteors()">mic</button>
+    <button style="top: 0px; left: 458px;" onclick="doLike()">emotion</button>
     <button style="top: 0px; left: 502px;" onclick="hideAudiance()">hide</button>
-    <button style="top: 0px; left: 552px;" onclick="doComment()">comment</button>
-    <button style="top: 0px; left: 631px;" onclick="toggleGifs()">gifs</button>
+    <button style="top: 0px; left: 552px;" onclick="doComment()">message</button>
+    <button style="top: 0px; left: 631px;" onclick="toggleGifs()">pics</button>
     <button style="top: 0px; left: 700px;" onclick="playVideo()">play</button>
 
 
@@ -308,7 +308,7 @@
         Star.animateAllStars();
         init();
         animate();
-        // loadCameraOnHidden(cameraCanvas);
+        loadCameraOnHidden(cameraCanvas);
         // loadAudio();
 
         function generateAudiance() {
@@ -361,22 +361,22 @@
             cameraCanvas.width = videoSize;
             cameraCanvas.height = videoSize;
 
-            const bgVideo = document.createElement('video');
-            const source = document.createElement('source');
-            source.src = './images/video/test.mp4';
-            source.type = 'video/mp4';
-            bgVideo.appendChild(source);
-            bgVideo.id = 'bgVideo';
-            bgVideo.width = videoSize;
-            bgVideo.height = videoSize;
-            bgVideo.autoplay = true;
+            // const bgVideo = document.createElement('video');
+            // const source = document.createElement('source');
+            // source.src = './images/video/test.mp4';
+            // source.type = 'video/mp4';
+            // bgVideo.appendChild(source);
+            // bgVideo.id = 'bgVideo';
+            // bgVideo.width = videoSize;
+            // bgVideo.height = videoSize;
+            // bgVideo.autoplay = true;
             
 
             cameraPlanet = new Planet(scene, { like: 0, comment: 0 }, videoSize, { x: 0, y: 0, z: 10 }, true);
             cameraPlanet.createPlanet(false, [[0, 1], [0, 1]]);
             Planet.limitArea.push({ center: { x: 0, y: 0, z: 0 }, r: videoSize / 2 });
             cameraPlanet.planetDiv.appendChild(cameraCanvas);
-            cameraPlanet.planetDiv.appendChild(bgVideo);
+            // cameraPlanet.planetDiv.appendChild(bgVideo);
             cameraPlanet.planetDiv.classList.add('camera-container')
             const coverImg = document.createElement('img');
             coverImg.id = 'cameraColdImg';
