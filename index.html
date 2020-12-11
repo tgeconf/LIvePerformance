@@ -40,13 +40,17 @@
     <button style="top: 0px; left: 552px;" onclick="doComment()">message</button>
     <button style="top: 0px; left: 631px;" onclick="toggleGifs()">pics</button>
     <button style="top: 0px; left: 700px;" onclick="playVideo()">play</button>
-
+    <button style="top: 0px; left: 800px;" onclick="test()">test</button>
 
 
 
     <audio id="audio" src='./media/testMusic.mp3' autoplay controls></audio>
     <div id="container"></div>
     <script>
+        function test() {
+            transformOnePlanet(Planet.planets[0].planetObj, 1000);
+        }
+
         function initBgColor() {
             document.getElementById('blackBgColor').classList.toggle('shown');
             document.getElementById('coldBgColor').classList.toggle('shown');
@@ -139,7 +143,7 @@
         }
 
 
-        function playVideo(){
+        function playVideo() {
             document.getElementById('bgVideo').play();
         }
 
@@ -300,6 +304,17 @@
             while (num > 0) {
                 const tmpMeteor = new Meteor(scene);
                 tmpMeteor.init();
+                // const targetX = Math.random() * Planet.sceneRangeX - Planet.sceneRangeX / 2;
+                // const targetY = Math.random() * Planet.sceneRangeY - Planet.sceneRangeY / 2;
+                // const targetZ = Math.random() * Planet.sceneRangeZ - Planet.sceneRangeZ / 2;
+                // new TWEEN.Tween(tmpMeteor.group.position)
+                //     .to({ x: targetX, y: targetY, z: targetZ }, Math.random() * 1000 + 1000)
+                //     .easing(TWEEN.Easing.Exponential.InOut)
+                //     .start();
+                // new TWEEN.Tween(this)
+                //     .to({}, 1000 * 2)
+                //     .onUpdate(render)
+                //     .start();
                 num--;
             }
         }
@@ -308,7 +323,7 @@
         Star.animateAllStars();
         init();
         animate();
-        loadCameraOnHidden(cameraCanvas);
+        // loadCameraOnHidden(cameraCanvas);
         // loadAudio();
 
         function generateAudiance() {
@@ -370,24 +385,24 @@
             // bgVideo.width = videoSize;
             // bgVideo.height = videoSize;
             // bgVideo.autoplay = true;
-            
 
-            cameraPlanet = new Planet(scene, { like: 0, comment: 0 }, videoSize, { x: 0, y: 0, z: 10 }, true);
-            cameraPlanet.createPlanet(false, [[0, 1], [0, 1]]);
-            Planet.limitArea.push({ center: { x: 0, y: 0, z: 0 }, r: videoSize / 2 });
-            cameraPlanet.planetDiv.appendChild(cameraCanvas);
-            // cameraPlanet.planetDiv.appendChild(bgVideo);
-            cameraPlanet.planetDiv.classList.add('camera-container')
-            const coverImg = document.createElement('img');
-            coverImg.id = 'cameraColdImg';
-            coverImg.className = 'cold-img shown';
-            coverImg.src = './images/5.png';
-            cameraPlanet.planetDiv.appendChild(coverImg);
-            const coverImg2 = document.createElement('img');
-            coverImg2.id = 'cameraHotImg';
-            coverImg2.className = 'hot-img';
-            coverImg2.src = './images/3.png';
-            cameraPlanet.planetDiv.appendChild(coverImg2);
+
+            // cameraPlanet = new Planet(scene, { like: 0, comment: 0 }, videoSize, { x: 0, y: 0, z: 10 }, true);
+            // cameraPlanet.createPlanet(false, [[0, 1], [0, 1]]);
+            // Planet.limitArea.push({ center: { x: 0, y: 0, z: 0 }, r: videoSize / 2 });
+            // cameraPlanet.planetDiv.appendChild(cameraCanvas);
+            // // cameraPlanet.planetDiv.appendChild(bgVideo);
+            // cameraPlanet.planetDiv.classList.add('camera-container')
+            // const coverImg = document.createElement('img');
+            // coverImg.id = 'cameraColdImg';
+            // coverImg.className = 'cold-img shown';
+            // coverImg.src = './images/5.png';
+            // cameraPlanet.planetDiv.appendChild(coverImg);
+            // const coverImg2 = document.createElement('img');
+            // coverImg2.id = 'cameraHotImg';
+            // coverImg2.className = 'hot-img';
+            // coverImg2.src = './images/3.png';
+            // cameraPlanet.planetDiv.appendChild(coverImg2);
             // const cameraContainer = document.createElement('div');
             // cameraContainer.className = 'camera-container';
             // cameraContainer.style.width = videoSize + 'px';
@@ -422,9 +437,11 @@
         }
 
         function transformOnePlanet(object, duration) {
-            const targetX = Math.random() * Planet.sceneRangeX - Planet.sceneRangeX / 2;
-            const targetY = Math.random() * Planet.sceneRangeY - Planet.sceneRangeY / 2;
-            const targetZ = Math.random() * Planet.sceneRangeZ - Planet.sceneRangeZ / 2;
+            console.log(object);
+            // const targetX = Math.random() * Planet.sceneRangeX - Planet.sceneRangeX / 2;
+            // const targetY = Math.random() * Planet.sceneRangeY - Planet.sceneRangeY / 2;
+            // const targetZ = Math.random() * Planet.sceneRangeZ - Planet.sceneRangeZ / 2;
+            const targetX = 0, targetY = 0, targetZ = 0;
             new TWEEN.Tween(object.position)
                 .to({ x: targetX, y: targetY, z: targetZ }, Math.random() * duration + duration)
                 .easing(TWEEN.Easing.Exponential.InOut)
@@ -457,7 +474,7 @@
             } else {
                 // Planet.popUpRatio = 0;
             }
-            cameraPlanet.updateScale();
+            // cameraPlanet.updateScale();
             Planet.transform();
             Planet.updateAllPlanets(like);
             Bubble.updateAllBubbles();

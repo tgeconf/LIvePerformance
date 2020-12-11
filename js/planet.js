@@ -21,22 +21,22 @@ class Planet {
     }
 
     static commentStrs = [
-            'You have a really good tone.',
-            'Great overall performance.',
-            'Vocally you have a booming voice.',
-            'Great power and control are all there!',
-            'You have a lovely tone to your voice.',
-            'Good control and projection.'
-        ]
-        // static generateTargetPosi() {
-        //     for (var i = 0; i < this.planets.length; i++) {
-        //         var object = new THREE.Object3D();
-        //         object.position.x = Math.random() * 3000 - 1500;
-        //         object.position.y = Math.random() * 3000 - 1500;
-        //         object.position.z = Math.random() * 3000 - 1500;
-        //         this.targetPosis.push(object);
-        //     }
-        // }
+        'You have a really good tone.',
+        'Great overall performance.',
+        'Vocally you have a booming voice.',
+        'Great power and control are all there!',
+        'You have a lovely tone to your voice.',
+        'Good control and projection.'
+    ]
+    // static generateTargetPosi() {
+    //     for (var i = 0; i < this.planets.length; i++) {
+    //         var object = new THREE.Object3D();
+    //         object.position.x = Math.random() * 3000 - 1500;
+    //         object.position.y = Math.random() * 3000 - 1500;
+    //         object.position.z = Math.random() * 3000 - 1500;
+    //         this.targetPosis.push(object);
+    //     }
+    // }
     static transform() {
         TWEEN.removeAll();
         // for (var i = 0; i < this.planets.length; i++) {
@@ -300,7 +300,8 @@ class Planet {
 
     createPlanet(adding, domains, musicCanvas = false) {
         this.planetDiv = document.createElement('div');
-        this.planetDiv.className = 'element cold-element';
+        this.planetDiv.className = 'abubble';
+        // this.planetDiv.className = 'element cold-element';
         this.planetDiv.style.width = this.size + 'px';
         this.planetDiv.style.height = this.size + 'px';
         this.planetDiv.style.opacity = 0;
@@ -308,6 +309,10 @@ class Planet {
         this.planetDiv.onclick = () => {
             that.handleClick();
         }
+
+        const innerBubble = document.createElement('div');
+        innerBubble.className = 'innerbubble';
+        this.planetDiv.appendChild(innerBubble);
 
         const [likeRing, likeBorder] = this.createRing(this.data.like, 'like-ring', domains[0], 0);
         const [commentRing, commentBorder] = this.createRing(this.data.comment, 'comment-ring', domains[1], likeBorder * 2);
@@ -399,9 +404,9 @@ class Planet {
             this.createSideButtons();
         }
 
-        this.planetObj.position.x = this.x;
-        this.planetObj.position.y = this.y;
-        this.planetObj.position.z = this.z;
+        // this.planetObj.position.x = this.x;
+        // this.planetObj.position.y = this.y;
+        // this.planetObj.position.z = this.z;
 
         if (this.creatingHeart) {
             if (this.heartDelay > 0) {

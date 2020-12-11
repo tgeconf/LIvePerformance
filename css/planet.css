@@ -649,166 +649,7 @@
     background: url("../images/3.png"), url('../images/pic80.png');
 }
 
-.cold-gif-bg1,
-.cold-gif-bg2,
-.cold-gif-bg3,
-.cold-gif-bg4,
-.cold-gif-bg5,
-.cold-gif-bg6,
-.cold-gif-bg7,
-.cold-gif-bg8,
-.cold-gif-bg9,
-.cold-gif-bg10,
-.cold-gif-bg11,
-.cold-gif-bg12,
-.cold-gif-bg13,
-.cold-gif-bg14,
-.cold-gif-bg15,
-.cold-gif-bg16,
-.cold-gif-bg17,
-.cold-gif-bg18,
-.cold-gif-bg19,
-.cold-gif-bg20,
-.cold-gif-bg21,
-.cold-gif-bg22,
-.cold-gif-bg23,
-.cold-gif-bg24,
-.cold-gif-bg25,
-.cold-gif-bg26,
-.cold-gif-bg27,
-.cold-gif-bg28,
-.cold-gif-bg29,
-.cold-gif-bg30,
-.cold-gif-bg31,
-.cold-gif-bg32,
-.cold-gif-bg33,
-.cold-gif-bg34,
-.cold-gif-bg35,
-.cold-gif-bg36,
-.cold-gif-bg37,
-.cold-gif-bg38,
-.cold-gif-bg39,
-.cold-gif-bg40,
-.cold-gif-bg41,
-.cold-gif-bg42,
-.cold-gif-bg43,
-.cold-gif-bg44,
-.cold-gif-bg45,
-.cold-gif-bg46,
-.cold-gif-bg47,
-.cold-gif-bg48,
-.cold-gif-bg49,
-.cold-gif-bg50,
-.cold-gif-bg51,
-.cold-gif-bg52,
-.cold-gif-bg53,
-.cold-gif-bg54,
-.cold-gif-bg55,
-.cold-gif-bg56,
-.cold-gif-bg57,
-.cold-gif-bg58,
-.cold-gif-bg59,
-.cold-gif-bg60,
-.cold-gif-bg61,
-.cold-gif-bg62,
-.cold-gif-bg63,
-.cold-gif-bg64,
-.cold-gif-bg65,
-.cold-gif-bg66,
-.cold-gif-bg67,
-.cold-gif-bg68,
-.cold-gif-bg69,
-.cold-gif-bg70,
-.cold-gif-bg71,
-.cold-gif-bg72,
-.cold-gif-bg73,
-.cold-gif-bg74,
-.cold-gif-bg75,
-.cold-gif-bg76,
-.cold-gif-bg77,
-.cold-gif-bg78,
-.cold-gif-bg79,
-.cold-gif-bg80,
-.hot-gif-bg1,
-.hot-gif-bg2,
-.hot-gif-bg3,
-.hot-gif-bg4,
-.hot-gif-bg5,
-.hot-gif-bg6,
-.hot-gif-bg7,
-.hot-gif-bg8,
-.hot-gif-bg9,
-.hot-gif-bg10,
-.hot-gif-bg11,
-.hot-gif-bg12,
-.hot-gif-bg13,
-.hot-gif-bg14,
-.hot-gif-bg15,
-.hot-gif-bg16,
-.hot-gif-bg17,
-.hot-gif-bg18,
-.hot-gif-bg19,
-.hot-gif-bg20,
-.hot-gif-bg21,
-.hot-gif-bg22,
-.hot-gif-bg23,
-.hot-gif-bg24,
-.hot-gif-bg25,
-.hot-gif-bg26,
-.hot-gif-bg27,
-.hot-gif-bg28,
-.hot-gif-bg29,
-.hot-gif-bg30,
-.hot-gif-bg31,
-.hot-gif-bg32,
-.hot-gif-bg33,
-.hot-gif-bg34,
-.hot-gif-bg35,
-.hot-gif-bg36,
-.hot-gif-bg37,
-.hot-gif-bg38,
-.hot-gif-bg39,
-.hot-gif-bg40,
-.hot-gif-bg41,
-.hot-gif-bg42,
-.hot-gif-bg43,
-.hot-gif-bg44,
-.hot-gif-bg45,
-.hot-gif-bg46,
-.hot-gif-bg47,
-.hot-gif-bg48,
-.hot-gif-bg49,
-.hot-gif-bg50,
-.hot-gif-bg51,
-.hot-gif-bg52,
-.hot-gif-bg53,
-.hot-gif-bg54,
-.hot-gif-bg55,
-.hot-gif-bg56,
-.hot-gif-bg57,
-.hot-gif-bg58,
-.hot-gif-bg59,
-.hot-gif-bg60,
-.hot-gif-bg61,
-.hot-gif-bg62,
-.hot-gif-bg63,
-.hot-gif-bg64,
-.hot-gif-bg65,
-.hot-gif-bg66,
-.hot-gif-bg67,
-.hot-gif-bg68,
-.hot-gif-bg69,
-.hot-gif-bg70,
-.hot-gif-bg71,
-.hot-gif-bg72,
-.hot-gif-bg73,
-.hot-gif-bg74,
-.hot-gif-bg75,
-.hot-gif-bg76,
-.hot-gif-bg77,
-.hot-gif-bg78,
-.hot-gif-bg79,
-.hot-gif-bg80 {
+.cold-gif-bg1, .cold-gif-bg2, .cold-gif-bg3, .cold-gif-bg4, .cold-gif-bg5, .cold-gif-bg6, .cold-gif-bg7, .cold-gif-bg8, .cold-gif-bg9, .cold-gif-bg10, .cold-gif-bg11, .cold-gif-bg12, .cold-gif-bg13, .cold-gif-bg14, .cold-gif-bg15, .cold-gif-bg16, .cold-gif-bg17, .cold-gif-bg18, .cold-gif-bg19, .cold-gif-bg20, .cold-gif-bg21, .cold-gif-bg22, .cold-gif-bg23, .cold-gif-bg24, .cold-gif-bg25, .cold-gif-bg26, .cold-gif-bg27, .cold-gif-bg28, .cold-gif-bg29, .cold-gif-bg30, .cold-gif-bg31, .cold-gif-bg32, .cold-gif-bg33, .cold-gif-bg34, .cold-gif-bg35, .cold-gif-bg36, .cold-gif-bg37, .cold-gif-bg38, .cold-gif-bg39, .cold-gif-bg40, .cold-gif-bg41, .cold-gif-bg42, .cold-gif-bg43, .cold-gif-bg44, .cold-gif-bg45, .cold-gif-bg46, .cold-gif-bg47, .cold-gif-bg48, .cold-gif-bg49, .cold-gif-bg50, .cold-gif-bg51, .cold-gif-bg52, .cold-gif-bg53, .cold-gif-bg54, .cold-gif-bg55, .cold-gif-bg56, .cold-gif-bg57, .cold-gif-bg58, .cold-gif-bg59, .cold-gif-bg60, .cold-gif-bg61, .cold-gif-bg62, .cold-gif-bg63, .cold-gif-bg64, .cold-gif-bg65, .cold-gif-bg66, .cold-gif-bg67, .cold-gif-bg68, .cold-gif-bg69, .cold-gif-bg70, .cold-gif-bg71, .cold-gif-bg72, .cold-gif-bg73, .cold-gif-bg74, .cold-gif-bg75, .cold-gif-bg76, .cold-gif-bg77, .cold-gif-bg78, .cold-gif-bg79, .cold-gif-bg80, .hot-gif-bg1, .hot-gif-bg2, .hot-gif-bg3, .hot-gif-bg4, .hot-gif-bg5, .hot-gif-bg6, .hot-gif-bg7, .hot-gif-bg8, .hot-gif-bg9, .hot-gif-bg10, .hot-gif-bg11, .hot-gif-bg12, .hot-gif-bg13, .hot-gif-bg14, .hot-gif-bg15, .hot-gif-bg16, .hot-gif-bg17, .hot-gif-bg18, .hot-gif-bg19, .hot-gif-bg20, .hot-gif-bg21, .hot-gif-bg22, .hot-gif-bg23, .hot-gif-bg24, .hot-gif-bg25, .hot-gif-bg26, .hot-gif-bg27, .hot-gif-bg28, .hot-gif-bg29, .hot-gif-bg30, .hot-gif-bg31, .hot-gif-bg32, .hot-gif-bg33, .hot-gif-bg34, .hot-gif-bg35, .hot-gif-bg36, .hot-gif-bg37, .hot-gif-bg38, .hot-gif-bg39, .hot-gif-bg40, .hot-gif-bg41, .hot-gif-bg42, .hot-gif-bg43, .hot-gif-bg44, .hot-gif-bg45, .hot-gif-bg46, .hot-gif-bg47, .hot-gif-bg48, .hot-gif-bg49, .hot-gif-bg50, .hot-gif-bg51, .hot-gif-bg52, .hot-gif-bg53, .hot-gif-bg54, .hot-gif-bg55, .hot-gif-bg56, .hot-gif-bg57, .hot-gif-bg58, .hot-gif-bg59, .hot-gif-bg60, .hot-gif-bg61, .hot-gif-bg62, .hot-gif-bg63, .hot-gif-bg64, .hot-gif-bg65, .hot-gif-bg66, .hot-gif-bg67, .hot-gif-bg68, .hot-gif-bg69, .hot-gif-bg70, .hot-gif-bg71, .hot-gif-bg72, .hot-gif-bg73, .hot-gif-bg74, .hot-gif-bg75, .hot-gif-bg76, .hot-gif-bg77, .hot-gif-bg78, .hot-gif-bg79, .hot-gif-bg80 {
     background-repeat: no-repeat, no-repeat;
     background-size: 100% 100%, 100% 100%;
 }
@@ -837,8 +678,7 @@
     background-color: rgba(0, 255, 255, 0.2);
 }
 
-.like-ring,
-.comment-ring {
+.like-ring, .comment-ring {
     box-sizing: border-box;
     border-radius: 50%;
     box-shadow: 0px 0px 6px rgba(0, 255, 255, 0.5);
@@ -847,8 +687,7 @@
     background: rgba(0, 0, 0, 0);
 }
 
-.like-ring:hover,
-.comment-ring:hover {
+.like-ring:hover, .comment-ring:hover {
     box-shadow: 0px 0px 12px rgba(0, 255, 255, 0.75);
 }
 
@@ -888,7 +727,6 @@
     margin-left: -20px;
     margin-bottom: -20px;
 }
-
 
 /* 
 .side-button{
@@ -936,4 +774,35 @@
 
 .sing-button-bg {
     background-image: url("data:image/svg+xml;base64,PHN2Zw0KICAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZGF0YS1uYW1lPSJMYXllciAxIiB2aWV3Qm94PSIwIDAgNTEyIDY0MCIgeD0iMHB4IiB5PSIwcHgiPg0KICAgIDx0aXRsZT5taWNyb3Bob25lPC90aXRsZT4NCiAgICA8cmVjdCB4PSIxNTYuNjEiIHdpZHRoPSIxOTguNzgiIGhlaWdodD0iMzQ0LjU2IiByeD0iOTkuMzkiIHJ5PSI5OS4zOSIvPg0KICAgIDxwYXRoIGQ9Ik0xMDIuMjEsMjIzLjlhMTYuNTcsMTYuNTcsMCwwLDAtMTYuNTcsMTYuNTdjMCw4OC4zNCw2Ny42LDE2MS4xOSwxNTMuNzksMTY5LjU0djY4Ljg2SDE3My4xN2ExNi41NywxNi41NywwLDEsMCwwLDMzLjEzSDMzOC44M2ExNi41NywxNi41NywwLDAsMCwwLTMzLjEzSDI3Mi41N1Y0MTBjODYuMTktOC4zNiwxNTMuNzktODEuMiwxNTMuNzktMTY5LjU0YTE2LjU3LDE2LjU3LDAsMCwwLTMzLjEzLDBjMCw3NS42Ni02MS41NiwxMzcuMjItMTM3LjIyLDEzNy4yMlMxMTguNzgsMzE2LjEzLDExOC43OCwyNDAuNDdBMTYuNTcsMTYuNTcsMCwwLDAsMTAyLjIxLDIyMy45WiIvPg0KPC9zdmc+")
+}
+
+.abubble {
+    position: absolute;
+    top: 300px;
+    left: 300px;
+    background-color: transparent;
+    width: 15px;
+    height: 15px;
+    z-index: 2;
+}
+
+.innerbubble {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    background: transparent;
+    background: -webkit-radial-gradient(center, circle cover, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 255) 100%);
+    background: -moz-radial-gradient(center, ellipse cover, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 255) 100%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(50%, rgba(255, 255, 255, 0)), color-stop(100%, rgba(255, 255, 255, 255)));
+    background: -webkit-radial-gradient(center, ellipse cover, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 255) 100%);
+    background: -o-radial-gradient(center, ellipse cover, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 255) 100%);
+    background: -ms-radial-gradient(center, ellipse cover, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 255) 100%);
+    background: radial-gradient(center, ellipse cover, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 255) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ff140006', GradientType=1);
 }
